@@ -31,13 +31,16 @@ public class AI1 : MonoBehaviour
     private void Update()
     {
         if (Ammo == null)
+
             nav.SetDestination(vendor.position);
         else
         if(nav.enabled == true)
             nav.SetDestination(nearestEnemy.position);
 
         if ((nearestEnemy.position - transform.position).sqrMagnitude <= attackRad)
-            nav.Stop();
+            if(Ammo != null)
+                nav.Stop();
+
         else nav.Resume();
         
     }

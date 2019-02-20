@@ -9,6 +9,9 @@ TagManager:
   - Team2
   - Vending
   - Bar
+  - Team3
+  - Team4
+  - Team0
   layers:
   - Default
   - TransparentFX
