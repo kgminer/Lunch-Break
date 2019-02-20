@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Team1
   - AI
+  - Team2
+  - Vending
+  - Bar
   layers:
   - Default
   - TransparentFX
