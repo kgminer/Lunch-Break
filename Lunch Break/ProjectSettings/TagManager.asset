@@ -5,13 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Team1
-  - AI
   - Team2
   - Vending
   - Bar
   - Team3
   - Team4
   - Team0
+  - Projectile1
+  - Projectile2
+  - Projectile3
+  - Projectile4
+  - Purchaser
   layers:
   - Default
   - TransparentFX

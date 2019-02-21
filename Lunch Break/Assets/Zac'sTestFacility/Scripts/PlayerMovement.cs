@@ -4,13 +4,18 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
+    public GameObject projectile;
+    public Transform projSpawn;
+    public float fireRate = 0.5f;
 
     Vector3 movement;
     Animator anim;
     Rigidbody playerRigid;
     int floorMask;
     float camRayLen = 100f;
-
+    float nextFire;
+    
+    
     private void Awake()
     {
         floorMask = LayerMask.GetMask("Floor");
@@ -26,6 +31,16 @@ public class PlayerMovement : MonoBehaviour
         Move(h, v);
         TurnWithMouse();
         // Animate(h, v);
+    }
+
+    private void Update()
+    {
+        if(Input.GetButton("Fire1"))
+            if(Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(projectile, projSpawn.position, projSpawn.rotation);
+            }
     }
 
     private void Move(float h, float v)

@@ -6,21 +6,24 @@ public class AI1 : MonoBehaviour
     // import Transforms of food bars
     // import Transforms of vending machines
     // import food types
+    // import match time and scores
 
-    public float attackRad = 5f;
+    public float viewRad = 25f;                 // distacne at which enemies can be detected
+    public float targetingRad = 10f;            // distance at which character turns to face enemy
+    public float strafeRad = 5f;                // distance at which character attacks/approaches enemy
     public float health = 3f;
     public float money = 0f;
 
     NavMeshAgent nav;
     Transform nearestEnemy;
     Transform vendor;
-    int viewRad = 25;
+    float enemyDistance;
 
     GameObject[] Ammo; // maybe need a list
 
     private void Awake()
     {
-        nearestEnemy = FindNearestEnemy();
+        //nearestEnemy = FindNearestEnemy();
 
         vendor = FindNearestVendor();
 
@@ -30,18 +33,31 @@ public class AI1 : MonoBehaviour
 
     private void Update()
     {
+        nearestEnemy = FindNearestEnemy();
+        /*
         if (Ammo == null)
-
             nav.SetDestination(vendor.position);
-        else
-        if(nav.enabled == true)
+        else 
+        */
+        if (nearestEnemy != null) // attack mode
+        {
+
             nav.SetDestination(nearestEnemy.position);
 
-        if ((nearestEnemy.position - transform.position).sqrMagnitude <= attackRad)
-            if(Ammo != null)
-                nav.Stop();
+            /*
+            if(enemyDistance < targetingRad)
+                transform.LookAt(nearestEnemy.position);
+            */
 
-        else nav.Resume();
+            if (enemyDistance <= strafeRad)
+                //if(Ammo != null)
+                nav.isStopped = true;
+            else nav.isStopped = false;
+        }
+
+        
+
+    
         
     }
 
@@ -51,17 +67,21 @@ public class AI1 : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Team2");
 
         Transform nearest = null;
-        float distance = Mathf.Infinity;
+        float curDistance = Mathf.Infinity;
 
         foreach(GameObject enemy in enemies)
         {
-            Vector3 dist = enemy.transform.position - transform.position;
-            float calculatedDist = dist.sqrMagnitude;
+            float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
 
-            if (calculatedDist < distance)
+            //Debug.Log("sqrMag distance to enemy " + calculatedDist);
+            if (calculatedDist > viewRad)
+                continue;
+
+            if (calculatedDist < curDistance)
             {
                 nearest = enemy.transform;
-                distance = calculatedDist;
+                curDistance = calculatedDist;
+                enemyDistance = calculatedDist;
             }
         }
         return nearest;
@@ -72,21 +92,20 @@ public class AI1 : MonoBehaviour
         GameObject[] vendors;
 
         if (money >= 2)
-            vendors = GameObject.FindGameObjectsWithTag("Vending");
+            vendors = GameObject.FindGameObjectsWithTag("Purchaser");
         else vendors = GameObject.FindGameObjectsWithTag("Bar");
 
         Transform nearest = null;
-        float distance = Mathf.Infinity;
+        float curDistance = Mathf.Infinity;
 
         foreach (GameObject vendor in vendors)
         {
-            Vector3 dist = vendor.transform.position - transform.position;
-            float calculatedDist = dist.sqrMagnitude;
+            float calculatedDist = (vendor.transform.position - transform.position).sqrMagnitude;
 
-            if (calculatedDist < distance)
+            if (calculatedDist < curDistance)
             {
                 nearest = vendor.transform;
-                distance = calculatedDist;
+                curDistance = calculatedDist;
             }
         }
         return nearest;

@@ -18,7 +18,7 @@ public class CappingVendor : MonoBehaviour
         if (other.gameObject.tag != team)
             CountCappers();
 
-        // Debug.Log("Cap triggered, " + other.gameObject.tag + " entered. Cap belongs to " + team);
+        //Debug.Log("Cap triggered, " + other.gameObject.tag + " entered. Cap belongs to " + team);
     }
 
     private void OnTriggerExit(Collider other)

@@ -38,7 +38,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 162412, guid: 6283a25e2a8feb44ba82aae6f722fa4f, type: 3}
       propertyPath: m_Name
-      value: SM_School_Canteen_Burger
+      value: Burger
       objectReference: {fileID: 0}
     - target: {fileID: 446470, guid: 6283a25e2a8feb44ba82aae6f722fa4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 446470, guid: 6283a25e2a8feb44ba82aae6f722fa4f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.886
+      value: 0.916
       objectReference: {fileID: 0}
     - target: {fileID: 446470, guid: 6283a25e2a8feb44ba82aae6f722fa4f, type: 3}
       propertyPath: m_LocalPosition.z
