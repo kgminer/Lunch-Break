@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float fireRate;
     private float nextFire;
 
+    public Inventory inventory;
+
     // Use Update method for throwing projectiles
     void Update ()
     {
@@ -73,6 +75,15 @@ public class PlayerController : MonoBehaviour
     {
         bool moving = h != 0f || v != 0f;
         anim.SetBool("IsWalking", moving);
+    }
+
+    private void OnControllerCollideHit(ControllerColliderHit hit)
+    {
+        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        if (item != null)
+        {
+            inventory.AddItem(item);
+        }
     }
 }
 
