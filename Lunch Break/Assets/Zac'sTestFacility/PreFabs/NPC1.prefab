@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 4399685370315753412}
   - component: {fileID: 4399685370315753414}
   - component: {fileID: 4399685370315753419}
-  - component: {fileID: 4903492064689233568}
   m_Layer: 0
   m_Name: NPC1
   m_TagString: Team1
@@ -276,7 +275,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 3
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &4399685370315753419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,22 +289,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRad: 25
-  targetingRad: 10
   strafeRad: 5
+  runRad: 7.5
   health: 0
   money: 2
---- !u!114 &4903492064689233568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4399685370315753411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c36e3282f975d4ebb0d20061d93a8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  maxInv: 3
+  fireRate: 0.5
+  burger: {fileID: 6598957319757498850, guid: cc81562868319994aa0f81f33f5988ea, type: 3}
+  burgerCost: 2
+  projectile: {fileID: 0}
+  projSpawn: {fileID: 4399685371365671664}
+  barCooldown: 5
 --- !u!1 &4399685370402568108
 GameObject:
   m_ObjectHideFlags: 0
