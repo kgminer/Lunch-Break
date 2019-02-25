@@ -288,10 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92de796b2126bdf488ffbfd486b27bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRad: 25
-  strafeRad: 5
+  viewRad: 20
+  targetingRad: 5
+  patrolRad: 3
   runRad: 7.5
-  health: 0
+  wanderRad: 8
+  health: 3
   money: 2
   maxInv: 3
   fireRate: 0.5

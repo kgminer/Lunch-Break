@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class CappingVendor : MonoBehaviour
+public class CapZone : MonoBehaviour
 {
 
     int teamInd = 0;
