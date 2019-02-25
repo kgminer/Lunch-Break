@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +19,22 @@ public class PlayerController : MonoBehaviour
     private float nextFire;
 
     public Inventory inventory;
+    public HUD hud;
+    public GameObject Hand;
 
     // Use Update method for throwing projectiles
     void Update ()
     {
-        if(Input.GetButton("Fire1") && Time.time > nextFire)
+        // Check if there is a keypress for an item to pickup
+        if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
+        {
+            inventory.AddItem(mItemToPickup);
+            mItemToPickup.OnPickup();
+            hud.CloseMessagePanel();
+            mItemToPickup = null;
+        }
+
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(projectile, projSpawn.position, projSpawn.rotation);
@@ -34,6 +46,26 @@ public class PlayerController : MonoBehaviour
         floorMask = LayerMask.GetMask("Floor");
         anim = GetComponent<Animator>();
         playerRigid = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        inventory.ItemUsed += Inventory_ItemUsed;
+    }
+
+    private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
+    {
+        InventoryItemBase item = e.Item;
+
+        // Do something with the item
+        GameObject goItem = (item as MonoBehaviour).gameObject;
+
+        goItem.SetActive(true);
+        goItem.GetComponent<Collider>().enabled = false;
+
+        goItem.transform.parent = Hand.transform;
+        goItem.transform.position = Hand.transform.position;
+
     }
 
     private void FixedUpdate()
@@ -77,12 +109,29 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsWalking", moving);
     }
 
-    private void OnControllerCollideHit(ControllerColliderHit hit)
+    private InventoryItemBase mItemToPickup = null;
+
+    void OnTriggerEnter(Collider other)
     {
-        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        if (other.gameObject.CompareTag("Food"))
+        {
+            InventoryItemBase item = other.GetComponent<InventoryItemBase>();
+
+            if (item != null)
+            {
+                mItemToPickup = item;
+                hud.OpenMessagePanel("");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IInventoryItem item = other.GetComponent<IInventoryItem>();
         if (item != null)
         {
-            inventory.AddItem(item);
+            hud.CloseMessagePanel();
+            mItemToPickup = null;
         }
     }
 }

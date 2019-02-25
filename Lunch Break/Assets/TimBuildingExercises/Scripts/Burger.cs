@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Burger : MonoBehaviour, IInventoryItem
+public class Burger : InventoryItemBase
 {
-    public string Name
+    public override string Name
     {
         get
         {
@@ -12,18 +12,9 @@ public class Burger : MonoBehaviour, IInventoryItem
         }
     }
 
-    public Sprite _Image = null;
-
-    public Sprite Image
+    public override void OnUse()
     {
-        get
-        {
-            return _Image;
-        }
-    }
-
-    public void OnPickup()
-    {
-        gameObject.SetActive(false);
+        // TODO: Do something with the object
+        base.OnUse();
     }
 }

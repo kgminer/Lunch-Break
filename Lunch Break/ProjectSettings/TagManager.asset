@@ -16,7 +16,12 @@ TagManager:
   - Projectile3
   - Projectile4
   - Purchaser
+<<<<<<< HEAD
   - Cap
+=======
+  - Food
+  - Thrown
+>>>>>>> b7dd46748fcaa5a3c47466c18f65072097fe406e
   layers:
   - Default
   - TransparentFX
