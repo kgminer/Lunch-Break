@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public Inventory inventory;
     public HUD hud;
+    public GameObject Hand;
 
     // Use Update method for throwing projectiles
     void Update ()
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
             inventory.AddItem(mItemToPickup);
             mItemToPickup.OnPickup();
             hud.CloseMessagePanel();
+            mItemToPickup = null;
         }
 
         if (Input.GetButton("Fire1") && Time.time > nextFire)
@@ -43,6 +46,26 @@ public class PlayerController : MonoBehaviour
         floorMask = LayerMask.GetMask("Floor");
         anim = GetComponent<Animator>();
         playerRigid = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        inventory.ItemUsed += Inventory_ItemUsed;
+    }
+
+    private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
+    {
+        InventoryItemBase item = e.Item;
+
+        // Do something with the item
+        GameObject goItem = (item as MonoBehaviour).gameObject;
+
+        goItem.SetActive(true);
+        goItem.GetComponent<Collider>().enabled = false;
+
+        goItem.transform.parent = Hand.transform;
+        goItem.transform.position = Hand.transform.position;
+
     }
 
     private void FixedUpdate()

@@ -17,6 +17,7 @@ TagManager:
   - Projectile4
   - Purchaser
   - Food
+  - Thrown
   layers:
   - Default
   - TransparentFX
