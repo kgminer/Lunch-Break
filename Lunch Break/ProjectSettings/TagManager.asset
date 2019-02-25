@@ -4,24 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Team1
   - Team2
-  - Vending
-  - Bar
-  - Team3
-  - Team4
-  - Team0
-  - Projectile1
+  - Food
   - Projectile2
+  - Bar
+  - Vending
+  - Cap
+  - Team1
+  - Projectile1
   - Projectile3
   - Projectile4
-  - Purchaser
-<<<<<<< HEAD
-  - Cap
-=======
-  - Food
-  - Thrown
->>>>>>> b7dd46748fcaa5a3c47466c18f65072097fe406e
+  - Team0
+  - Team3
+  - Team4
   layers:
   - Default
   - TransparentFX
@@ -31,8 +26,8 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Floor
+  - 
+  - 
   - 
   - 
   - 
