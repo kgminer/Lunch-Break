@@ -17,6 +17,7 @@ TagManager:
   - Team0
   - Team3
   - Team4
+  - Thrown
   layers:
   - Default
   - TransparentFX
