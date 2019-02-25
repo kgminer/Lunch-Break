@@ -18,11 +18,20 @@ public class PlayerController : MonoBehaviour
     private float nextFire;
 
     public Inventory inventory;
+    public HUD hud;
 
     // Use Update method for throwing projectiles
     void Update ()
     {
-        if(Input.GetButton("Fire1") && Time.time > nextFire)
+        // Check if there is a keypress for an item to pickup
+        if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
+        {
+            inventory.AddItem(mItemToPickup);
+            mItemToPickup.OnPickup();
+            hud.CloseMessagePanel();
+        }
+
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(projectile, projSpawn.position, projSpawn.rotation);
@@ -77,12 +86,29 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsWalking", moving);
     }
 
-    private void OnControllerCollideHit(ControllerColliderHit hit)
+    private InventoryItemBase mItemToPickup = null;
+
+    void OnTriggerEnter(Collider other)
     {
-        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        if (other.gameObject.CompareTag("Food"))
+        {
+            InventoryItemBase item = other.GetComponent<InventoryItemBase>();
+
+            if (item != null)
+            {
+                mItemToPickup = item;
+                hud.OpenMessagePanel("");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IInventoryItem item = other.GetComponent<IInventoryItem>();
         if (item != null)
         {
-            inventory.AddItem(item);
+            hud.CloseMessagePanel();
+            mItemToPickup = null;
         }
     }
 }

@@ -10,14 +10,20 @@ public interface IInventoryItem
     Sprite Image { get;  }
 
     void OnPickup();
+
+    void OnDrop();
+
+    void OnUse();
+
+    InventorySlot Slot { get; set; }
 }
 
 public class InventoryEventArgs : EventArgs
 {
-    public InventoryEventArgs(IInventoryItem item)
+    public InventoryEventArgs(InventoryItemBase item)
     {
         Item = item;
     }
 
-    public IInventoryItem Item;
+    public InventoryItemBase Item;
 }
