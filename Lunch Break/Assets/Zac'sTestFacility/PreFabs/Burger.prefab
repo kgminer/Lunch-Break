@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4734202392533031974}
   m_Layer: 0
   m_Name: Burger
-  m_TagString: Projectile2
+  m_TagString: Projectile1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

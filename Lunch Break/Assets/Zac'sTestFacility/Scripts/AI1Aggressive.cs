@@ -1,33 +1,40 @@
-﻿using System.Collections.Generic;
+﻿// Recklessly aggressive AI for Team1
+// Find Ammo and attack nearest enemy
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
-public class AI2 : MonoBehaviour
+public class AI1Aggressive : MonoBehaviour
 {
-    // import Transforms of food bars
-    // import Transforms of vending machines
-    // import food types
-    // import match time and scores
+    public float viewRad;                 // distance at which enemies can be detected
+    public float pursueRad;                // distance at which character pursues enemy
+    public float targetingRad;             // distance at which character actively targets/fires on enemy
+    public float patrolRad;               // distance at which character starts cap zone wander
+    public float runRad;
+    public float wanderRad;
 
-    public float viewRad = 20f;                 // distance at which enemies can be detected
-    public float targetingRad = 5f;             // distance at which character attacks/approaches enemy
-    public float patrolRad = 3f;                // distance at which character starts cap zone wander
-    public float runRad = 8f;
-    public float wanderRad = 8f;
+    public float runMagMin;
+    public float runMagMax;
+    float runMag;
 
-    public float health = 3f;
-    public float money = 0f;
-    public int maxInv = 3;
+    public float runTilMin;
+    public float runTilMax;
+    float runTimer;
+    float runTil = 0f;
 
-    public float fireRate = 0.5f;
+    public float health;
+    public float money;
+    public int maxInv;
+
+    public float barCooldown;
+    float nextBar = 0f;
+
+    public float fireRate;
     public GameObject burger;
-    public float burgerCost = 2f;
+    public float burgerCost;
     public GameObject projectile;
     public Transform projSpawn;
-    public float barCooldown = 5f;
 
     NavMeshAgent nav;
     Transform nearestEnemy;
@@ -36,8 +43,6 @@ public class AI2 : MonoBehaviour
     float enemyDistance;
     float capDistance;
     float nextFire;
-    float nextBar = 0;
-
     List<GameObject> Ammo;
 
     private void Awake()
@@ -53,18 +58,10 @@ public class AI2 : MonoBehaviour
     {
         nearestEnemy = FindNearestEnemy();
 
-        if (!Ammo.Any()) // find ammo
+        if(!Ammo.Any())
         {
             vendor = FindNearestVendor();
             nav.SetDestination(vendor.position);
-
-            if (enemyDistance < runRad && nearestEnemy != null) // flee enemies if no Ammo
-            {
-                Vector3 toEnemy = transform.position - nearestEnemy.position;
-                Vector3 fleePos = transform.position + toEnemy + vendor.position;
-
-                nav.SetDestination(fleePos);
-            }
         }
         else if (nearestEnemy != null) // attack mode
         {
@@ -85,25 +82,26 @@ public class AI2 : MonoBehaviour
                         Ammo.RemoveAt(0);
                         nextFire = Time.time + fireRate;
                         Instantiate(projectile, projSpawn.position, projSpawn.rotation); // fire projectile
+
                     }
                 }
             }
         }
-        else // cap mode; navigate to either vending or cafeteria
+        else
         {
             nearestCap = FindNearestCap();
             nav.SetDestination(nearestCap.position);
 
             if (capDistance < patrolRad) // wander in cap
             {
-                nav.SetDestination(Wander(transform.position));
+                nav.SetDestination(Wander(transform.position, wanderRad));
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Projectile1")
+        if (other.gameObject.tag == "Projectile2")
         {
             health--;
             if (health <= 0)
@@ -155,7 +153,7 @@ public class AI2 : MonoBehaviour
         {
             if (money >= 2 && Ammo.Count < maxInv)
             {
-                burger.tag = "Projectile2";
+                burger.tag = "Projectile1";
                 Ammo.Add(burger);
                 money -= burgerCost;
             }
@@ -167,7 +165,7 @@ public class AI2 : MonoBehaviour
             {
                 if (Time.time > nextBar)
                 {
-                    burger.tag = "Projectile2";
+                    burger.tag = "Projectile1";
                     Ammo.Add(burger);
 
                     nextBar = Time.time + barCooldown;
@@ -178,13 +176,13 @@ public class AI2 : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Team1");
+        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Team2");
         GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
         GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
-        GameObject[] allEnemies = new GameObject[enemies1.Length + enemies3.Length + enemies4.Length];
-        enemies1.CopyTo(allEnemies, 0);
-        enemies3.CopyTo(allEnemies, enemies1.Length);
+        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length + enemies4.Length];
+        enemies2.CopyTo(allEnemies, 0);
+        enemies3.CopyTo(allEnemies, enemies2.Length);
         enemies4.CopyTo(allEnemies, enemies3.Length);
 
         Transform nearest = null;
@@ -266,13 +264,13 @@ public class AI2 : MonoBehaviour
         return nearest;
     }
 
-    private Vector3 Wander(Vector3 position)
+    private Vector3 Wander(Vector3 position, float magnitude)
     {
-        Vector3 randomVector = Random.insideUnitSphere * wanderRad;
+        Vector3 randomVector = Random.insideUnitSphere * magnitude;
 
         randomVector += position;
 
-        NavMesh.SamplePosition(randomVector, out NavMeshHit navPos, wanderRad, -1);
+        NavMesh.SamplePosition(randomVector, out NavMeshHit navPos, magnitude, -1);
 
         return navPos.position;
     }

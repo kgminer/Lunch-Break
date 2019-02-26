@@ -1,43 +1,38 @@
-﻿using System.Collections.Generic;
+﻿// Recklessly aggressive AI for Team1
+// Find Ammo and attack nearest enemy
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
-public class AI1 : MonoBehaviour
+public class AI1Cap : MonoBehaviour
 {
-    // import Transforms of food bars
-    // import Transforms of vending machines
-    // import food types
-    // import match time and scores
+    public float viewRad;                 // distance at which enemies can be detected
+    public float pursueRad;                // distance at which character pursues enemy
+    public float targetingRad;             // distance at which character actively targets/fires on enemy
+    public float patrolRad;               // distance at which character starts cap zone wander
+    public float runRad;
+    public float wanderRad;
 
-    public float viewRad = 20f;                 // distance at which enemies can be detected
-    public float pursueRad = 8f;                // distance at which character pursues enemy
-    public float targetingRad = 5f;             // distance at which character actively targets/fires on enemy
-    public float patrolRad = 3f;                // distance at which character starts cap zone wander
-    public float runRad = 8f;
-    public float wanderRad = 8f;
-
-    public float runMagMin = 0.5f;
-    public float runMagMax = 5f;
+    public float runMagMin;
+    public float runMagMax;
     float runMag;
 
-    public float runTilMin = 0.5f;
-    public float runTilMax = 2f;
+    public float runTilMin;
+    public float runTilMax;
     float runTimer;
     float runTil = 0f;
 
-    public float health = 3f;
-    public float money = 0f;
-    public int maxInv = 3;
+    public float health;
+    public float money;
+    public int maxInv;
 
-    public float barCooldown = 5f;
+    public float barCooldown;
     float nextBar = 0f;
 
-    public float fireRate = 0.5f;
+    public float fireRate;
     public GameObject burger;
-    public float burgerCost = 2f;
+    public float burgerCost;
     public GameObject projectile;
     public Transform projSpawn;
 
@@ -48,15 +43,12 @@ public class AI1 : MonoBehaviour
     float enemyDistance;
     float capDistance;
     float nextFire;
-
-
-
-
     List<GameObject> Ammo;
 
     private void Awake()
     {
         vendor = FindNearestVendor();
+        nearestCap = FindNearestCap();
 
         nav = GetComponent<NavMeshAgent>();
 
@@ -65,64 +57,20 @@ public class AI1 : MonoBehaviour
 
     private void Update()
     {
+        if (capDistance < patrolRad) // wander in cap
+        {
+            nav.SetDestination(Wander(transform.position, wanderRad));
+        }
+        nav.SetDestination(nearestCap.position);
+
         nearestEnemy = FindNearestEnemy();
 
-        if (!Ammo.Any()) // find ammo
+        if(nearestEnemy != null) // enemy in view range
         {
-            vendor = FindNearestVendor();
-            nav.SetDestination(vendor.position);
-
-            if (enemyDistance < runRad && nearestEnemy != null) // flee enemies if no Ammo
-            {
-                // run away with respect to vendor
-                Vector3 toEnemy = transform.position - nearestEnemy.position;
-                Vector3 fleePos = transform.position + toEnemy + vendor.position;
-                nav.SetDestination(fleePos);
-            }
-
-            if (Time.time < nextBar)
-            {
-                if (Time.time > runTil)
-                {
-                    // random run away
-                    runMag = Random.Range(runMagMin, runMagMax);
-                    nav.SetDestination(Wander(transform.position, runMag));
-                }
-            }
-        }
-        else if (nearestEnemy != null) // attack mode
-        {
-            nav.SetDestination(nearestEnemy.position);
-
-            if (enemyDistance < targetingRad)
-                transform.LookAt(nearestEnemy.position);
-
-            if (enemyDistance <= targetingRad) // enemy within range
-            {
-                if (Time.time > nextFire) // shooting cooldown expired
-                {
-                    if (Ammo.Any()) // has ammo
-                    {
-                        transform.LookAt(nearestEnemy.position); // face enemy
-
-                        projectile = Ammo[0];
-                        Ammo.RemoveAt(0);
-                        nextFire = Time.time + fireRate;
-                        Instantiate(projectile, projSpawn.position, projSpawn.rotation); // fire projectile
-
-                    }
-                }
-            }
-        }
-        else // cap mode
-        {
-            nearestCap = FindNearestCap();
-            nav.SetDestination(nearestCap.position);
-
-            if(capDistance < patrolRad) // wander in cap
-            {
-                nav.SetDestination(Wander(transform.position, wanderRad));
-            }
+            //if(enemyDistance < )
+            Vector3 toEnemy = transform.position - nearestEnemy.position;
+            Vector3 fleePos = transform.position + toEnemy + vendor.position;
+            nav.SetDestination(fleePos);
         }
     }
 
@@ -131,7 +79,7 @@ public class AI1 : MonoBehaviour
         if (other.gameObject.tag == "Projectile2")
         {
             health--;
-            if(health <= 0)
+            if (health <= 0)
             {
                 // increase score for projectile team
                 // start respawn timer
@@ -215,7 +163,7 @@ public class AI1 : MonoBehaviour
         Transform nearest = null;
         float curDistance = Mathf.Infinity;
 
-        foreach(GameObject enemy in allEnemies)
+        foreach (GameObject enemy in allEnemies)
         {
             float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
 
