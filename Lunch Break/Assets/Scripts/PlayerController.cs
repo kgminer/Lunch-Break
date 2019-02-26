@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     int floorMask;
     float camRayLen = 100f;
 
-    public GameObject projectile;
+    //public GameObject projectile;
     public Transform projSpawn;
     public float fireRate = 0.5f;
     private float nextFire;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         //goItem.transform.parent = Hand.transform;
         //goItem.transform.position = Hand.transform.position;
-        projectile = goItem;
+        //projectile = goItem;
 
     }
 
