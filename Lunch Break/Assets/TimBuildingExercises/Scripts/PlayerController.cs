@@ -15,8 +15,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject projectile;
     public Transform projSpawn;
-    public float fireRate;
+    public float fireRate = 0.5f;
     private float nextFire;
+    public float health = 3f;
+
+    public GameObject burger;
 
     public Inventory inventory;
     public HUD hud;
@@ -28,16 +31,25 @@ public class PlayerController : MonoBehaviour
         // Check if there is a keypress for an item to pickup
         if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
         {
+            // TODO: Add If logic to say if the object is moving you can't pick it up
             inventory.AddItem(mItemToPickup);
             mItemToPickup.OnPickup();
             hud.CloseMessagePanel();
             mItemToPickup = null;
         }
 
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[0].IsEmpty)
         {
-            nextFire = Time.time + fireRate;
-            Instantiate(projectile, projSpawn.position, projSpawn.rotation);
+            // Debug.Log("inv" + inventory.mSlots[0].FirstItem);
+            InventoryItemBase item = inventory.mSlots[0].FirstItem;
+
+            // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
+            if (item.GetComponent<Burger>())
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(burger, projSpawn.position, projSpawn.rotation);
+                inventory.RemoveItem(item);
+            }
         }
     }
 
@@ -63,8 +75,9 @@ public class PlayerController : MonoBehaviour
         goItem.SetActive(true);
         goItem.GetComponent<Collider>().enabled = false;
 
-        goItem.transform.parent = Hand.transform;
-        goItem.transform.position = Hand.transform.position;
+        //goItem.transform.parent = Hand.transform;
+        //goItem.transform.position = Hand.transform.position;
+        projectile = goItem;
 
     }
 
@@ -121,6 +134,48 @@ public class PlayerController : MonoBehaviour
             {
                 mItemToPickup = item;
                 hud.OpenMessagePanel("");
+            }
+        }
+
+        if (other.gameObject.CompareTag("Projectile1"))
+        {
+            health--;
+            if (health <= 0)
+            {
+                // increase score for projectile team
+                // start respawn timer
+                // die; wait for animation
+                // spawn money equal to amount before death
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+        }
+
+        if (other.gameObject.CompareTag("Projectile3"))
+        {
+            health--;
+            if (health <= 0)
+            {
+                // increase score for projectile team
+                // start respawn timer
+                // die; wait for animation
+                // spawn money equal to amount before death
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+        }
+
+        if (other.gameObject.CompareTag("Projectile4"))
+        {
+            health--;
+            if (health <= 0)
+            {
+                // increase score for projectile team
+                // start respawn timer
+                // die; wait for animation
+                // spawn money equal to amount before death
+                Destroy(other.gameObject);
+                Destroy(gameObject);
             }
         }
     }
