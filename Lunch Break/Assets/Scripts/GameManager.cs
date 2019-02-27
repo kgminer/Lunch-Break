@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject NPC1;
     public GameObject NPC2;
-    public GameObject foodSpawnPosition;
+    public GameObject foodSpawnPosition1;
+    public GameObject foodSpawnPosition2;
+    public GameObject foodSpawnPosition3;
+    public GameObject foodSpawnPosition4;
     public GameObject foodItem;
     
 
@@ -108,6 +111,9 @@ public class GameManager : MonoBehaviour
 
     private void SpawnFood()
     {
-        Instantiate(foodItem, foodSpawnPosition.transform.position, Quaternion.identity);
+        Instantiate(foodItem, foodSpawnPosition1.transform.position, Quaternion.identity);
+        Instantiate(foodItem, foodSpawnPosition2.transform.position, Quaternion.identity);
+        Instantiate(foodItem, foodSpawnPosition3.transform.position, Quaternion.identity);
+        Instantiate(foodItem, foodSpawnPosition4.transform.position, Quaternion.identity);
     }
 }
