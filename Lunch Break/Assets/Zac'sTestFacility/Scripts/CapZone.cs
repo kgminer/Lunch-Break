@@ -12,19 +12,27 @@ public class CapZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
+         //   return;
+
         if (!Cappers.Contains(other))
             Cappers.Add(other);
 
         if (other.gameObject.tag != team)
             CountCappers();
 
-        //Debug.Log("Cap triggered, " + other.gameObject.tag + " entered. Cap belongs to " + team);
+        Debug.Log("Cap triggered, " + other.gameObject.tag + " entered. Cap belongs to " + team);
     }
 
     private void OnTriggerExit(Collider other)
     {
+       // if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
+        //    return;
+
         Cappers.Remove(other);
         CountCappers();
+
+        Debug.Log("someone died (" + other.gameObject.tag + ". Cap belongs to " + team);
     }
 
     private void CountCappers()
