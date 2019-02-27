@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private float timeRemaining;
-    private bool outOfTime;
+    private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
     private int scienceGeeksScore, bookWormsScore, jocksScore;
     //private GameObject camera;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         timeRemaining = 300f;
         outOfTime = false;
+        scoreReached = false;
         scienceGeeksScore = 0;
         bookWormsScore = 0;
         jocksScore = 0;
@@ -51,16 +52,22 @@ public class GameManager : MonoBehaviour
                 UpdateTime();
                 int minutes = Mathf.FloorToInt(timeRemaining / 60F);
                 int seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
-                if(minutes <= 0 && seconds <= 0)
-                {
-                    outOfTime = true;
-                    gameDisplay.SetTimeRemainingText(0, 0);
-                    gameState = 1;
-                }
+                outOfTime = minutes <= 0 && seconds <= 0;
                 if (!outOfTime)
                 {
                     gameDisplay.SetTimeRemainingText(minutes, seconds);
                     gameDisplay.SetScoreText(scienceGeeksScore, bookWormsScore, jocksScore);
+                    scoreReached = scienceGeeksScore >= 100 || bookWormsScore >= 100 || jocksScore >= 100;
+                    if(scoreReached)
+                    {
+                        gameState = 1;
+                    }
+                }
+                else
+                {
+                    outOfTime = true;
+                    gameDisplay.SetTimeRemainingText(0, 0);
+                    gameState = 1;
                 }
                 break;
             case 1:
