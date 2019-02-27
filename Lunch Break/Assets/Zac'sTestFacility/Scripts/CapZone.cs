@@ -20,8 +20,6 @@ public class CapZone : MonoBehaviour
 
         if (other.gameObject.tag != team)
             CountCappers();
-
-        Debug.Log("Cap triggered, " + other.gameObject.tag + " entered. Cap belongs to " + team);
     }
 
     private void OnTriggerExit(Collider other)
@@ -31,8 +29,6 @@ public class CapZone : MonoBehaviour
 
         Cappers.Remove(other);
         CountCappers();
-
-        Debug.Log("someone died (" + other.gameObject.tag + ". Cap belongs to " + team);
     }
 
     private void CountCappers()

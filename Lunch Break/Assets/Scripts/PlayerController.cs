@@ -87,8 +87,21 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Move(h, v);
+        /*
+        string[] gamePads = Input.GetJoystickNames();
+        if(gamePads[0].Length > 1)
+        {
+            TurnWithStick();
+        }
+        else
+        {
+            TurnWithMouse();
+        }
+        */
+
         TurnWithMouse();
+        Move(h, v);
+        
         // Animate(h, v);
     }
 
@@ -106,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit floorHit;
 
-        if (Physics.Raycast(camRay, out floorHit, camRayLen, floorMask)) ;
+        if (Physics.Raycast(camRay, out floorHit, camRayLen, floorMask))
         {
             Vector3 playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0f;
@@ -116,6 +129,16 @@ public class PlayerController : MonoBehaviour
             playerRigid.MoveRotation(newRotation);
         }
     }
+
+    /*
+    private void TurnWithStick()
+    {
+        Vector3 lookVector = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
+
+        if(lookVector.x != 0 || lookVector.y != 0)
+            transform.rotation = Quaternion.LookRotation(lookVector);
+    }
+    */
 
     private void Animate(float h, float v)
     {
