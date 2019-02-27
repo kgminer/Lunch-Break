@@ -1,11 +1,11 @@
-﻿// Recklessly aggressive AI for Team1
+﻿// Recklessly aggressive AI for Team2
 // Find Ammo and attack nearest enemy
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI1Cap : MonoBehaviour
+public class AI2Cap : MonoBehaviour
 {
     public float viewRad;                 // distance at which enemies can be detected
     public float pursueRad;                // distance at which character pursues enemy
@@ -45,7 +45,7 @@ public class AI1Cap : MonoBehaviour
     float nextFire;
     List<GameObject> Ammo;
 
-    enum State {Fleeing, Capping, Replinishing, Attacking};
+    enum State { Fleeing, Capping, Replinishing, Attacking };
 
     private void Awake()
     {
@@ -71,9 +71,9 @@ public class AI1Cap : MonoBehaviour
         {
             nav.SetDestination(nearestCap.position);
         }
-       
 
-        if(nearestEnemy != null) // enemy in view range
+
+        if (nearestEnemy != null) // enemy in view range
         {
             if (enemyDistance < runRad)
             {
@@ -86,7 +86,7 @@ public class AI1Cap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Projectile2")
+        if (other.gameObject.tag == "Projectile1")
         {
             health--;
             Destroy(other.gameObject);
@@ -146,7 +146,7 @@ public class AI1Cap : MonoBehaviour
         {
             if (money >= 2 && Ammo.Count < maxInv)
             {
-                burger.tag = "Projectile1";
+                burger.tag = "Projectile2";
                 Ammo.Add(burger);
                 money -= burgerCost;
             }
@@ -158,7 +158,7 @@ public class AI1Cap : MonoBehaviour
             {
                 if (Time.time > nextBar)
                 {
-                    burger.tag = "Projectile1";
+                    burger.tag = "Projectile2";
                     Ammo.Add(burger);
 
                     nextBar = Time.time + barCooldown;
@@ -169,13 +169,13 @@ public class AI1Cap : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Team2");
+        GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Team1");
         GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
         // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
-        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length /* + enemies4.Length */];
-        enemies2.CopyTo(allEnemies, 0);
-        enemies3.CopyTo(allEnemies, enemies2.Length);
+        GameObject[] allEnemies = new GameObject[enemies1.Length + enemies3.Length /* + enemies4.Length */];
+        enemies1.CopyTo(allEnemies, 0);
+        enemies3.CopyTo(allEnemies, enemies1.Length);
         // enemies4.CopyTo(allEnemies, enemies3.Length);
 
         Transform nearest = null;

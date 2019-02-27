@@ -1,11 +1,11 @@
-﻿// Recklessly aggressive AI for Team1
+﻿// Recklessly aggressive AI for Team2
 // Find Ammo and attack nearest enemy
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI1Cap : MonoBehaviour
+public class AI2Aggressive : MonoBehaviour
 {
     public float viewRad;                 // distance at which enemies can be detected
     public float pursueRad;                // distance at which character pursues enemy
@@ -45,12 +45,9 @@ public class AI1Cap : MonoBehaviour
     float nextFire;
     List<GameObject> Ammo;
 
-    enum State {Fleeing, Capping, Replinishing, Attacking};
-
     private void Awake()
     {
         vendor = FindNearestVendor();
-        nearestCap = FindNearestCap();
 
         nav = GetComponent<NavMeshAgent>();
 
@@ -59,34 +56,52 @@ public class AI1Cap : MonoBehaviour
 
     private void Update()
     {
-        nearestCap = FindNearestCap();
         nearestEnemy = FindNearestEnemy();
 
-        if (capDistance < patrolRad) // wander in cap
+        if (!Ammo.Any())
         {
-            nav.SetDestination(Wander(transform.position, wanderRad));
+            vendor = FindNearestVendor();
+            nav.SetDestination(vendor.position);
         }
-
-        if (capDistance > patrolRad)
+        else if (nearestEnemy != null) // attack mode
         {
-            nav.SetDestination(nearestCap.position);
-        }
-       
+            nav.SetDestination(nearestEnemy.position);
 
-        if(nearestEnemy != null) // enemy in view range
-        {
-            if (enemyDistance < runRad)
+            if (enemyDistance < targetingRad)
+                transform.LookAt(nearestEnemy.position);
+
+            if (enemyDistance <= targetingRad) // enemy within range
             {
-                Vector3 toEnemy = transform.position - nearestEnemy.position;
-                Vector3 fleePos = transform.position + toEnemy + vendor.position;
-                nav.SetDestination(fleePos);
+                if (Time.time > nextFire) // shooting cooldown expired
+                {
+                    if (Ammo.Any()) // has ammo
+                    {
+                        transform.LookAt(nearestEnemy.position); // face enemy
+
+                        projectile = Ammo[0];
+                        Ammo.RemoveAt(0);
+                        nextFire = Time.time + fireRate;
+                        Instantiate(projectile, projSpawn.position, projSpawn.rotation); // fire projectile
+
+                    }
+                }
+            }
+        }
+        else
+        {
+            nearestCap = FindNearestCap();
+            nav.SetDestination(nearestCap.position);
+
+            if (capDistance < patrolRad) // wander in cap
+            {
+                nav.SetDestination(Wander(transform.position, wanderRad));
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Projectile2")
+        if (other.gameObject.tag == "Projectile1")
         {
             health--;
             Destroy(other.gameObject);
@@ -146,7 +161,7 @@ public class AI1Cap : MonoBehaviour
         {
             if (money >= 2 && Ammo.Count < maxInv)
             {
-                burger.tag = "Projectile1";
+                burger.tag = "Projectile2";
                 Ammo.Add(burger);
                 money -= burgerCost;
             }
@@ -158,7 +173,7 @@ public class AI1Cap : MonoBehaviour
             {
                 if (Time.time > nextBar)
                 {
-                    burger.tag = "Projectile1";
+                    burger.tag = "Projectile2";
                     Ammo.Add(burger);
 
                     nextBar = Time.time + barCooldown;
@@ -169,13 +184,13 @@ public class AI1Cap : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Team2");
+        GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Team1");
         GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
         // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
-        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length /* + enemies4.Length */];
-        enemies2.CopyTo(allEnemies, 0);
-        enemies3.CopyTo(allEnemies, enemies2.Length);
+        GameObject[] allEnemies = new GameObject[enemies1.Length + enemies3.Length /* + enemies4.Length */];
+        enemies1.CopyTo(allEnemies, 0);
+        enemies3.CopyTo(allEnemies, enemies1.Length);
         // enemies4.CopyTo(allEnemies, enemies3.Length);
 
         Transform nearest = null;

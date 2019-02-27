@@ -104,6 +104,8 @@ public class AI1Aggressive : MonoBehaviour
         if (other.gameObject.tag == "Projectile2")
         {
             health--;
+            Destroy(other.gameObject);
+
             if (health <= 0)
             {
                 // increase score for projectile team
@@ -119,6 +121,8 @@ public class AI1Aggressive : MonoBehaviour
         if (other.gameObject.tag == "Projectile3")
         {
             health--;
+            Destroy(other.gameObject);
+
             if (health <= 0)
             {
                 // increase score for projectile team
@@ -131,9 +135,12 @@ public class AI1Aggressive : MonoBehaviour
             }
         }
 
+        /*
         if (other.gameObject.tag == "Projectile4")
         {
             health--;
+            Destroy(other);
+
             if (health <= 0)
             {
                 // increase score for projectile team
@@ -145,6 +152,7 @@ public class AI1Aggressive : MonoBehaviour
 
             }
         }
+        */
     }
 
     private void OnTriggerStay(Collider other)
@@ -178,12 +186,12 @@ public class AI1Aggressive : MonoBehaviour
     {
         GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Team2");
         GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
-        GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
+        // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
-        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length + enemies4.Length];
+        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length /* + enemies4.Length */];
         enemies2.CopyTo(allEnemies, 0);
         enemies3.CopyTo(allEnemies, enemies2.Length);
-        enemies4.CopyTo(allEnemies, enemies3.Length);
+        // enemies4.CopyTo(allEnemies, enemies3.Length);
 
         Transform nearest = null;
         float curDistance = Mathf.Infinity;
