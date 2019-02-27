@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private string spawnpointObjectName;
     private float timeRemaining;
-
+    private GameObject camera;
 
     public HUD gameDisplay;
     public GameObject spawningObject;
@@ -18,14 +18,15 @@ public class GameManager : MonoBehaviour
     {
         //DontDestroyOnLoad(this);
         Init();
-        Debug.LogWarning("Game Manager Created");
     }
 
 
     public void Init()
     {
         timeRemaining = 300f;
-        Instantiate(player, spawningObject.transform.position, Quaternion.identity);
+        //camera = GameObject.Find("Main Camera");
+        //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
+        //camera.GetComponent<CameraFollow>().target = player.transform;
     }
     
     // Update is called once per frame
