@@ -9,6 +9,8 @@ public class HUD : MonoBehaviour
 
     public GameObject MessagePanel;
 
+    public GameObject TimeRemainingLabel;
+
     // Use this for initialization
     void Start()
     {
@@ -118,6 +120,14 @@ public class HUD : MonoBehaviour
             }
             */
         }
+    }
+
+    public void SetTimeRemainingText(float timeRemaining)
+    {
+        int minutes = Mathf.FloorToInt(timeRemaining / 60F);
+        int seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
+        string formattedTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        TimeRemainingLabel.GetComponent<Text>().text = "Time Remaining: " + formattedTime;
     }
 
     public void OpenMessagePanel(string text)
