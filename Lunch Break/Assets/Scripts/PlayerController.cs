@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     void Update ()
     {
         // Check if there is a keypress for an item to pickup
-        if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
+        //if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
+        if (mItemToPickup != null && Input.GetButton("Submit"))
         {
             // TODO: Add If logic to say if the object is moving you can't pick it up
             inventory.AddItem(mItemToPickup);
