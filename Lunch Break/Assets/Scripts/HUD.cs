@@ -11,6 +11,10 @@ public class HUD : MonoBehaviour
     public GameObject TimeRemainingLabel;
     public GameObject RespawnMap;
     public GameObject GameOverPanel;
+    public GameObject ScoreLabel;
+    public GameObject ScienceGeeksFinalScore;
+    public GameObject BookWormsFinalScore;
+    public GameObject JocksFinalScore;
 
     // Use this for initialization
     void Start()
@@ -127,6 +131,18 @@ public class HUD : MonoBehaviour
     {
         string formattedTime = string.Format("{0:0}:{1:00}", minutes, seconds);
         TimeRemainingLabel.GetComponent<Text>().text = "Time Remaining: " + formattedTime;
+    }
+
+    public void SetScoreText(int score1, int score2, int score3)
+    {
+        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + score1 + "/100 " + "Book Worms: " + score2 + "/100 " + "Jocks: " + score3 + "/100";
+    }
+
+    public void SetFinalScoreText(int score1, int score2, int score3)
+    {
+        ScienceGeeksFinalScore.GetComponent<Text>().text = "Science Geeks: " + score1;
+        BookWormsFinalScore.GetComponent<Text>().text = "Book Worms: " + score2;
+        JocksFinalScore.GetComponent<Text>().text = "Jocks: " + score3;
     }
 
     public void OpenRespawnMap()
