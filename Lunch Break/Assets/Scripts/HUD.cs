@@ -8,8 +8,9 @@ public class HUD : MonoBehaviour
     public Inventory Inventory;
 
     public GameObject MessagePanel;
-
     public GameObject TimeRemainingLabel;
+    public GameObject RespawnMap;
+    public GameObject GameOverPanel;
 
     // Use this for initialization
     void Start()
@@ -122,12 +123,30 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void SetTimeRemainingText(float timeRemaining)
+    public void SetTimeRemainingText(int minutes, int seconds)
     {
-        int minutes = Mathf.FloorToInt(timeRemaining / 60F);
-        int seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
         string formattedTime = string.Format("{0:0}:{1:00}", minutes, seconds);
         TimeRemainingLabel.GetComponent<Text>().text = "Time Remaining: " + formattedTime;
+    }
+
+    public void OpenRespawnMap()
+    {
+        RespawnMap.SetActive(true);
+    }
+
+    public void CloseRespawnMap()
+    {
+        RespawnMap.SetActive(false);
+    }
+
+    public void OpenGameOverPanel()
+    {
+        GameOverPanel.SetActive(true);
+    }
+
+    public void CloseGameOverPanel()
+    {
+        GameOverPanel.SetActive(false);
     }
 
     public void OpenMessagePanel(string text)
