@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject JocksSpawnObject;
     public GameObject BookWormsSpawnObject;
     public GameObject Player;
+    public GameObject NPC1;
+    public GameObject NPC2;
     public GameObject foodSpawnPosition;
     public GameObject foodItem;
     
@@ -81,12 +83,18 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 Player.transform.position = ScienceGeeksSpawnObject.transform.position;
+                NPC1.transform.position = JocksSpawnObject.transform.position;
+                NPC2.transform.position = BookWormsSpawnObject.transform.position;
                 break;
             case 1:
                 Player.transform.position = JocksSpawnObject.transform.position;
+                NPC1.transform.position = ScienceGeeksSpawnObject.transform.position;
+                NPC2.transform.position = BookWormsSpawnObject.transform.position;
                 break;
             case 2:
                 Player.transform.position = BookWormsSpawnObject.transform.position;
+                NPC1.transform.position = JocksSpawnObject.transform.position;
+                NPC2.transform.position = ScienceGeeksSpawnObject.transform.position;
                 break;
         }
     }
