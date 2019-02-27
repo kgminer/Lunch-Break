@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     public GameObject JocksSpawnObject;
     public GameObject BookWormsSpawnObject;
     public GameObject Player;
-    public GameObject NPC1;
-    public GameObject NPC2;
+    public GameObject NPC1Team1;
+    public GameObject NPC2Team1;
+    public GameObject NPC1Team2;
+    public GameObject NPC1Team3;
+    public GameObject NPC2Team3;
     public GameObject foodSpawnPosition1;
     public GameObject foodSpawnPosition2;
     public GameObject foodSpawnPosition3;
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
 
     public void PositionPlayers()
     {
+        /*
         switch (TeamSelection.GetTeam())
         {
             case 0:
@@ -107,6 +111,15 @@ public class GameManager : MonoBehaviour
                 NPC2.transform.position = ScienceGeeksSpawnObject.transform.position;
                 break;
         }
+        */
+        Player.transform.position = ScienceGeeksSpawnObject.transform.position;
+        NPC1Team2.transform.position = ScienceGeeksSpawnObject.transform.position;
+
+        NPC1Team1.transform.position = BookWormsSpawnObject.transform.position;
+        NPC2Team1.transform.position = BookWormsSpawnObject.transform.position;
+
+        NPC1Team3.transform.position = JocksSpawnObject.transform.position;
+        NPC2Team3.transform.position = JocksSpawnObject.transform.position;
     }
 
     private void SpawnFood()

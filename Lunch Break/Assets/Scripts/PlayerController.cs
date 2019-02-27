@@ -141,13 +141,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Projectile1"))
         {
             health--;
+            Destroy(other.gameObject);
             if (health <= 0)
             {
                 // increase score for projectile team
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
-                Destroy(other.gameObject);
                 Destroy(gameObject);
             }
         }
@@ -155,30 +155,32 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Projectile3"))
         {
             health--;
+            Destroy(other.gameObject);
             if (health <= 0)
             {
                 // increase score for projectile team
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
-                Destroy(other.gameObject);
                 Destroy(gameObject);
             }
         }
 
+        /*
         if (other.gameObject.CompareTag("Projectile4"))
         {
             health--;
+            Destroy(other.gameObject);
             if (health <= 0)
             {
                 // increase score for projectile team
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
-                Destroy(other.gameObject);
                 Destroy(gameObject);
             }
         }
+       */
     }
 
     private void OnTriggerExit(Collider other)
