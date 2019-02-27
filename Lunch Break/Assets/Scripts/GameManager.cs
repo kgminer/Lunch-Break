@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private string spawnpointObjectName;
     private float timeRemaining;
     private bool outOfTime;
     private int gameState; //0 = Running, 1 = Game Over
@@ -12,7 +11,10 @@ public class GameManager : MonoBehaviour
     //private GameObject camera;
 
     public HUD gameDisplay;
-    //public GameObject spawningObject;
+    public GameObject ScienceGeeksSpawnObject;
+    public GameObject JocksSpawnObject;
+    public GameObject BookWormsSpawnObject;
+    public GameObject Player;
     public GameObject foodSpawnPosition;
     public GameObject foodItem;
     
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         bookWormsScore = 0;
         jocksScore = 0;
         InvokeRepeating("SpawnFood", 0.0f, 10f);
+        PositionPlayers();
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
@@ -70,6 +73,22 @@ public class GameManager : MonoBehaviour
     public void UpdateTime()
     {
         timeRemaining -= Time.deltaTime;
+    }
+
+    public void PositionPlayers()
+    {
+        switch (TeamSelection.GetTeam())
+        {
+            case 0:
+                Player.transform.position = ScienceGeeksSpawnObject.transform.position;
+                break;
+            case 1:
+                Player.transform.position = JocksSpawnObject.transform.position;
+                break;
+            case 2:
+                Player.transform.position = BookWormsSpawnObject.transform.position;
+                break;
+        }
     }
 
     private void SpawnFood()

@@ -9,4 +9,9 @@ public class StartGameOnClick : MonoBehaviour
     {
         SceneManager.LoadScene(sceneIndex);
     }
+
+    public void RecordTeamSelection(int playerTeamChoice)
+    {
+        TeamSelection.SetTeam(playerTeamChoice);
+    }
 }
