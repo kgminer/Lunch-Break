@@ -25,9 +25,26 @@ public class PlayerController : MonoBehaviour
     public HUD hud;
     public GameObject Hand;
 
+    // Variable to be set upon projectile selection within Update for either item 0, 1, or 2. Initialized to -1 for safety
+    private int projectileSelect = -1;
+
     // Use Update method for throwing projectiles
     void Update ()
     {
+        // Check for Projectile selection keypress
+        if (Input.GetButton("Item0"))
+        {
+            projectileSelect = 0;
+        }
+        if (Input.GetButton("Item1"))
+        {
+            projectileSelect = 1;
+        }
+        if (Input.GetButton("Item2"))
+        {
+            projectileSelect = 2;
+        }
+
         // Check if there is a keypress for an item to pickup
         //if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
         if (mItemToPickup != null && Input.GetButton("Submit"))
@@ -39,17 +56,22 @@ public class PlayerController : MonoBehaviour
             mItemToPickup = null;
         }
 
-        if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[0].IsEmpty)
+        // If a projectile has been selected allow for firing
+        if (projectileSelect >= 0)
         {
-            // Debug.Log("inv" + inventory.mSlots[0].FirstItem);
-            InventoryItemBase item = inventory.mSlots[0].FirstItem;
-
-            // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
-            if (item.GetComponent<Burger>())
+            if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty)
             {
-                nextFire = Time.time + fireRate;
-                Instantiate(burger, projSpawn.position, projSpawn.rotation);
-                inventory.RemoveItem(item);
+                Debug.Log(projectileSelect);
+                //Debug.Log("inv" + inventory.mSlots[projectileSelect].FirstItem);
+                InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
+                if (item.GetComponent<Burger>())
+                {
+                    nextFire = Time.time + fireRate;
+                    Instantiate(burger, projSpawn.position, projSpawn.rotation);
+                    inventory.RemoveItem(item, projectileSelect);
+                }
             }
         }
     }
@@ -69,7 +91,7 @@ public class PlayerController : MonoBehaviour
     private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
     {
         InventoryItemBase item = e.Item;
-
+        Debug.Log("used");
         // Do something with the item
         GameObject goItem = (item as MonoBehaviour).gameObject;
 

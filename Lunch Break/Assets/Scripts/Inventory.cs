@@ -102,6 +102,28 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void RemoveItem(InventoryItemBase item, int itemToRemove)
+    {
+        int counter = 0;
+
+        foreach (InventorySlot slot in mSlots)
+        {
+            // Duplicate items can exist in multiple stacks, so remove from the slot we fire the projectile from
+            if (counter == itemToRemove)
+            {
+                if (slot.Remove(item))
+                {
+                    if (ItemRemoved != null)
+                    {
+                        ItemRemoved(this, new InventoryEventArgs(item));
+                    }
+                    break;
+                }
+            }
+            counter++;
+        }
         /*
         if(mItems.Contains(item))
         {
