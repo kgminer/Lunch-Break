@@ -6,7 +6,6 @@ using UnityEngine;
 public class InventorySlot
 {
     private Stack<InventoryItemBase> mItemStack = new Stack<InventoryItemBase>();
-
     private int mId = 0;
 
     public InventorySlot(int id)
@@ -36,14 +35,14 @@ public class InventorySlot
         }
     }
 
-    public bool IsStackable(InventoryItemBase item)
+    public bool IsStackable(InventoryItemBase item, int maxStackSize)
     {
         if (IsEmpty)
             return false;
 
         InventoryItemBase first = mItemStack.Peek();
 
-        if (first.Name == item.Name)
+        if (first.Name == item.Name && mItemStack.Count < maxStackSize)
             return true;
 
         return false;

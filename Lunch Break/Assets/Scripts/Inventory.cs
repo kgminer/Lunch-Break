@@ -6,7 +6,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public const int SLOTS = 3;
-
+    public int maxStackSize = 3;
     public IList<InventorySlot> mSlots = new List<InventorySlot>();
 
     public event EventHandler<InventoryEventArgs> ItemAdded;
@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
     {
         foreach (InventorySlot slot in mSlots)
         {
-            if (slot.IsStackable(item))
+            if (slot.IsStackable(item, maxStackSize))
                 return slot;
         }
         return null;
