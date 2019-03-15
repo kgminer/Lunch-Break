@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,24 +26,46 @@ public class PlayerController : MonoBehaviour
     public HUD hud;
     public GameObject Hand;
 
-    // Variable to be set upon projectile selection within Update for either item 0, 1, or 2. Initialized to -1 for safety
-    private int projectileSelect = -1;
+    // Variable to be set upon projectile selection within Update for either item 0, 1, or 2. Initialized to 0 for first slot
+    private int projectileSelect = 0;
+
+    // Tracking each inventory slot for easy highlighting
+    Button slot1;
+    Button slot2;
+    Button slot3;
+
+    // Slot color presets for reassigning 
+    ColorBlock usedSlot;
+    ColorBlock unusedSlot;
 
     // Use Update method for throwing projectiles
     void Update ()
     {
-        // Check for Projectile selection keypress
+        // Projectile selection will change slot of use and update ui component to reflect selection
         if (Input.GetButton("Item0"))
         {
             projectileSelect = 0;
+            slot1.colors = usedSlot;
+            slot2.colors = unusedSlot;
+            slot3.colors = unusedSlot;
         }
+
+        // Projectile selection will change slot of use and update ui component to reflect selection
         if (Input.GetButton("Item1"))
         {
             projectileSelect = 1;
+            slot1.colors = unusedSlot;
+            slot2.colors = usedSlot;
+            slot3.colors = unusedSlot;
         }
+
+        // Projectile selection will change slot of use and update ui component to reflect selection
         if (Input.GetButton("Item2"))
         {
             projectileSelect = 2;
+            slot1.colors = unusedSlot;
+            slot2.colors = unusedSlot;
+            slot3.colors = usedSlot;
         }
 
         // Check if there is a keypress for an item to pickup
@@ -61,8 +84,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty)
             {
-                Debug.Log(projectileSelect);
-                //Debug.Log("inv" + inventory.mSlots[projectileSelect].FirstItem);
                 InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
 
                 // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
@@ -81,6 +102,24 @@ public class PlayerController : MonoBehaviour
         floorMask = LayerMask.GetMask("Floor");
         anim = GetComponent<Animator>();
         playerRigid = GetComponent<Rigidbody>();
+
+        // Reaching the border components of the slots for highlighting
+        GameObject hudInterface = GameObject.Find("HUD");
+        
+        // Get the InventoryPanel object
+        Transform slots = hudInterface.transform.GetChild(0);
+
+        // Collect and assign the button of each slot to reference variables
+        slot1 = slots.GetChild(0).GetChild(0).GetComponent<Button>();
+        slot2 = slots.GetChild(1).GetChild(0).GetComponent<Button>();
+        slot3 = slots.GetChild(2).GetChild(0).GetComponent<Button>();
+
+        // Initialize color presets for slot in use and slot not in use
+        ColorBlock cbUse = slot1.colors;
+        ColorBlock cbUnuse = slot2.colors;
+
+        usedSlot = cbUse;
+        unusedSlot = cbUnuse;
     }
 
     void Start()
