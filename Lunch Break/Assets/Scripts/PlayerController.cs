@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
     private float nextFire;
     public float health = 3f;
 
+    // Projectile object references
     public GameObject burger;
+    public GameObject donut;
+    public GameObject drink;
 
     public Inventory inventory;
     public HUD hud;
@@ -91,6 +94,20 @@ public class PlayerController : MonoBehaviour
                 {
                     nextFire = Time.time + fireRate;
                     Instantiate(burger, projSpawn.position, projSpawn.rotation);
+                    inventory.RemoveItem(item, projectileSelect);
+                }
+
+                if (item.GetComponent<Donut>())
+                {
+                    nextFire = Time.time + fireRate;
+                    Instantiate(donut, projSpawn.position, projSpawn.rotation);
+                    inventory.RemoveItem(item, projectileSelect);
+                }
+
+                if (item.GetComponent<Drink>())
+                {
+                    nextFire = Time.time + fireRate;
+                    Instantiate(drink, projSpawn.position, projSpawn.rotation);
                     inventory.RemoveItem(item, projectileSelect);
                 }
             }
