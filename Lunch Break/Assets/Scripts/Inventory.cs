@@ -30,6 +30,26 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
+
+    // Getter function to determine if there is a space for the item in the inventory
+    public Boolean IsFull(InventoryItemBase item)
+    {
+        // Cover weirdness case of faulty interaction and say the inventory is full
+        if (item == null)
+            return true;
+
+        // Inventory slots could be full but there is a stack available for this item, so the inventory can hold this item
+        if (FindStackableSlot(item) != null)
+            return false;
+
+        // If there are no available stacks and no free slots, the inventory can not hold this item
+        else if (FindNextEmptySlot() == null)
+            return true;
+
+        // If there is no available stack but there is a free slot, the inventory can hold the item
+        else
+            return false;
+    }
     
     private InventorySlot FindNextEmptySlot()
     {
@@ -59,26 +79,6 @@ public class Inventory : MonoBehaviour
                 ItemAdded(this, new InventoryEventArgs(item));
             }
         }
-
-        /*
-        if (mItems.Count < SLOTS)
-        {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if (collider.enabled)
-            {
-                collider.enabled = false;
-
-                mItems.Add(item);
-
-                item.OnPickup();
-
-                if (ItemAdded != null)
-                {
-                    ItemAdded(this, new InventoryEventArgs(item));
-                }
-            }
-        }
-        */
     }
 
     internal void UseItem(InventoryItemBase item)
@@ -124,24 +124,5 @@ public class Inventory : MonoBehaviour
             }
             counter++;
         }
-        /*
-        if(mItems.Contains(item))
-        {
-            mItems.Remove(item);
-
-            item.OnDrop();
-
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if(collider != null)
-            {
-                collider.enabled = true;
-            }
-
-            if (ItemRemoved != null)
-            {
-                ItemRemoved(this, new InventoryEventArgs(item));
-            }
-        }
-        */
     }
 }

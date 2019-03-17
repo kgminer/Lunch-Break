@@ -230,9 +230,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Food"))
         {
+            // Get the item reference
             InventoryItemBase item = other.GetComponent<InventoryItemBase>();
 
-            if (item != null)
+            // If the item exists and there is room for it in the inventory, display pick up message
+            if (!inventory.IsFull(item))
             {
                 mItemToPickup = item;
                 hud.OpenMessagePanel("");
