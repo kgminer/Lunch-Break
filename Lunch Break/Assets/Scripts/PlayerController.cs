@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     int floorMask;
     float camRayLen = 100f;
 
-    //public GameObject projectile;
     public Transform projSpawn;
     public float fireRate = 0.5f;
     private float nextFire;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public GameObject burger;
     public GameObject donut;
     public GameObject drink;
+    public AudioClip hitSound;
 
     public Inventory inventory;
     public HUD hud;
@@ -243,6 +243,8 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
             if (health <= 0)
             {
                 // increase score for projectile team
@@ -257,6 +259,8 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
             if (health <= 0)
             {
                 // increase score for projectile team

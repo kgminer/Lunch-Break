@@ -35,6 +35,7 @@ public class AI2Cap : MonoBehaviour
     public float burgerCost;
     public GameObject projectile;
     public Transform projSpawn;
+    public AudioClip hitSound;
 
     NavMeshAgent nav;
     Transform nearestEnemy;
@@ -90,6 +91,7 @@ public class AI2Cap : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
             if (health <= 0)
             {
@@ -107,6 +109,7 @@ public class AI2Cap : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
             if (health <= 0)
             {
