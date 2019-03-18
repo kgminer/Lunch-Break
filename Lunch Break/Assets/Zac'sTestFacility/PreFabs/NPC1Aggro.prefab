@@ -322,7 +322,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3505374366603298754}
-  - component: {fileID: 4956789024446878993}
   - component: {fileID: 1744243439347208377}
   - component: {fileID: 4047874823341634621}
   - component: {fileID: 3669778506999955367}
@@ -352,25 +351,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4956789024446878993
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4562054309413373039}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c1cc62de01cc05e4692cd6d7fd9305c9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6970221bf92f4af41b7df7c14a6be0db, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &1744243439347208377
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -467,6 +447,7 @@ MonoBehaviour:
   burgerCost: 2
   projectile: {fileID: 0}
   projSpawn: {fileID: 5491738914349396955}
+  hitSound: {fileID: 0}
 --- !u!1 &4951964935070954986
 GameObject:
   m_ObjectHideFlags: 0

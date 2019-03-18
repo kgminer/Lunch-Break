@@ -263,8 +263,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: ApperArm_L
       parentName: Spine
-      position: {x: -0.06523471, y: 0.41999978, z: -0.25772244}
-      rotation: {x: -0.6142555, y: -0.00000020877424, z: 0.7891072, w: 0.0000005652789}
+      position: {x: -0.065234974, y: 0.42000544, z: -0.2577299}
+      rotation: {x: -0.43335238, y: -0.43533376, z: 0.55670863, w: 0.5592547}
       scale: {x: 0.99999994, y: 1, z: 0.99999994}
     - name: LowerArm_L
       parentName: ApperArm_L
@@ -279,8 +279,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: ApperArm_R
       parentName: Spine
-      position: {x: 0.06523462, y: 0.4199999, z: 0.25772163}
-      rotation: {x: -0.6142555, y: -0.00000023729271, z: 0.7891072, w: 0.00000043187185}
+      position: {x: 0.06523462, y: 0.41999996, z: 0.25772163}
+      rotation: {x: -0.43254882, y: 0.43613228, z: 0.5556767, w: -0.56028}
       scale: {x: 0.99999994, y: 1, z: 0.99999994}
     - name: LowerArm_R
       parentName: ApperArm_R

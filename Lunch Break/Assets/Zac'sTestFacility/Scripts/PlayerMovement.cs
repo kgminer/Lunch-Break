@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public float fireRate = 0.5f;
 
     Vector3 movement;
-    Animator anim;
     Rigidbody playerRigid;
     int floorMask;
     float camRayLen = 100f;
@@ -19,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         floorMask = LayerMask.GetMask("Floor");
-        anim = GetComponent<Animator>();
         playerRigid = GetComponent<Rigidbody>();
     }
 
@@ -30,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
 
         Move(h, v);
         TurnWithMouse();
-        // Animate(h, v);
     }
 
     private void Update()
@@ -40,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 nextFire = Time.time + fireRate;
                 Instantiate(projectile, projSpawn.position, projSpawn.rotation);
+                
             }
     }
 
@@ -66,11 +64,5 @@ public class PlayerMovement : MonoBehaviour
 
             playerRigid.MoveRotation(newRotation);
         }
-    }
-
-    private void Animate(float h, float v)
-    {
-        bool moving = h != 0f || v != 0f;
-        anim.SetBool("IsWalking", moving);
     }
 }

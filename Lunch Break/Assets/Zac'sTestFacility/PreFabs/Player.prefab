@@ -226,7 +226,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3662484122248012802}
-  - component: {fileID: 3662484122595932827}
   - component: {fileID: 3662484122595932826}
   - component: {fileID: 3662484122595932821}
   - component: {fileID: 3662484122595932824}
@@ -255,25 +254,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3662484122595932827
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3662484122595932823}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 22a65baa32554984ba1758c295862dda, type: 3}
-  m_Controller: {fileID: 9100000, guid: d8c0fda3cb5a97848a1e7507fb33228e, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &3662484122595932826
 Rigidbody:
   m_ObjectHideFlags: 0

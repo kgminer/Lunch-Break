@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
 
     Vector3 movement;
-    Animator anim;
     Rigidbody playerRigid;
     int floorMask;
     float camRayLen = 100f;
@@ -117,7 +116,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         floorMask = LayerMask.GetMask("Floor");
-        anim = GetComponent<Animator>();
         playerRigid = GetComponent<Rigidbody>();
 
         // Reaching the border components of the slots for highlighting
@@ -180,7 +178,6 @@ public class PlayerController : MonoBehaviour
         TurnWithMouse();
         Move(h, v);
         
-        // Animate(h, v);
     }
 
     private void Move(float h, float v)
@@ -218,11 +215,7 @@ public class PlayerController : MonoBehaviour
     }
     */
 
-    private void Animate(float h, float v)
-    {
-        bool moving = h != 0f || v != 0f;
-        anim.SetBool("IsWalking", moving);
-    }
+
 
     private InventoryItemBase mItemToPickup = null;
 

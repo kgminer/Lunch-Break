@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1420903549}
-  - component: {fileID: 8873790667784159114}
   - component: {fileID: 6126083470409179977}
   - component: {fileID: 3855098722794912201}
   - component: {fileID: 1077470151927607320}
@@ -39,25 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8873790667784159114
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649242408}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 22a65baa32554984ba1758c295862dda, type: 3}
-  m_Controller: {fileID: 9100000, guid: d8c0fda3cb5a97848a1e7507fb33228e, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &6126083470409179977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -120,6 +100,7 @@ MonoBehaviour:
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
+  hitSound: {fileID: 0}
   inventory: {fileID: 0}
   hud: {fileID: 0}
   Hand: {fileID: 519766480223965146}
