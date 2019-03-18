@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3855098722794912201}
   - component: {fileID: 1077470151927607320}
   - component: {fileID: 5255769607955892410}
+  - component: {fileID: 4706875058044389208}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Team2
@@ -104,6 +105,25 @@ MonoBehaviour:
   inventory: {fileID: 0}
   hud: {fileID: 0}
   Hand: {fileID: 519766480223965146}
+--- !u!95 &4706875058044389208
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649242408}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 22a65baa32554984ba1758c295862dda, type: 3}
+  m_Controller: {fileID: 9100000, guid: 899fde23feb130b42a466af4247bca88, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &229085142573110849
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +552,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3719117153281109172}
-  m_LocalRotation: {x: 0.0007233034, y: -0.000958461, z: 0.5991726, w: 0.80061907}
+  m_LocalRotation: {x: 0.0007233034, y: -0.0009584609, z: 0.5991726, w: 0.80061895}
   m_LocalPosition: {x: 2.452749e-11, y: 0.39792225, z: -0.000000007733555}
   m_LocalScale: {x: 1, y: 1, z: 0.99999994}
   m_Children: []
@@ -717,7 +737,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7464932161652461703}
-  m_LocalRotation: {x: 0.0007563131, y: -0.0010054901, z: 0.5978111, w: 0.8016361}
+  m_LocalRotation: {x: 0.0007563131, y: -0.00100549, z: 0.5978111, w: 0.801636}
   m_LocalPosition: {x: -1.0363931e-12, y: 0.39789727, z: 0.0000000034922802}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children: []

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 movement;
     Rigidbody playerRigid;
+    Animator playerAnimator;
     int floorMask;
     float camRayLen = 100f;
 
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
     {
         floorMask = LayerMask.GetMask("Floor");
         playerRigid = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
 
         // Reaching the border components of the slots for highlighting
         GameObject hudInterface = GameObject.Find("HUD");
@@ -177,6 +179,7 @@ public class PlayerController : MonoBehaviour
 
         TurnWithMouse();
         Move(h, v);
+        Animate(h, v);
         
     }
 
@@ -291,6 +294,12 @@ public class PlayerController : MonoBehaviour
             hud.CloseMessagePanel();
             mItemToPickup = null;
         }
+    }
+
+    private void Animate(float h, float v)
+    {
+        Boolean walkingF = (h != 0f) || (v != 0f);
+        playerAnimator.SetBool("isWalkingFor", walkingF);
     }
 }
 

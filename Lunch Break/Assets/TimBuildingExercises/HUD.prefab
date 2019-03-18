@@ -115,6 +115,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Inventory: {fileID: 0}
   MessagePanel: {fileID: 7805174064861787317}
+  TimeRemainingLabel: {fileID: 0}
+  RespawnMap: {fileID: 0}
+  GameOverPanel: {fileID: 0}
+  ScoreLabel: {fileID: 0}
+  ScienceGeeksFinalScore: {fileID: 0}
+  BookWormsFinalScore: {fileID: 0}
+  JocksFinalScore: {fileID: 0}
 --- !u!1 &7805174063546960962
 GameObject:
   m_ObjectHideFlags: 0
