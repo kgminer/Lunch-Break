@@ -606,10 +606,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  projSpawn: {fileID: 0}
+  projSpawn: {fileID: 864475828008514800}
   fireRate: 0.5
   health: 3
-  burger: {fileID: 0}
+  burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 0}
   drink: {fileID: 0}
   hitSound: {fileID: 0}

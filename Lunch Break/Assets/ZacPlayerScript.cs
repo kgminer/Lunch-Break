@@ -92,6 +92,7 @@ public class ZacPlayerScript : MonoBehaviour
                 // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
                 if (item.GetComponent<Burger>())
                 {
+
                     playerAnimator.SetTrigger("Attack");
 
                     nextFire = Time.time + fireRate;
@@ -307,11 +308,11 @@ public class ZacPlayerScript : MonoBehaviour
 
     private void Animate(float h, float v)
     {
-        Debug.Log("Entered Animate. h = " + h + "v = " + v);
+        
 
         Boolean walkingF = (h != 0f) || (v != 0f);
 
-        Debug.Log("walkingF = " + walkingF);
+
         playerAnimator.SetBool("isWalkingFor", walkingF);
     }
 }
