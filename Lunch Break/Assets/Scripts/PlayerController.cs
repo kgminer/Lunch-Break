@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check if there is a keypress for an item to pickup
-        //if (mItemToPickup != null && Input.GetKeyDown(KeyCode.E))
         if (mItemToPickup != null && Input.GetButton("Submit"))
         {
             // TODO: Add If logic to say if the object is moving you can't pick it up
@@ -93,21 +92,24 @@ public class PlayerController : MonoBehaviour
                 if (item.GetComponent<Burger>())
                 {
                     nextFire = Time.time + fireRate;
-                    Instantiate(burger, projSpawn.position, projSpawn.rotation);
+                    GameObject thrown = Instantiate(burger, projSpawn.position, projSpawn.rotation);
+                    thrown.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
 
                 if (item.GetComponent<Donut>())
                 {
                     nextFire = Time.time + fireRate;
-                    Instantiate(donut, projSpawn.position, projSpawn.rotation);
+                    GameObject thrown = Instantiate(donut, projSpawn.position, projSpawn.rotation);
+                    thrown.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
 
                 if (item.GetComponent<Drink>())
                 {
                     nextFire = Time.time + fireRate;
-                    Instantiate(drink, projSpawn.position, projSpawn.rotation);
+                    GameObject thrown = Instantiate(drink, projSpawn.position, projSpawn.rotation);
+                    thrown.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
             }
@@ -237,7 +239,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Projectile1"))
+        if (GetHit(other))
         {
             health--;
             Destroy(other.gameObject);
@@ -252,38 +254,41 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
 
-        if (other.gameObject.CompareTag("Projectile3"))
+    // Boolean return of enemy projectile entering collider
+    private Boolean GetHit(Collider other)
+    {
+        String myTeam = this.tag;
+        String enemy1 = "";
+        String enemy2 = "";
+
+
+        switch (myTeam)
         {
-            health--;
-            Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+            case "scienceGeek":
+                enemy1 = "jock";
+                enemy2 = "bookWorm";
+                break;
 
-            if (health <= 0)
-            {
-                // increase score for projectile team
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-                Destroy(gameObject);
-            }
+            case "jock":
+                enemy1 = "scienceGeek";
+                enemy2 = "bookWorm";
+                break;
+
+            case "bookWorm":
+                enemy1 = "scienceGeek";
+                enemy2 = "jock";
+                break;
         }
 
-        /*
-        if (other.gameObject.CompareTag("Projectile4"))
+        if (other.tag == (enemy1 + "Thrown") || other.tag == (enemy2 + "Thrown"))
         {
-            health--;
-            Destroy(other.gameObject);
-            if (health <= 0)
-            {
-                // increase score for projectile team
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-                Destroy(gameObject);
-            }
+            return true;
         }
-       */
+
+        else
+            return false;
     }
 
     private void OnTriggerExit(Collider other)

@@ -18,6 +18,12 @@ TagManager:
   - Team3
   - Team4
   - Thrown
+  - scienceGeek
+  - bookWorm
+  - jocks
+  - scienceGeekThrown
+  - bookWormThrown
+  - jocksThrown
   layers:
   - Default
   - TransparentFX

@@ -97,18 +97,35 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 Player.transform.position = ScienceGeeksSpawnObject.transform.position;
+                Player.tag = scienceGeek;
+
                 NPC1.transform.position = JocksSpawnObject.transform.position;
+                NPC1.tag = jock;
+
                 NPC2.transform.position = BookWormsSpawnObject.transform.position;
+                NPC2.tag = bookWorm;
                 break;
+
             case 1:
                 Player.transform.position = JocksSpawnObject.transform.position;
+                Player.tag = jock;
+
                 NPC1.transform.position = ScienceGeeksSpawnObject.transform.position;
+                NPC1.tag = scienceGeek;
+
                 NPC2.transform.position = BookWormsSpawnObject.transform.position;
+                NPC2.tag = bookWorm;
                 break;
+
             case 2:
                 Player.transform.position = BookWormsSpawnObject.transform.position;
+                Player.tag = bookWorm;
+
                 NPC1.transform.position = JocksSpawnObject.transform.position;
+                NPC1.tag = jock;
+
                 NPC2.transform.position = ScienceGeeksSpawnObject.transform.position;
+                NPC2.tag = scienceGeek;
                 break;
         }
         */
