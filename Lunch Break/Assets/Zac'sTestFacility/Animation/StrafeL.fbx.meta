@@ -200,15 +200,15 @@ ModelImporter:
     - serializedVersion: 16
       name: RapidStrafe_90HipsLeftFaceFwd
       takeName: _60_a_U1_M_P_RapidStrafe_90HipsLeftFaceFwd__Fb_p90_No_0_PJ_5
-      firstFrame: 68
-      lastFrame: 500
+      firstFrame: 310
+      lastFrame: 345
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -224,7 +224,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 68
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -308,12 +308,78 @@ public class ZacPlayerScript : MonoBehaviour
 
     private void Animate(float h, float v)
     {
-        
+        //Boolean walking = (h != 0f) || (v != 0f);
+        float facingAngle = playerRigid.rotation.y;
 
-        Boolean walkingF = (h != 0f) || (v != 0f);
+        if (h == 0 && v == 1) // moving north
+        {
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
 
+            if (facingAngle > 45 || facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
 
-        playerAnimator.SetBool("isWalkingFor", walkingF);
+            if (facingAngle > 135 || facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 225 || facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if(h == 1 && v == 1) // moving northeast
+        {
+            if (facingAngle > 0 || facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 90 || facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 180 || facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 270 || facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if(h == 1 && v == 0) // moving east
+        {
+            if (facingAngle > 45 || facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 135 || facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 225 || facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if(h == 1 && v == -1) // southeast
+        {
+
+        }
+
+        if(h == 0 && v == -1) // south
+        {
+
+        }
+
+        if(h == -1 && v == -1) // southwest
+        {
+
+        }
+
+        if(h == -1 && v == 0) // west
+        {
+
+        }
+
+        if(h == -1 && v == 1) // northwest
+        {
+
+        }
     }
 }
 
