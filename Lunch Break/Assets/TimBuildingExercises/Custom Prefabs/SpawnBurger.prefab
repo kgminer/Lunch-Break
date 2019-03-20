@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 931056030}
   - component: {fileID: 2006933067730444270}
   - component: {fileID: 2669708625193072414}
+  - component: {fileID: 9219988206096036942}
   m_Layer: 0
   m_Name: SpawnBurger
   m_TagString: Food
@@ -150,3 +151,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.15
   m_Center: {x: -0.00045813993, y: 0.06921328, z: 0.0013193376}
+--- !u!122 &9219988206096036942
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931056029}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294902008
+  m_Size: 0.3

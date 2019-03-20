@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1089736281}
   - component: {fileID: 1089736280}
   - component: {fileID: 618554053922339521}
+  - component: {fileID: 9156887961172425735}
   m_Layer: 0
   m_Name: SpawnCake
   m_TagString: Food
@@ -122,3 +123,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Image: {fileID: 21300000, guid: 43bcd5cad318da6498702ab0b7453f01, type: 3}
+--- !u!122 &9156887961172425735
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089736279}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294902008
+  m_Size: 0.3

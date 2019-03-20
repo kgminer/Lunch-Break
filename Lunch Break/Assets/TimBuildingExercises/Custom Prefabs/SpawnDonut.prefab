@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1132603539}
   - component: {fileID: 1132603538}
   - component: {fileID: 2589277024704925222}
+  - component: {fileID: 4054227973188508460}
   m_Layer: 0
   m_Name: SpawnDonut
   m_TagString: Food
@@ -136,3 +137,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.24, y: 0.09, z: 0.18357572}
   m_Center: {x: -0.0010448247, y: 0.028952312, z: 0.0013607889}
+--- !u!122 &4054227973188508460
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132603537}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294902008
+  m_Size: 0.3

@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
             mItemToPickup.OnPickup();
             hud.CloseMessagePanel();
             mItemToPickup = null;
+            mItemGlow.enabled = false;
         }
 
         // If a projectile has been selected allow for firing
@@ -223,6 +224,9 @@ public class PlayerController : MonoBehaviour
 
 
     private InventoryItemBase mItemToPickup = null;
+    private InventoryItemBase prevItem = null;
+    private Behaviour mItemGlow = null;
+    private Behaviour prevGlow = null;
 
     void OnTriggerEnter(Collider other)
     {
@@ -230,10 +234,21 @@ public class PlayerController : MonoBehaviour
         {
             // Get the item reference
             InventoryItemBase item = other.GetComponent<InventoryItemBase>();
+            //Halo glow = other.GetComponent<Halo>();
+            mItemGlow = (Behaviour)other.GetComponent("Halo");
+
+            // Ensure that the glow on the previously hovered item is off if the colliders overlap
+            if (prevItem != null && item != prevItem)
+            {
+                prevGlow.enabled = false;
+            }
 
             // If the item exists and there is room for it in the inventory, display pick up message
             if (!inventory.IsFull(item))
             {
+                mItemGlow.enabled = true;
+                prevItem = item;
+                prevGlow = mItemGlow;
                 mItemToPickup = item;
                 hud.OpenMessagePanel("");
             }
@@ -298,6 +313,8 @@ public class PlayerController : MonoBehaviour
         {
             hud.CloseMessagePanel();
             mItemToPickup = null;
+            mItemGlow.enabled = false;
+            mItemGlow = null;
         }
     }
 
