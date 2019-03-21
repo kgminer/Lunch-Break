@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // Create a sound manager reference
+    private SoundManager SoundManager;
+
     public float speed = 5f;
 
     Vector3 movement;
@@ -23,7 +26,6 @@ public class PlayerController : MonoBehaviour
     public GameObject burger;
     public GameObject donut;
     public GameObject drink;
-    public AudioClip hitSound;
 
     public Inventory inventory;
     public HUD hud;
@@ -258,7 +260,7 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+            SoundManager.HitSound(transform);
 
             if (health <= 0)
             {
