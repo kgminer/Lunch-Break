@@ -320,8 +320,131 @@ public class PlayerController : MonoBehaviour
 
     private void Animate(float h, float v)
     {
-        Boolean walkingF = (h != 0f) || (v != 0f);
-        playerAnimator.SetBool("isWalkingFor", walkingF);
+        if (h == 0 && v == 0) //not moving
+            playerAnimator.SetInteger("WalkState", 4); // return to idle
+
+        float facingAngle = playerRigid.rotation.eulerAngles.y;
+
+
+        if (h == 0 && v == 1) // moving north
+        {
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h == 1 && v == 1) // moving northeast
+        {
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h == 1 && v == 0) // moving east
+        {
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h == 1 && v == -1) // moving southeast
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h == 0 && v == -1) // moving south
+        {
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h == -1 && v == -1) // moving southwest
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+        }
+
+        if (h == -1 && v == 0) // moving west
+        {
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 0); // walk forwards
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+        }
+
+        if (h == -1 && v == 1) // moving northwest
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 0); // walk forwards
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+        }
     }
 }
 
