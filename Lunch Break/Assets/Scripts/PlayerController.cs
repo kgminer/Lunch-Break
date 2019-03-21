@@ -266,6 +266,7 @@ public class PlayerController : MonoBehaviour
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
+                playerAnimator.SetTrigger("Die");
                 Destroy(gameObject);
             }
         }
