@@ -87,7 +87,7 @@ public class AI2Cap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Projectile1")
+        if (other.gameObject.tag == "bookWormThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -96,6 +96,7 @@ public class AI2Cap : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
+                GameManager.bookWormsScore++;
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
@@ -105,7 +106,7 @@ public class AI2Cap : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "Projectile3")
+        if (other.gameObject.tag == "jocksThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -114,6 +115,7 @@ public class AI2Cap : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
+                GameManager.jocksScore++;
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
@@ -172,8 +174,8 @@ public class AI2Cap : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Team1");
-        GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
+        GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("bookWorm");
+        GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("jocks");
         // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
         GameObject[] allEnemies = new GameObject[enemies1.Length + enemies3.Length /* + enemies4.Length */];

@@ -265,15 +265,15 @@ public class PlayerController : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
-                if(other.tag == "scienceGeek Thrown")
+                if(other.tag == "scienceGeekThrown")
                 {
                     GameManager.scienceGeeksScore++;
                 }
-                else if(other.tag == "jock Thrown")
+                else if(other.tag == "jocksThrown")
                 {
                     GameManager.jocksScore++;
                 }
-                else if(other.tag == "bookWorm Thrown")
+                else if(other.tag == "bookWormThrown")
                 {
                     GameManager.bookWormsScore++;
                 }
@@ -297,18 +297,18 @@ public class PlayerController : MonoBehaviour
         switch (myTeam)
         {
             case "scienceGeek":
-                enemy1 = "jock";
+                enemy1 = "jocks";
                 enemy2 = "bookWorm";
                 break;
 
-            case "jock":
+            case "jocks":
                 enemy1 = "scienceGeek";
                 enemy2 = "bookWorm";
                 break;
 
             case "bookWorm":
                 enemy1 = "scienceGeek";
-                enemy2 = "jock";
+                enemy2 = "jocks";
                 break;
         }
 

@@ -102,7 +102,7 @@ public class AI1Aggressive : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Projectile2")
+        if (other.gameObject.tag == "scienceGeekThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -111,6 +111,7 @@ public class AI1Aggressive : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
+                GameManager.scienceGeeksScore++;
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
@@ -120,7 +121,7 @@ public class AI1Aggressive : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "Projectile3")
+        if (other.gameObject.tag == "jocksThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -129,6 +130,7 @@ public class AI1Aggressive : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
+                GameManager.jocksScore++;
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
@@ -164,7 +166,7 @@ public class AI1Aggressive : MonoBehaviour
         {
             if (money >= 2 && Ammo.Count < maxInv)
             {
-                burger.tag = "Projectile1";
+                burger.tag = "bookWormThrown";
                 Ammo.Add(burger);
                 money -= burgerCost;
             }
@@ -176,7 +178,7 @@ public class AI1Aggressive : MonoBehaviour
             {
                 if (Time.time > nextBar)
                 {
-                    burger.tag = "Projectile1";
+                    burger.tag = "bookWormThrown";
                     Ammo.Add(burger);
 
                     nextBar = Time.time + barCooldown;
@@ -187,8 +189,8 @@ public class AI1Aggressive : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Team2");
-        GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("Team3");
+        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("scienceGeek");
+        GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("jocks");
         // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
 
         GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length /* + enemies4.Length */];
