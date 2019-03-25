@@ -133,16 +133,16 @@ public class HUD : MonoBehaviour
         TimeRemainingLabel.GetComponent<Text>().text = "Time Remaining: " + formattedTime;
     }
 
-    public void SetScoreText(int score1, int score2, int score3)
+    public void SetScoreText()
     {
-        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + score1 + "/100 " + "Book Worms: " + score2 + "/100 " + "Jocks: " + score3 + "/100";
+        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore + "/100 " + "Book Worms: " + GameManager.bookWormsScore + "/100 " + "Jocks: " + GameManager.jocksScore + "/100";
     }
 
-    public void SetFinalScoreText(int score1, int score2, int score3)
+    public void SetFinalScoreText()
     {
-        ScienceGeeksFinalScore.GetComponent<Text>().text = "Science Geeks: " + score1;
-        BookWormsFinalScore.GetComponent<Text>().text = "Book Worms: " + score2;
-        JocksFinalScore.GetComponent<Text>().text = "Jocks: " + score3;
+        ScienceGeeksFinalScore.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore;
+        BookWormsFinalScore.GetComponent<Text>().text = "Book Worms: " + GameManager.bookWormsScore;
+        JocksFinalScore.GetComponent<Text>().text = "Jocks: " + GameManager.jocksScore;
     }
 
     public void OpenRespawnMap()

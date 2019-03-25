@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private float timeRemaining;
     private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
-    private int scienceGeeksScore, bookWormsScore, jocksScore;
+    public static int scienceGeeksScore, bookWormsScore, jocksScore;
     //private GameObject camera;
 
     public HUD gameDisplay;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
                 if (!outOfTime)
                 {
                     gameDisplay.SetTimeRemainingText(minutes, seconds);
-                    gameDisplay.SetScoreText(scienceGeeksScore, bookWormsScore, jocksScore);
+                    gameDisplay.SetScoreText();
                     scoreReached = scienceGeeksScore >= 100 || bookWormsScore >= 100 || jocksScore >= 100;
                     if(scoreReached)
                     {
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 1:
-                gameDisplay.SetFinalScoreText(scienceGeeksScore, bookWormsScore, jocksScore);
+                gameDisplay.SetFinalScoreText();
                 gameDisplay.OpenGameOverPanel();
                 break;
         }

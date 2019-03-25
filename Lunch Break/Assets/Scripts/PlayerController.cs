@@ -265,6 +265,18 @@ public class PlayerController : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
+                if(other.tag == "scienceGeek Thrown")
+                {
+                    GameManager.scienceGeeksScore++;
+                }
+                else if(other.tag == "jock Thrown")
+                {
+                    GameManager.jocksScore++;
+                }
+                else if(other.tag == "bookWorm Thrown")
+                {
+                    GameManager.bookWormsScore++;
+                }
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
