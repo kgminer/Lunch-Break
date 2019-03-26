@@ -1,6 +1,7 @@
 ﻿// Recklessly aggressive AI for Team2
 // Find Ammo and attack nearest enemy
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,8 +24,10 @@ public class AI2Aggressive : MonoBehaviour
     float runTimer;
     float runTil = 0f;
 
-    public float health;
-    public float money;
+    private float health;
+    public float startingHealth;
+    private float money;
+    public float startingMoney;
     public int maxInv;
 
     public float barCooldown;
@@ -46,6 +49,10 @@ public class AI2Aggressive : MonoBehaviour
     float nextFire;
     List<GameObject> Ammo;
 
+    public bool alive;
+    public GameObject ScienceGeeksSpawnObject;
+    public GameObject RespawnObject;
+
     private void Awake()
     {
         vendor = FindNearestVendor();
@@ -53,10 +60,18 @@ public class AI2Aggressive : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
 
         Ammo = new List<GameObject>();
+
+        health = startingHealth;
+        money = startingMoney;
     }
 
     private void Update()
     {
+        if (!alive)
+        {
+            return;
+        }
+
         nearestEnemy = FindNearestEnemy();
 
         if (!Ammo.Any())
@@ -100,9 +115,20 @@ public class AI2Aggressive : MonoBehaviour
         }
     }
 
+    IEnumerator Respawn()
+    {
+        alive = false;
+        gameObject.transform.position = RespawnObject.transform.position;
+        health = startingHealth;
+        money = startingMoney;
+        yield return new WaitForSeconds(10);
+        gameObject.transform.position = ScienceGeeksSpawnObject.transform.position;
+        alive = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "bookWormThrown")
+        if (other.gameObject.tag == "bookWormThrown" || other.gameObject.tag == "jocksThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -111,53 +137,23 @@ public class AI2Aggressive : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
-                GameManager.bookWormsScore++;
+                if (other.gameObject.tag == "bookWormThrown")
+                {
+                    GameManager.bookWormsScore++;
+                }
+                else if (other.gameObject.tag == "jocksThrown")
+                {
+                    GameManager.jocksScore++;
+                }
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
 
-                Destroy(gameObject);
-
+                //Destroy(gameObject);
+                //Respawn();
+                StartCoroutine("Respawn");
             }
         }
-
-        if (other.gameObject.tag == "jocksThrown")
-        {
-            health--;
-            Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
-
-            if (health <= 0)
-            {
-                // increase score for projectile team
-                GameManager.jocksScore++;
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-
-                Destroy(gameObject);
-
-            }
-        }
-
-        /*
-        if (other.gameObject.tag == "Projectile4")
-        {
-            health--;
-            Destroy(other);
-
-            if (health <= 0)
-            {
-                // increase score for projectile team
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-
-                Destroy(gameObject);
-
-            }
-        }
-        */
     }
 
     private void OnTriggerStay(Collider other)

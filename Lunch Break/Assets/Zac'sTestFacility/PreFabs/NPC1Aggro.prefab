@@ -438,8 +438,8 @@ MonoBehaviour:
   runMagMax: 10
   runTilMin: 1
   runTilMax: 5
-  health: 3
-  money: 2
+  startingHealth: 3
+  startingMoney: 2
   maxInv: 3
   barCooldown: 3
   fireRate: 0.75
@@ -448,6 +448,9 @@ MonoBehaviour:
   projectile: {fileID: 0}
   projSpawn: {fileID: 5491738914349396955}
   hitSound: {fileID: 0}
+  alive: 0
+  BookWormsSpawnObject: {fileID: 0}
+  RespawnObject: {fileID: 0}
 --- !u!1 &4951964935070954986
 GameObject:
   m_ObjectHideFlags: 0
