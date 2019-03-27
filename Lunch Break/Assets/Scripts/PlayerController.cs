@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     float camRayLen = 100f;
 
     public Transform projSpawn;
+    public Transform leftSpawn;
+    public Transform rightSpawn;
     public float fireRate = 0.5f;
     private float nextFire;
     public float health = 3f;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject donut;
     public GameObject drink;
     public GameObject cake;
+    public GameObject fries;
 
     public Inventory inventory;
     public HUD hud;
@@ -127,6 +130,19 @@ public class PlayerController : MonoBehaviour
                     location.y = 0;
                     GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
                     thrown.tag = this.tag + "Thrown";
+                    inventory.RemoveItem(item, projectileSelect);
+                }
+
+                if (item.GetComponent<Fries>())
+                {
+                    nextFire = Time.time + fireRate;
+
+                    GameObject thrown1 = Instantiate(fries, leftSpawn.position, leftSpawn.rotation);
+                    thrown1.tag = this.tag + "Thrown";
+                    GameObject thrown2 = Instantiate(fries, projSpawn.position, projSpawn.rotation);
+                    thrown2.tag = this.tag + "Thrown";
+                    GameObject thrown3 = Instantiate(fries, rightSpawn.position, rightSpawn.rotation);
+                    thrown3.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
             }
