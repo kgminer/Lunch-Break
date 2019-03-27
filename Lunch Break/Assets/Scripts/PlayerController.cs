@@ -31,6 +31,15 @@ public class PlayerController : MonoBehaviour
     public GameObject cake;
     public GameObject fries;
 
+    // Held object references
+    public GameObject heldBurger;
+    public GameObject heldDonut;
+    public GameObject heldDrink;
+    public GameObject heldCake;
+    public GameObject heldTray;
+    public GameObject heldFries;
+    private GameObject activeItem;
+
     public Inventory inventory;
     public HUD hud;
     public GameObject Hand;
@@ -54,12 +63,84 @@ public class PlayerController : MonoBehaviour
     void Update ()
     {
         // Projectile selection will change slot of use and update ui component to reflect selection
-        if (Input.GetButton("Item0"))
+        if (Input.GetButtonDown("Item0"))
         {
             projectileSelect = 0;
             slot1.colors = usedSlot;
             slot2.colors = unusedSlot;
             slot3.colors = unusedSlot;
+
+            // If the slot is not empty, hold the item
+            if (inventory.mSlots[projectileSelect].Count > 0)
+            {
+                InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                if (item.GetComponent<Burger>())
+                {
+                    if (activeItem != null && activeItem != heldBurger)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldBurger.SetActive(true);
+                    activeItem = heldBurger;
+                }
+
+                if (item.GetComponent<Donut>())
+                {
+                    if (activeItem != null && activeItem != heldDonut)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDonut.SetActive(true);
+                    activeItem = heldDonut;
+                }
+
+                if (item.GetComponent<Drink>())
+                {
+                    if (activeItem != null && activeItem != heldDrink)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDrink.SetActive(true);
+                    activeItem = heldDrink;
+                }
+
+                if (item.GetComponent<Cake>())
+                {
+                    if (activeItem != null && activeItem != heldCake)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldCake.SetActive(true);
+                    activeItem = heldCake;
+                }
+
+                if (item.GetComponent<Fries>())
+                {
+                    if (activeItem != null && activeItem != heldFries)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldFries.SetActive(true);
+                    activeItem = heldFries;
+                }
+
+                if (item.GetComponent<Tray>())
+                {
+                    if (activeItem != null && activeItem != heldTray)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldTray.SetActive(true);
+                    activeItem = heldTray;
+                }
+            }
         }
 
         // Projectile selection will change slot of use and update ui component to reflect selection
@@ -69,6 +150,78 @@ public class PlayerController : MonoBehaviour
             slot1.colors = unusedSlot;
             slot2.colors = usedSlot;
             slot3.colors = unusedSlot;
+
+            // If the slot is not empty, hold the item
+            if (inventory.mSlots[projectileSelect].Count > 0)
+            {
+                InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                if (item.GetComponent<Burger>())
+                {
+                    if (activeItem != null && activeItem != heldBurger)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldBurger.SetActive(true);
+                    activeItem = heldBurger;
+                }
+
+                if (item.GetComponent<Donut>())
+                {
+                    if (activeItem != null && activeItem != heldDonut)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDonut.SetActive(true);
+                    activeItem = heldDonut;
+                }
+
+                if (item.GetComponent<Drink>())
+                {
+                    if (activeItem != null && activeItem != heldDrink)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDrink.SetActive(true);
+                    activeItem = heldDrink;
+                }
+
+                if (item.GetComponent<Cake>())
+                {
+                    if (activeItem != null && activeItem != heldCake)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldCake.SetActive(true);
+                    activeItem = heldCake;
+                }
+
+                if (item.GetComponent<Fries>())
+                {
+                    if (activeItem != null && activeItem != heldFries)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldFries.SetActive(true);
+                    activeItem = heldFries;
+                }
+
+                if (item.GetComponent<Tray>())
+                {
+                    if (activeItem != null && activeItem != heldTray)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldTray.SetActive(true);
+                    activeItem = heldTray;
+                }
+            }
         }
 
         // Projectile selection will change slot of use and update ui component to reflect selection
@@ -78,6 +231,78 @@ public class PlayerController : MonoBehaviour
             slot1.colors = unusedSlot;
             slot2.colors = unusedSlot;
             slot3.colors = usedSlot;
+
+            // If the slot is not empty, hold the item
+            if (inventory.mSlots[projectileSelect].Count > 0)
+            {
+                InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                if (item.GetComponent<Burger>())
+                {
+                    if (activeItem != null && activeItem != heldBurger)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldBurger.SetActive(true);
+                    activeItem = heldBurger;
+                }
+
+                if (item.GetComponent<Donut>())
+                {
+                    if (activeItem != null && activeItem != heldDonut)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDonut.SetActive(true);
+                    activeItem = heldDonut;
+                }
+
+                if (item.GetComponent<Drink>())
+                {
+                    if (activeItem != null && activeItem != heldDrink)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldDrink.SetActive(true);
+                    activeItem = heldDrink;
+                }
+
+                if (item.GetComponent<Cake>())
+                {
+                    if (activeItem != null && activeItem != heldCake)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldCake.SetActive(true);
+                    activeItem = heldCake;
+                }
+
+                if (item.GetComponent<Fries>())
+                {
+                    if (activeItem != null && activeItem != heldFries)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldFries.SetActive(true);
+                    activeItem = heldFries;
+                }
+
+                if (item.GetComponent<Tray>())
+                {
+                    if (activeItem != null && activeItem != heldTray)
+                    {
+                        activeItem.SetActive(false);
+                    }
+
+                    heldTray.SetActive(true);
+                    activeItem = heldTray;
+                }
+            }
         }
 
         // Check if there is a keypress for an item to pickup
@@ -145,6 +370,10 @@ public class PlayerController : MonoBehaviour
                     thrown3.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
+
+                // Check and see if the slot is now empty, if it is remove the object from the hand
+                if (inventory.mSlots[projectileSelect].Count < 1)
+                    activeItem.SetActive(false);
             }
         }
     }
@@ -172,6 +401,9 @@ public class PlayerController : MonoBehaviour
 
         usedSlot = cbUse;
         unusedSlot = cbUnuse;
+
+        // Collect the held item references
+
     }
 
     void Start()
