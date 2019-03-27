@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public GameObject burger;
     public GameObject donut;
     public GameObject drink;
+    public GameObject cake;
 
     public Inventory inventory;
     public HUD hud;
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
     Button slot1;
     Button slot2;
     Button slot3;
+
+    // List for holding each food item being collided with
+    List<GameObject> touching = new List<GameObject>();
 
     // Slot color presets for reassigning 
     ColorBlock usedSlot;
@@ -112,6 +116,16 @@ public class PlayerController : MonoBehaviour
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thrown = Instantiate(drink, projSpawn.position, projSpawn.rotation);
+                    thrown.tag = this.tag + "Thrown";
+                    inventory.RemoveItem(item, projectileSelect);
+                }
+
+                if (item.GetComponent<Cake>())
+                {
+                    nextFire = Time.time + fireRate;
+                    Vector3 location = projSpawn.position;
+                    location.y = 0;
+                    GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
                     thrown.tag = this.tag + "Thrown";
                     inventory.RemoveItem(item, projectileSelect);
                 }
