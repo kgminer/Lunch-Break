@@ -15,6 +15,7 @@ public class HUD : MonoBehaviour
     public GameObject ScienceGeeksFinalScore;
     public GameObject BookWormsFinalScore;
     public GameObject JocksFinalScore;
+    public GameObject PausePanel;
 
     // Use this for initialization
     void Start()
@@ -155,6 +156,17 @@ public class HUD : MonoBehaviour
         RespawnMap.SetActive(false);
     }
 
+    public void OpenPausePanel()
+    {
+        PausePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
+    public void ClosePausePanel()
+    {
+        PausePanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
     public void OpenGameOverPanel()
     {
         GameOverPanel.SetActive(true);

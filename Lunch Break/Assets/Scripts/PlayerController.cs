@@ -305,6 +305,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(Input.GetButton("Pause"))
+        {
+            hud.OpenPausePanel();
+        }
+
         // Check if there is a keypress for an item to pickup
         if (mItemToPickup != null && Input.GetButton("Submit"))
         {

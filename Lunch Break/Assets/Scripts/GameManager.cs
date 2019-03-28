@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         jocksScore = 0;
         InvokeRepeating("SpawnFood", 0.0f, 10f);
         PositionPlayers();
+        Time.timeScale = 1f;
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
