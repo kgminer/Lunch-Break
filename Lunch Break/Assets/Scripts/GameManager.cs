@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
     public static int scienceGeeksScore, bookWormsScore, jocksScore;
+    private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3;
     //private GameObject camera;
 
     public HUD gameDisplay;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         bookWormsScore = 0;
         jocksScore = 0;
         InvokeRepeating("SpawnFood", 0.0f, 10f);
+        //InvokeRepeating("ScoreCapZones", 0.0f, 3f);
         PositionPlayers();
         Time.timeScale = 1f;
         //camera = GameObject.Find("Main Camera");
@@ -99,34 +101,25 @@ public class GameManager : MonoBehaviour
             case 0:
                 Player.transform.position = ScienceGeeksSpawnObject.transform.position;
                 Player.tag = scienceGeek;
-
-                NPC1.transform.position = JocksSpawnObject.transform.position;
-                NPC1.tag = jock;
-
-                NPC2.transform.position = BookWormsSpawnObject.transform.position;
-                NPC2.tag = bookWorm;
+                SpawnScienceGeeksNPCs(NUM_NPCS - 1);
+                SpawnJocksNPCs(NUM_NPCS);
+                SpawnBookWormsNPCs(NUM_NPCS);
                 break;
 
             case 1:
+                SpawnScienceGeeksNPCs(NUM_NPCS);
                 Player.transform.position = JocksSpawnObject.transform.position;
                 Player.tag = jock;
-
-                NPC1.transform.position = ScienceGeeksSpawnObject.transform.position;
-                NPC1.tag = scienceGeek;
-
-                NPC2.transform.position = BookWormsSpawnObject.transform.position;
-                NPC2.tag = bookWorm;
+                SpawnJocksNPCs(NUM_NPCS - 1);
+                SpawnBookWormsNPCs(NUM_NPCS);
                 break;
 
             case 2:
+                SpawnScienceGeeksNPCs(NUM_NPCS);
+                SpawnJocksNPCs(NUM_NPCS);
                 Player.transform.position = BookWormsSpawnObject.transform.position;
                 Player.tag = bookWorm;
-
-                NPC1.transform.position = JocksSpawnObject.transform.position;
-                NPC1.tag = jock;
-
-                NPC2.transform.position = ScienceGeeksSpawnObject.transform.position;
-                NPC2.tag = scienceGeek;
+                SpawnBookWormsNPCs(NUM_NPCS - 1);
                 break;
         }
         */
@@ -146,5 +139,34 @@ public class GameManager : MonoBehaviour
         Instantiate(foodItem, foodSpawnPosition2.transform.position, Quaternion.identity);
         Instantiate(foodItem, foodSpawnPosition3.transform.position, Quaternion.identity);
         Instantiate(foodItem, foodSpawnPosition4.transform.position, Quaternion.identity);
+    }
+
+    private void ScoreCapZones()
+    {
+        GameObject[] capZones = GameObject.FindGameObjectsWithTag("Cap");
+        GameObject centralCapZone = GameObject.FindGameObjectWithTag("Center Cap");
+        //string centralCapOwner = centralCapZone.getTeam();
+        //ScoreCap(centralCapZone, CENTRAL_CAP_VALUE);
+        foreach (GameObject cap in capZones)
+        {
+            //string capOwner = cap.getTeam();
+            //ScoreCap(capOwner, VENDING_MACHINE_CAP_VALUE);
+        }
+    }
+
+    private void ScoreCap(string owner, int pointValue)
+    {
+        if(owner == "scienceGeek")
+        {
+            GameManager.scienceGeeksScore += pointValue;
+        }
+        else if(owner == "bookWorm")
+        {
+            GameManager.bookWormsScore += pointValue;
+        }
+        else if(owner == "jocks")
+        {
+            GameManager.jocksScore += pointValue;
+        }
     }
 }
