@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
     public static int scienceGeeksScore, bookWormsScore, jocksScore;
-    private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3;
+    private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3, NUM_NPCS = 6;
     //private GameObject camera;
 
     public HUD gameDisplay;
@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public GameObject JocksSpawnObject;
     public GameObject BookWormsSpawnObject;
     public GameObject Player;
-    public GameObject NPC1Team1;
-    public GameObject NPC2Team1;
-    public GameObject NPC1Team2;
-    public GameObject NPC1Team3;
-    public GameObject NPC2Team3;
+    public GameObject NPC1Aggro;
+    public GameObject NPC1Capper;
+    public GameObject NPC2Aggro;
+    public GameObject NPC2Capper;
+    public GameObject NPC3Aggro;
+    public GameObject NPC3Capper;
+    private GameObject[] scienceGeeksNPCs;
+    private GameObject[] bookWormsNPCs;
+    private GameObject[] jocksNPCs;
     public GameObject foodSpawnPosition1;
     public GameObject foodSpawnPosition2;
     public GameObject foodSpawnPosition3;
@@ -43,6 +47,9 @@ public class GameManager : MonoBehaviour
         scienceGeeksScore = 0;
         bookWormsScore = 0;
         jocksScore = 0;
+        scienceGeeksNPCs = new GameObject[NUM_NPCS];
+        bookWormsNPCs = new GameObject[NUM_NPCS];
+        jocksNPCs = new GameObject[NUM_NPCS];
         InvokeRepeating("SpawnFood", 0.0f, 10f);
         //InvokeRepeating("ScoreCapZones", 0.0f, 3f);
         PositionPlayers();
@@ -95,12 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void PositionPlayers()
     {
-        /*
+        
         switch (TeamSelection.GetTeam())
         {
             case 0:
                 Player.transform.position = ScienceGeeksSpawnObject.transform.position;
-                Player.tag = scienceGeek;
+                Player.tag = "scienceGeek";
                 SpawnScienceGeeksNPCs(NUM_NPCS - 1);
                 SpawnJocksNPCs(NUM_NPCS);
                 SpawnBookWormsNPCs(NUM_NPCS);
@@ -109,7 +116,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 SpawnScienceGeeksNPCs(NUM_NPCS);
                 Player.transform.position = JocksSpawnObject.transform.position;
-                Player.tag = jock;
+                Player.tag = "jocks";
                 SpawnJocksNPCs(NUM_NPCS - 1);
                 SpawnBookWormsNPCs(NUM_NPCS);
                 break;
@@ -118,19 +125,19 @@ public class GameManager : MonoBehaviour
                 SpawnScienceGeeksNPCs(NUM_NPCS);
                 SpawnJocksNPCs(NUM_NPCS);
                 Player.transform.position = BookWormsSpawnObject.transform.position;
-                Player.tag = bookWorm;
+                Player.tag = "bookWorm";
                 SpawnBookWormsNPCs(NUM_NPCS - 1);
                 break;
         }
-        */
-        Player.transform.position = ScienceGeeksSpawnObject.transform.position;
+        
+        /*Player.transform.position = ScienceGeeksSpawnObject.transform.position;
         NPC1Team2.transform.position = ScienceGeeksSpawnObject.transform.position;
 
         NPC1Team1.transform.position = BookWormsSpawnObject.transform.position;
         NPC2Team1.transform.position = BookWormsSpawnObject.transform.position;
 
         NPC1Team3.transform.position = JocksSpawnObject.transform.position;
-        NPC2Team3.transform.position = JocksSpawnObject.transform.position;
+        NPC2Team3.transform.position = JocksSpawnObject.transform.position;*/
     }
 
     private void SpawnFood()
@@ -139,6 +146,60 @@ public class GameManager : MonoBehaviour
         Instantiate(foodItem, foodSpawnPosition2.transform.position, Quaternion.identity);
         Instantiate(foodItem, foodSpawnPosition3.transform.position, Quaternion.identity);
         Instantiate(foodItem, foodSpawnPosition4.transform.position, Quaternion.identity);
+    }
+
+    private void SpawnScienceGeeksNPCs(int spawnNumber)
+    {
+        int numAggressiveNPCs = (int) Random.Range(1, spawnNumber);
+        int numCapNPCs = spawnNumber - numAggressiveNPCs;
+        int arrayIndex = 0;
+
+        for (int i = 0; i < numAggressiveNPCs; i++)
+        {
+            scienceGeeksNPCs[arrayIndex] = Instantiate(NPC2Aggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
+        for (int i = 0; i < numCapNPCs; i++)
+        {
+            scienceGeeksNPCs[arrayIndex] = Instantiate(NPC2Capper, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
+    }
+
+    private void SpawnJocksNPCs(int spawnNumber)
+    {
+        int numAggressiveNPCs = (int)Random.Range(1, spawnNumber);
+        int numCapNPCs = spawnNumber - numAggressiveNPCs;
+        int arrayIndex = 0;
+
+        for (int i = 0; i < numAggressiveNPCs; i++)
+        {
+            jocksNPCs[arrayIndex] = Instantiate(NPC3Aggro, JocksSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
+        for (int i = 0; i < numCapNPCs; i++)
+        {
+            jocksNPCs[arrayIndex] = Instantiate(NPC3Capper, JocksSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
+    }
+
+    private void SpawnBookWormsNPCs(int spawnNumber)
+    {
+        int numAggressiveNPCs = (int)Random.Range(1, spawnNumber);
+        int numCapNPCs = spawnNumber - numAggressiveNPCs;
+        int arrayIndex = 0;
+
+        for (int i = 0; i < numAggressiveNPCs; i++)
+        {
+            bookWormsNPCs[arrayIndex] = Instantiate(NPC1Aggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
+        for (int i = 0; i < numCapNPCs; i++)
+        {
+            bookWormsNPCs[arrayIndex] = Instantiate(NPC1Capper, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            arrayIndex++;
+        }
     }
 
     private void ScoreCapZones()

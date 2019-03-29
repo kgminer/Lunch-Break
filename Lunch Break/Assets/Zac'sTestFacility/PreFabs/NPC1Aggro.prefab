@@ -447,8 +447,8 @@ MonoBehaviour:
   burgerCost: 2
   projectile: {fileID: 0}
   projSpawn: {fileID: 5491738914349396955}
-  hitSound: {fileID: 0}
-  alive: 0
+  hitSound: {fileID: 8300000, guid: d21c96b20db2b4f8bbe3e10a367f525e, type: 3}
+  alive: 1
   BookWormsSpawnObject: {fileID: 0}
   RespawnObject: {fileID: 0}
 --- !u!1 &4951964935070954986
