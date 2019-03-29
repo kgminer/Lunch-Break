@@ -118,11 +118,11 @@ public class AI3Aggressive : MonoBehaviour
     IEnumerator Respawn()
     {
         alive = false;
-        gameObject.transform.position = RespawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
         money = startingMoney;
         yield return new WaitForSeconds(10);
-        gameObject.transform.position = JocksSpawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "jocks");
         alive = true;
     }
 
@@ -149,8 +149,6 @@ public class AI3Aggressive : MonoBehaviour
                 // die; wait for animation
                 // spawn money equal to amount before death
 
-                //Destroy(gameObject);
-                //Respawn();
                 StartCoroutine("Respawn");
             }
         }

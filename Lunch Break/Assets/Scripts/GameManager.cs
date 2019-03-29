@@ -12,9 +12,14 @@ public class GameManager : MonoBehaviour
     //private GameObject camera;
 
     public HUD gameDisplay;
-    public GameObject ScienceGeeksSpawnObject;
-    public GameObject JocksSpawnObject;
-    public GameObject BookWormsSpawnObject;
+    public static GameObject ScienceGeeksSpawnObject;
+    public static GameObject JocksSpawnObject;
+    public static GameObject BookWormsSpawnObject;
+    public static GameObject RespawnObject;
+    public  GameObject ScienceGeeksBase;
+    public  GameObject JocksBase;
+    public  GameObject BookWormsBase;
+    public  GameObject RespawnPoint;
     public GameObject Player;
     public GameObject NPC1Aggro;
     public GameObject NPC1Capper;
@@ -51,6 +56,10 @@ public class GameManager : MonoBehaviour
         bookWormsNPCs = new GameObject[NUM_NPCS];
         jocksNPCs = new GameObject[NUM_NPCS];
         InvokeRepeating("SpawnFood", 0.0f, 10f);
+        GameManager.ScienceGeeksSpawnObject = ScienceGeeksBase;
+        GameManager.JocksSpawnObject = JocksBase;
+        GameManager.BookWormsSpawnObject = BookWormsBase;
+        GameManager.RespawnObject = RespawnPoint;
         //InvokeRepeating("ScoreCapZones", 0.0f, 3f);
         PositionPlayers();
         Time.timeScale = 1f;
@@ -212,6 +221,26 @@ public class GameManager : MonoBehaviour
         {
             //string capOwner = cap.getTeam();
             //ScoreCap(capOwner, VENDING_MACHINE_CAP_VALUE);
+        }
+    }
+
+    public static void setObjectLocation(GameObject gameObject, string location)
+    {
+        if(location == "scienceGeek")
+        {
+            //gameObject.transform.position = ScienceGeeksSpawnObject.transform.position;
+        }
+        else if(location == "bookWorm")
+        {
+            gameObject.transform.position = BookWormsSpawnObject.transform.position;
+        }
+        else if(location == "jocks")
+        {
+            gameObject.transform.position = JocksSpawnObject.transform.position;
+        }
+        else if(location == "respawn")
+        {
+            gameObject.transform.position = RespawnObject.transform.position;
         }
     }
 

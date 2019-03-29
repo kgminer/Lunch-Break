@@ -118,22 +118,22 @@ public class AI1Aggressive : MonoBehaviour
     IEnumerator Respawn()
     {
         alive = false;
-        gameObject.transform.position = RespawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
         money = startingMoney;
         yield return new WaitForSeconds(10);
-        gameObject.transform.position = BookWormsSpawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "bookWorm");
         alive = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "scienceGeekThrown" || other.gameObject.tag == "jocksThrown")
+        
+        if (other.gameObject.tag == "scienceGeekThrown" || other.gameObject.tag == "jocksThrown")
         {
             health--;
             Destroy(other.gameObject);
             AudioSource.PlayClipAtPoint(hitSound, transform.position);
-
             if (health <= 0)
             {
                 // increase score for projectile team
@@ -149,8 +149,6 @@ public class AI1Aggressive : MonoBehaviour
                 // die; wait for animation
                 // spawn money equal to amount before death
 
-                //Destroy(gameObject);
-                //Respawn();
                 StartCoroutine("Respawn");
             }
         }

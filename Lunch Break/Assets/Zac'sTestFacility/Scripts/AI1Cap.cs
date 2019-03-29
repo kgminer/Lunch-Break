@@ -103,11 +103,11 @@ public class AI1Cap : MonoBehaviour
     IEnumerator Respawn()
     {
         alive = false;
-        gameObject.transform.position = RespawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
         money = startingMoney;
         yield return new WaitForSeconds(10);
-        gameObject.transform.position = BookWormsSpawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "bookWorm");
         alive = true;
     }
 
@@ -133,9 +133,7 @@ public class AI1Cap : MonoBehaviour
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
-
-                //Destroy(gameObject);
-                //Respawn();
+                
                 StartCoroutine("Respawn");
             }
         }

@@ -443,7 +443,7 @@ MonoBehaviour:
   maxInv: 3
   barCooldown: 3
   fireRate: 0.75
-  burger: {fileID: 6598957319757498850, guid: cc81562868319994aa0f81f33f5988ea, type: 3}
+  burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   burgerCost: 2
   projectile: {fileID: 0}
   projSpawn: {fileID: 5491738914349396955}
