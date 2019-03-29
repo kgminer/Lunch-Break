@@ -1,4 +1,4 @@
-﻿// Recklessly aggressive AI for Team1
+﻿// Recklessly aggressive AI for scienceGeeks
 // Find Ammo and attack nearest enemy
 using System.Collections.Generic;
 using System.Collections;
@@ -183,20 +183,14 @@ public class AI1Aggressive : MonoBehaviour
 
     private Transform FindNearestEnemy()
     {
-        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("scienceGeek");
-        GameObject[] enemies3 = GameObject.FindGameObjectsWithTag("jocks");
-        // GameObject[] enemies4 = GameObject.FindGameObjectsWithTag("Team4");
-
-        GameObject[] allEnemies = new GameObject[enemies2.Length + enemies3.Length /* + enemies4.Length */];
-        enemies2.CopyTo(allEnemies, 0);
-        enemies3.CopyTo(allEnemies, enemies2.Length);
-        // enemies4.CopyTo(allEnemies, enemies3.Length);
-
         Transform nearest = null;
         float curDistance = Mathf.Infinity;
 
-        foreach (GameObject enemy in allEnemies)
+        foreach (GameObject enemy in GameManager.allCharacters)
         {
+            if (enemy.tag == "scienceGeek")
+                continue;
+
             float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
 
             if (calculatedDist > viewRad)
@@ -211,6 +205,11 @@ public class AI1Aggressive : MonoBehaviour
         }
         return nearest;
     }
+
+
+
+
+
 
     private Transform FindNearestVendor()
     {
@@ -251,6 +250,14 @@ public class AI1Aggressive : MonoBehaviour
         return nearestTF;
     }
 
+
+
+
+
+
+
+
+
     private Transform FindNearestCap()
     {
         GameObject[] caps = GameObject.FindGameObjectsWithTag("Cap");
@@ -270,6 +277,16 @@ public class AI1Aggressive : MonoBehaviour
         }
         return nearest;
     }
+
+
+
+
+
+
+
+
+
+
 
     private Vector3 Wander(Vector3 position, float magnitude)
     {

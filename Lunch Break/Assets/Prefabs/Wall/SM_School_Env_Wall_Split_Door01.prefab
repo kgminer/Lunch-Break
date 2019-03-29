@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 4804343815285231844}
   - component: {fileID: 8677297140633874065}
   - component: {fileID: 404831725364348897}
-  - component: {fileID: 5157636689567267353}
   - component: {fileID: 3530341429242685762}
   m_Layer: 0
   m_Name: SM_School_Env_Wall_Split_Door01
@@ -143,22 +142,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 3, z: 0.23}
   m_Center: {x: 1.03, y: 1.5, z: 0}
---- !u!208 &5157636689567267353
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121202}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.5, y: 1.5, z: 0.115}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.5, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &3530341429242685762
 MonoBehaviour:
   m_ObjectHideFlags: 0

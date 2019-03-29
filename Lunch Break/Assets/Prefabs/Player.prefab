@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221a4a587157498478bd3e4b5317e691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   projSpawn: {fileID: 971742864}
   leftSpawn: {fileID: 516344937}
   rightSpawn: {fileID: 1174010656}

@@ -461,7 +461,9 @@ public class PlayerController : MonoBehaviour
         movement = movement.normalized * speed * Time.deltaTime;
 
         if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
-            playerRigid.MovePosition(transform.position + movement);
+            if(!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+                if(!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
+                    playerRigid.MovePosition(transform.position + movement);
 
     }
 
@@ -529,6 +531,7 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
+            playerAnimator.SetTrigger("Hit");
             SoundManager.HitSound(transform);
 
             if (health <= 0)

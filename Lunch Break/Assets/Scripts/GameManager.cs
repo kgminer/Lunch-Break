@@ -35,7 +35,9 @@ public class GameManager : MonoBehaviour
     public GameObject foodSpawnPosition3;
     public GameObject foodSpawnPosition4;
     public GameObject foodItem;
-    
+
+    public static GameObject[] allCharacters;
+    public static List<Transform> vendors;
 
     // Start is called before the first frame update
     public void Start()
@@ -66,6 +68,10 @@ public class GameManager : MonoBehaviour
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
+
+        GameObject[] vending = GameObject.FindGameObjectsWithTag("Vending");
+        foreach (GameObject machine in vending)
+            vendors.Add(machine.transform);
     }
     
     // Update is called once per frame
@@ -100,8 +106,16 @@ public class GameManager : MonoBehaviour
                 gameDisplay.OpenGameOverPanel();
                 break;
         }
-        
-        
+
+        GameObject[] sciencegeeks = GameObject.FindGameObjectsWithTag("scienceGeek");
+        GameObject[] jocks = GameObject.FindGameObjectsWithTag("jocks");
+        GameObject[] bookworms = GameObject.FindGameObjectsWithTag("bookWorm");
+
+        allCharacters = new GameObject[sciencegeeks.Length + jocks.Length + bookworms.Length];
+        sciencegeeks.CopyTo(allCharacters, 0);
+        jocks.CopyTo(allCharacters, sciencegeeks.Length);
+        bookworms.CopyTo(allCharacters, sciencegeeks.Length + jocks.Length);
+
     }
 
     public void UpdateTime()
