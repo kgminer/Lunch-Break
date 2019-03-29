@@ -326,61 +326,61 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty)
             {
-                InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
-
-                // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
-                if (item.GetComponent<Burger>())
-                {
-                    nextFire = Time.time + fireRate;
-                    GameObject thrown = Instantiate(burger, projSpawn.position, projSpawn.rotation);
-                    thrown.tag = this.tag + "Thrown";
-                    inventory.RemoveItem(item, projectileSelect);
-                }
-
-                if (item.GetComponent<Donut>())
-                {
-                    nextFire = Time.time + fireRate;
-                    GameObject thrown = Instantiate(donut, projSpawn.position, projSpawn.rotation);
-                    thrown.tag = this.tag + "Thrown";
-                    inventory.RemoveItem(item, projectileSelect);
-                }
-
-                if (item.GetComponent<Drink>())
-                {
-                    nextFire = Time.time + fireRate;
-                    GameObject thrown = Instantiate(drink, projSpawn.position, projSpawn.rotation);
-                    thrown.tag = this.tag + "Thrown";
-                    inventory.RemoveItem(item, projectileSelect);
-                }
-
-                if (item.GetComponent<Cake>())
-                {
-                    nextFire = Time.time + fireRate;
-                    Vector3 location = projSpawn.position;
-                    location.y = 0;
-                    GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
-                    thrown.tag = this.tag + "Thrown";
-                    inventory.RemoveItem(item, projectileSelect);
-                }
-
-                if (item.GetComponent<Fries>())
-                {
-                    nextFire = Time.time + fireRate;
-
-                    GameObject thrown1 = Instantiate(fries, leftSpawn.position, leftSpawn.rotation);
-                    thrown1.tag = this.tag + "Thrown";
-                    GameObject thrown2 = Instantiate(fries, projSpawn.position, projSpawn.rotation);
-                    thrown2.tag = this.tag + "Thrown";
-                    GameObject thrown3 = Instantiate(fries, rightSpawn.position, rightSpawn.rotation);
-                    thrown3.tag = this.tag + "Thrown";
-                    inventory.RemoveItem(item, projectileSelect);
-                }
-
-                // Check and see if the slot is now empty, if it is remove the object from the hand
-                if (inventory.mSlots[projectileSelect].Count < 1)
-                    activeItem.SetActive(false);
+                playerAnimator.SetTrigger("Attack");
+                nextFire = Time.time + fireRate;
             }
         }
+    }
+
+    void Fire()
+    {
+        InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+        // Each Projectile will have an Item script defining its sprite, use this to identify weapon used
+        if (item.GetComponent<Burger>())
+        {
+            GameObject thrown = Instantiate(burger, projSpawn.position, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
+            inventory.RemoveItem(item, projectileSelect);
+        }
+
+        if (item.GetComponent<Donut>())
+        {
+            GameObject thrown = Instantiate(donut, projSpawn.position, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
+            inventory.RemoveItem(item, projectileSelect);
+        }
+
+        if (item.GetComponent<Drink>())
+        {
+            GameObject thrown = Instantiate(drink, projSpawn.position, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
+            inventory.RemoveItem(item, projectileSelect);
+        }
+
+        if (item.GetComponent<Cake>())
+        {
+            Vector3 location = projSpawn.position;
+            location.y = 0;
+            GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
+            inventory.RemoveItem(item, projectileSelect);
+        }
+
+        if (item.GetComponent<Fries>())
+        {
+            GameObject thrown1 = Instantiate(fries, leftSpawn.position, leftSpawn.rotation);
+            thrown1.tag = this.tag + "Thrown";
+            GameObject thrown2 = Instantiate(fries, projSpawn.position, projSpawn.rotation);
+            thrown2.tag = this.tag + "Thrown";
+            GameObject thrown3 = Instantiate(fries, rightSpawn.position, rightSpawn.rotation);
+            thrown3.tag = this.tag + "Thrown";
+            inventory.RemoveItem(item, projectileSelect);
+        }
+
+        // Check and see if the slot is now empty, if it is remove the object from the hand
+        if (inventory.mSlots[projectileSelect].Count < 1)
+            activeItem.SetActive(false);
     }
 
     private void Awake()
@@ -460,7 +460,9 @@ public class PlayerController : MonoBehaviour
         movement.Set(h, 0f, v);
         movement = movement.normalized * speed * Time.deltaTime;
 
-        playerRigid.MovePosition(transform.position + movement);
+        if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
+            playerRigid.MovePosition(transform.position + movement);
+
     }
 
     private void TurnWithMouse()
