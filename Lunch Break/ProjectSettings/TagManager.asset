@@ -24,6 +24,7 @@ TagManager:
   - scienceGeekThrown
   - bookWormThrown
   - jocksThrown
+  - Center Cap
   layers:
   - Default
   - TransparentFX

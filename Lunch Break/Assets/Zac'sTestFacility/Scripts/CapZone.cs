@@ -6,9 +6,14 @@ public class CapZone : MonoBehaviour
 {
 
     int teamInd = 0;
-    public string team = "Team0";
+    public string team = "uncapped";
 
     List<Collider> Cappers = new List<Collider>();
+
+    public string GetTeam()
+    {
+        return team;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,18 +38,16 @@ public class CapZone : MonoBehaviour
 
     private void CountCappers()
     {
-        int[] teamcount = { 0, 0, 0, 0, 0 };
+        int[] teamcount = { 0, 0, 0, 0 };
 
         foreach(Collider capper in Cappers)
         {
-            if (capper.gameObject.tag == "Team1")
+            if (capper.gameObject.tag == "scienceGeek")
                 teamcount[1]++;
-            if (capper.gameObject.tag == "Team2")
+            if (capper.gameObject.tag == "bookWorm")
                 teamcount[2]++;
-            if (capper.gameObject.tag == "Team3")
+            if (capper.gameObject.tag == "jocks")
                 teamcount[3]++;
-            if (capper.gameObject.tag == "Team4")
-                teamcount[4]++;
         }
 
         int max = teamcount.Max();
@@ -56,13 +59,11 @@ public class CapZone : MonoBehaviour
             teamInd = contestingTeam;
 
             if (teamInd == 1)
-                team = "Team1";
+                team = "scienceGeek";
             if (teamInd == 2)
-                team = "Team2";
+                team = "bookWorm";
             if (teamInd == 3)
-                team = "Team3";
-            if (teamInd == 4)
-                team = "Team4";
+                team = "jocks";
         }
     }
 }

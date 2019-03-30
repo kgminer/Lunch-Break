@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         GameManager.JocksSpawnObject = JocksBase;
         GameManager.BookWormsSpawnObject = BookWormsBase;
         GameManager.RespawnObject = RespawnPoint;
-        //InvokeRepeating("ScoreCapZones", 0.0f, 3f);
+        InvokeRepeating("ScoreCapZones", 0.0f, 3f);
         PositionPlayers();
         Time.timeScale = 1f;
         //camera = GameObject.Find("Main Camera");
@@ -104,6 +104,9 @@ public class GameManager : MonoBehaviour
             case 1:
                 gameDisplay.SetFinalScoreText();
                 gameDisplay.OpenGameOverPanel();
+                gameState = 2;
+                break;
+            case 2:
                 break;
         }
 
@@ -227,14 +230,17 @@ public class GameManager : MonoBehaviour
 
     private void ScoreCapZones()
     {
+        Debug.Log("Calling ScoreCapZones");
         GameObject[] capZones = GameObject.FindGameObjectsWithTag("Cap");
         GameObject centralCapZone = GameObject.FindGameObjectWithTag("Center Cap");
-        //string centralCapOwner = centralCapZone.getTeam();
-        //ScoreCap(centralCapZone, CENTRAL_CAP_VALUE);
+        string centralCapOwner = centralCapZone.GetComponent<CapZone>().GetTeam();
+        Debug.Log("centralCapOwner is:" + centralCapOwner);
+        ScoreCap(centralCapOwner, CENTRAL_CAP_VALUE);
         foreach (GameObject cap in capZones)
         {
-            //string capOwner = cap.getTeam();
-            //ScoreCap(capOwner, VENDING_MACHINE_CAP_VALUE);
+            string capOwner = cap.GetComponent<CapZone>().GetTeam();
+            Debug.Log("capOwner is:" + capOwner);
+            ScoreCap(capOwner, VENDING_MACHINE_CAP_VALUE);
         }
     }
 
@@ -242,7 +248,7 @@ public class GameManager : MonoBehaviour
     {
         if(location == "scienceGeek")
         {
-            //gameObject.transform.position = ScienceGeeksSpawnObject.transform.position;
+            gameObject.transform.position = ScienceGeeksSpawnObject.transform.position;
         }
         else if(location == "bookWorm")
         {

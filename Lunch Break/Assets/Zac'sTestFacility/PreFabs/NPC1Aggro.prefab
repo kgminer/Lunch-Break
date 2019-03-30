@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 3508579195143616279}
   m_Layer: 0
   m_Name: NPC1Aggro
-  m_TagString: scienceGeek
+  m_TagString: bookWorm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

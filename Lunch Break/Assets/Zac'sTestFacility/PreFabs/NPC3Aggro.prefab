@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 8378533861826119588}
   m_Layer: 0
   m_Name: NPC3Aggro
-  m_TagString: Team3
+  m_TagString: jocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
