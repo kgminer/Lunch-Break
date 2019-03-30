@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1604075392993465937}
   - component: {fileID: 6924287091175088288}
   - component: {fileID: 8670514931451058541}
-  - component: {fileID: 7851808215467098534}
   - component: {fileID: 4685827002043615400}
   - component: {fileID: 68673164}
+  - component: {fileID: 3785750484864063402}
   m_Layer: 0
   m_Name: BkWrmCapper
   m_TagString: bookWorm
@@ -63,25 +63,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68673162}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.75, y: 1.75, z: 0.4}
-  m_Center: {x: 0, y: 0.875, z: 0.05}
---- !u!64 &7851808215467098534
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68673162}
-  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: e7db4a69ee1b2624ebd9ed89aa133368, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 1.75, z: 0.23}
+  m_Center: {x: 0, y: 0.875, z: 0}
 --- !u!195 &4685827002043615400
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -139,6 +125,20 @@ MonoBehaviour:
   alive: 1
   BookWormsSpawnObject: {fileID: 0}
   RespawnObject: {fileID: 0}
+--- !u!136 &3785750484864063402
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68673162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &194226456109806695
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: c1cc62de01cc05e4692cd6d7fd9305c9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 5a693f0298140924faf3d58710a5fe1d, type: 3}
   m_Bones:
   - {fileID: 6766933095108308935}
   - {fileID: 4268027771780954578}
