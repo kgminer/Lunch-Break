@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
     public  GameObject BookWormsBase;
     public  GameObject RespawnPoint;
     public GameObject Player;
-    public GameObject NPC1Aggro;
-    public GameObject NPC1Capper;
-    public GameObject NPC2Aggro;
-    public GameObject NPC2Capper;
-    public GameObject NPC3Aggro;
-    public GameObject NPC3Capper;
+    public GameObject BookWormAggro;
+    public GameObject BookWormCapper;
+    public GameObject SciGeekAggro;
+    public GameObject SciGeekCapper;
+    public GameObject JockAggro;
+    public GameObject JockCapper;
     private GameObject[] scienceGeeksNPCs;
     private GameObject[] bookWormsNPCs;
     private GameObject[] jocksNPCs;
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         jocksNPCs = new GameObject[NUM_NPCS];
         //InvokeRepeating("SpawnFood", 0.0f, 10f);
         SpawnFood();
+        CollectPositions();
         GameManager.ScienceGeeksSpawnObject = ScienceGeeksBase;
         GameManager.JocksSpawnObject = JocksBase;
         GameManager.BookWormsSpawnObject = BookWormsBase;
@@ -72,16 +73,6 @@ public class GameManager : MonoBehaviour
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
-
-        centerCap = GameObject.FindGameObjectWithTag("Center Cap").transform;
-
-        GameObject[] capcircles = GameObject.FindGameObjectsWithTag("Cap");
-        foreach (GameObject circle in capcircles)
-            caps.Add(circle.transform);
-
-        GameObject[] vending = GameObject.FindGameObjectsWithTag("Vending");
-        foreach (GameObject machine in vending)
-            vendors.Add(machine.transform);
     }
     
     // Update is called once per frame
@@ -135,6 +126,8 @@ public class GameManager : MonoBehaviour
         timeRemaining -= Time.deltaTime;
     }
 
+    
+
     public void PositionPlayers()
     {
         
@@ -183,6 +176,21 @@ public class GameManager : MonoBehaviour
         Instantiate(foodItem, foodSpawnPosition4.transform.position, Quaternion.identity);
     }
 
+    private void CollectPositions()
+    {
+        centerCap = GameObject.FindGameObjectWithTag("Center Cap").transform;
+        caps = new List<Transform>();
+        vendors = new List<Transform>();
+
+        GameObject[] capcircles = GameObject.FindGameObjectsWithTag("Cap");
+        foreach (GameObject circle in capcircles)
+            caps.Add(circle.transform);
+
+        GameObject[] vending = GameObject.FindGameObjectsWithTag("Vending");
+        foreach (GameObject machine in vending)
+            vendors.Add(machine.transform);
+    }
+
     private void SpawnScienceGeeksNPCs(int spawnNumber)
     {
         int numAggressiveNPCs = (int) Random.Range(1, spawnNumber);
@@ -191,12 +199,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < numAggressiveNPCs; i++)
         {
-            scienceGeeksNPCs[arrayIndex] = Instantiate(NPC2Aggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            scienceGeeksNPCs[arrayIndex] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
         for (int i = 0; i < numCapNPCs; i++)
         {
-            scienceGeeksNPCs[arrayIndex] = Instantiate(NPC2Capper, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            scienceGeeksNPCs[arrayIndex] = Instantiate(SciGeekCapper, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
     }
@@ -209,12 +217,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < numAggressiveNPCs; i++)
         {
-            jocksNPCs[arrayIndex] = Instantiate(NPC3Aggro, JocksSpawnObject.transform.position, Quaternion.identity);
+            jocksNPCs[arrayIndex] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
         for (int i = 0; i < numCapNPCs; i++)
         {
-            jocksNPCs[arrayIndex] = Instantiate(NPC3Capper, JocksSpawnObject.transform.position, Quaternion.identity);
+            jocksNPCs[arrayIndex] = Instantiate(JockCapper, JocksSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
     }
@@ -227,12 +235,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < numAggressiveNPCs; i++)
         {
-            bookWormsNPCs[arrayIndex] = Instantiate(NPC1Aggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            bookWormsNPCs[arrayIndex] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
         for (int i = 0; i < numCapNPCs; i++)
         {
-            bookWormsNPCs[arrayIndex] = Instantiate(NPC1Capper, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            bookWormsNPCs[arrayIndex] = Instantiate(BookWormCapper, BookWormsSpawnObject.transform.position, Quaternion.identity);
             arrayIndex++;
         }
     }

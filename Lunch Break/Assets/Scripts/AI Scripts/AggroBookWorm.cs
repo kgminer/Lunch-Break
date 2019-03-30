@@ -67,7 +67,6 @@ public class AggroBookWorm : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("I'm ALIVE");
         vendor = FindNearestVendor();
 
         nav = GetComponent<NavMeshAgent>();
@@ -230,7 +229,6 @@ public class AggroBookWorm : MonoBehaviour
                 capDistance = calculatedDist;
             }
         }
-        Debug.Log(nearest);
         return nearest;
     }
 }
