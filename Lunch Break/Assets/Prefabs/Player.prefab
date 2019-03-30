@@ -596,7 +596,8 @@ MonoBehaviour:
   leftSpawn: {fileID: 516344937}
   rightSpawn: {fileID: 1174010656}
   fireRate: 0.5
-  health: 3
+  startingHealth: 3
+  alive: 1
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}

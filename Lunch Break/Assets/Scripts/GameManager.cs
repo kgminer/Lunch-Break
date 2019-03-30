@@ -230,16 +230,13 @@ public class GameManager : MonoBehaviour
 
     private void ScoreCapZones()
     {
-        Debug.Log("Calling ScoreCapZones");
         GameObject[] capZones = GameObject.FindGameObjectsWithTag("Cap");
         GameObject centralCapZone = GameObject.FindGameObjectWithTag("Center Cap");
         string centralCapOwner = centralCapZone.GetComponent<CapZone>().GetTeam();
-        Debug.Log("centralCapOwner is:" + centralCapOwner);
         ScoreCap(centralCapOwner, CENTRAL_CAP_VALUE);
         foreach (GameObject cap in capZones)
         {
             string capOwner = cap.GetComponent<CapZone>().GetTeam();
-            Debug.Log("capOwner is:" + capOwner);
             ScoreCap(capOwner, VENDING_MACHINE_CAP_VALUE);
         }
     }

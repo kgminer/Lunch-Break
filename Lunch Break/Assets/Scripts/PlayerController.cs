@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
     public Transform rightSpawn;
     public float fireRate = 0.5f;
     private float nextFire;
-    public float health = 3f;
+    private float health;
+    public float startingHealth;
+    public bool alive;
 
     // Projectile object references
     public GameObject burger;
@@ -62,6 +64,16 @@ public class PlayerController : MonoBehaviour
     // Use Update method for throwing projectiles
     void Update ()
     {
+        if (Input.GetButton("Pause"))
+        {
+            hud.OpenPausePanel();
+        }
+
+        if (!alive)
+        {
+            return;
+        }
+
         // Projectile selection will change slot of use and update ui component to reflect selection
         if (Input.GetButtonDown("Item0"))
         {
@@ -305,10 +317,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Input.GetButton("Pause"))
-        {
-            hud.OpenPausePanel();
-        }
 
         // Check if there is a keypress for an item to pickup
         if (mItemToPickup != null && Input.GetButton("Submit"))
@@ -409,6 +417,7 @@ public class PlayerController : MonoBehaviour
 
         // Collect the held item references
 
+        health = startingHealth;
     }
 
     void Start()
@@ -434,6 +443,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!alive)
+        {
+            return;
+        }
+
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -501,6 +515,28 @@ public class PlayerController : MonoBehaviour
     private Behaviour mItemGlow = null;
     private Behaviour prevGlow = null;
 
+    IEnumerator Respawn()
+    {
+        alive = false;
+        GameManager.setObjectLocation(gameObject, "respawn");
+        health = startingHealth;
+        //money = startingMoney;
+        yield return new WaitForSeconds(10);
+        if(gameObject.tag == "scienceGeek")
+        {
+            GameManager.setObjectLocation(gameObject, "scienceGeek");
+        }
+        else if(gameObject.tag == "bookWorm")
+        {
+            GameManager.setObjectLocation(gameObject, "bookWorm");
+        }
+        else if(gameObject.tag == "jocks")
+        {
+            GameManager.setObjectLocation(gameObject, "jocks");
+        }
+        alive = true;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Food"))
@@ -526,13 +562,13 @@ public class PlayerController : MonoBehaviour
                 hud.OpenMessagePanel("");
             }
         }
-
+        
         if (GetHit(other))
         {
             health--;
             Destroy(other.gameObject);
             playerAnimator.SetTrigger("Hit");
-            SoundManager.HitSound(transform);
+            //SoundManager.HitSound(transform);
 
             if (health <= 0)
             {
@@ -553,7 +589,7 @@ public class PlayerController : MonoBehaviour
                 // die; wait for animation
                 // spawn money equal to amount before death
                 playerAnimator.SetTrigger("Die");
-                Destroy(gameObject);
+                StartCoroutine("Respawn");
             }
         }
     }
@@ -564,7 +600,6 @@ public class PlayerController : MonoBehaviour
         String myTeam = this.tag;
         String enemy1 = "";
         String enemy2 = "";
-
 
         switch (myTeam)
         {
@@ -583,14 +618,15 @@ public class PlayerController : MonoBehaviour
                 enemy2 = "jocks";
                 break;
         }
-
+        
         if (other.tag == (enemy1 + "Thrown") || other.tag == (enemy2 + "Thrown"))
         {
             return true;
         }
-
         else
+        {
             return false;
+        }
     }
 
     private void OnTriggerExit(Collider other)
