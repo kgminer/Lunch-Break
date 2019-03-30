@@ -852,7 +852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913709041085401623}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.004, y: 1.077, z: 0.020557404}
+  m_LocalPosition: {x: 0.004, y: 15, z: 0.020557404}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1420903549}
@@ -923,14 +923,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1866888889}
     m_Modifications:
-    - target: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
-      propertyPath: m_Name
-      value: HandDrink
-      objectReference: {fileID: 0}
-    - target: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1509844277, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -975,6 +967,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
+      propertyPath: m_Name
+      value: HandDrink
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
 --- !u!4 &1433770909009235385 stripped
@@ -990,14 +990,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1866888889}
     m_Modifications:
-    - target: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
-      propertyPath: m_Name
-      value: HandDonut
-      objectReference: {fileID: 0}
-    - target: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1846210663, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1040,6 +1032,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1846210663, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
+      propertyPath: m_Name
+      value: HandDonut
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1124,14 +1124,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1866888889}
     m_Modifications:
-    - target: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
-      propertyPath: m_Name
-      value: HandTray
-      objectReference: {fileID: 0}
-    - target: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1254195353, guid: 640e29f250022f244a24346dc9422a90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1174,6 +1166,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1254195353, guid: 640e29f250022f244a24346dc9422a90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
+      propertyPath: m_Name
+      value: HandTray
+      objectReference: {fileID: 0}
+    - target: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
