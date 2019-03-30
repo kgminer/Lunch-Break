@@ -16,7 +16,7 @@ public class DoorScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if(other.tag == "scienceGeek") //|| other.tag == "bookWorm" || other.tag == "jocks")
+        if(other.tag == "scienceGeek" || other.tag == "bookWorm" || other.tag == "jocks")
         {
             anim.SetTrigger("OpenDoor");
             exited = false;
