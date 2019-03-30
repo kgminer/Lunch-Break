@@ -110,7 +110,7 @@ public class AI1Aggressive : MonoBehaviour
 
             if (capDistance < patrolRad) // wander in cap
             {
-                nav.SetDestination(Wander(transform.position, wanderRad));
+                //nav.SetDestination(Wander(transform.position, wanderRad));
             }
         }
     }
@@ -156,30 +156,16 @@ public class AI1Aggressive : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Vending")
-        {
-            if (money >= 2 && Ammo.Count < maxInv)
-            {
-                burger.tag = "bookWormThrown";
-                Ammo.Add(burger);
-                money -= burgerCost;
-            }
-        }
-
-        if (other.gameObject.tag == "Bar")
-        {
-            if (Ammo.Count < maxInv)
-            {
-                if (Time.time > nextBar)
-                {
-                    burger.tag = "bookWormThrown";
-                    Ammo.Add(burger);
-
-                    nextBar = Time.time + barCooldown;
-                }
-            }
-        }
+       
     }
+
+
+
+
+
+
+
+
 
     private Transform FindNearestEnemy()
     {
@@ -188,7 +174,7 @@ public class AI1Aggressive : MonoBehaviour
 
         foreach (GameObject enemy in GameManager.allCharacters)
         {
-            if (enemy.tag == "scienceGeek")
+            if (enemy.tag == this.tag)
                 continue;
 
             float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
@@ -206,65 +192,30 @@ public class AI1Aggressive : MonoBehaviour
         return nearest;
     }
 
-
-
-
-
-
     private Transform FindNearestVendor()
     {
-        GameObject[] vendors;
-        GameObject[] bars;
-
         Transform nearestTF = null;
         float curDistance = Mathf.Infinity;
 
-        if (money >= 2)
+        foreach (Transform vendor in GameManager.vendors)
         {
-            vendors = GameObject.FindGameObjectsWithTag("Vending");
-
-            foreach (GameObject vendor in vendors)
-            {
-                float calculatedDist = (vendor.transform.position - transform.position).sqrMagnitude;
-
-                if (calculatedDist < curDistance)
-                {
-                    nearestTF = vendor.transform;
-                    curDistance = calculatedDist;
-                }
-            }
-        }
-
-        bars = GameObject.FindGameObjectsWithTag("Bar");
-
-        foreach (GameObject bar in bars)
-        {
-            float calculatedDist = (bar.transform.position - transform.position).sqrMagnitude;
+            float calculatedDist = (vendor.transform.position - transform.position).sqrMagnitude;
 
             if (calculatedDist < curDistance)
             {
-                nearestTF = bar.transform;
+                nearestTF = vendor.transform;
                 curDistance = calculatedDist;
             }
         }
         return nearestTF;
     }
 
-
-
-
-
-
-
-
-
     private Transform FindNearestCap()
     {
-        GameObject[] caps = GameObject.FindGameObjectsWithTag("Cap");
         Transform nearest = null;
         float curDistance = Mathf.Infinity;
 
-        foreach (GameObject cap in caps)
+        foreach (Transform cap in GameManager.caps)
         {
             float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;
 
@@ -276,26 +227,5 @@ public class AI1Aggressive : MonoBehaviour
             }
         }
         return nearest;
-    }
-
-
-
-
-
-
-
-
-
-
-
-    private Vector3 Wander(Vector3 position, float magnitude)
-    {
-        Vector3 randomVector = Random.insideUnitSphere * magnitude;
-
-        randomVector += position;
-
-        NavMesh.SamplePosition(randomVector, out NavMeshHit navPos, magnitude, -1);
-
-        return navPos.position;
     }
 }

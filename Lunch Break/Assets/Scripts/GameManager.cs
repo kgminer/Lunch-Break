@@ -36,8 +36,10 @@ public class GameManager : MonoBehaviour
     public GameObject foodSpawnPosition4;
     public GameObject foodItem;
 
+    public static Transform centerCap;
     public static GameObject[] allCharacters;
     public static List<Transform> vendors;
+    public static List<Transform> caps;
 
     // Start is called before the first frame update
     public void Start()
@@ -69,6 +71,12 @@ public class GameManager : MonoBehaviour
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
+
+        centerCap = GameObject.FindGameObjectWithTag("Center Cap").transform;
+
+        GameObject[] capcircles = GameObject.FindGameObjectsWithTag("Cap");
+        foreach (GameObject circle in capcircles)
+            caps.Add(circle.transform);
 
         GameObject[] vending = GameObject.FindGameObjectsWithTag("Vending");
         foreach (GameObject machine in vending)
