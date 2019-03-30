@@ -324,10 +324,10 @@ GameObject:
   - component: {fileID: 3505374366603298754}
   - component: {fileID: 1744243439347208377}
   - component: {fileID: 4047874823341634621}
-  - component: {fileID: 427451638953162268}
-  - component: {fileID: 7288170265552909945}
-  - component: {fileID: 3508579195143616279}
   - component: {fileID: 3155161150801482604}
+  - component: {fileID: 427451638953162268}
+  - component: {fileID: 3508579195143616279}
+  - component: {fileID: 8363421901722041292}
   m_Layer: 0
   m_Name: BkWrmAggro
   m_TagString: bookWorm
@@ -382,6 +382,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1.75, z: 0.23}
   m_Center: {x: 0, y: 0.875, z: 0}
+--- !u!136 &3155161150801482604
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562054309413373039}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &427451638953162268
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -404,41 +418,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7288170265552909945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4562054309413373039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c535a9722967743b35544bbf50d3af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRad: 20
-  pursueRad: 20
-  targetingRad: 6
-  patrolRad: 2
-  runRad: 6
-  wanderRad: 4
-  runMagMin: 0.5
-  runMagMax: 10
-  runTilMin: 1
-  runTilMax: 5
-  startingHealth: 3
-  startingMoney: 2
-  maxInv: 3
-  barCooldown: 3
-  fireRate: 0.75
-  burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
-  burgerCost: 2
-  projectile: {fileID: 0}
-  projSpawn: {fileID: 5491738914349396955}
-  hitSound: {fileID: 8300000, guid: d21c96b20db2b4f8bbe3e10a367f525e, type: 3}
-  alive: 1
-  BookWormsSpawnObject: {fileID: 0}
-  RespawnObject: {fileID: 0}
 --- !u!95 &3508579195143616279
 Animator:
   serializedVersion: 3
@@ -458,20 +437,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &3155161150801482604
-CapsuleCollider:
+--- !u!114 &8363421901722041292
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4562054309413373039}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ddf0301f5be4b4ab2a3f437b3edd99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRad: 20
+  pursueRad: 20
+  targetingRad: 6
+  patrolRad: 2
+  runRad: 6
+  wanderRad: 4
+  runMagMin: 0.5
+  runMagMax: 10
+  runTilMin: 1
+  runTilMax: 5
+  startingHealth: 3
+  maxInv: 9
+  barCooldown: 3
+  fireRate: 0.5
+  burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
+  donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
+  drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
+  cake: {fileID: 1147061323, guid: 60a4bf959d3e86542ab72612b9fb94a8, type: 3}
+  fries: {fileID: 332533938, guid: b12fcd19be36d4f4581eb1c2bde778b7, type: 3}
+  heldBurger: {fileID: 928125361, guid: 3be181cc8b329f04a9a3fd2108f447e5, type: 3}
+  heldDonut: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
+  heldDrink: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
+  heldCake: {fileID: 2137305078, guid: 9d9a076e13e449e4c83447ef3e04eded, type: 3}
+  heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
+  heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
+  projSpawn: {fileID: 5491738914349396955}
+  hitSound: {fileID: 8300000, guid: d21c96b20db2b4f8bbe3e10a367f525e, type: 3}
+  alive: 1
+  JocksSpawnObject: {fileID: 0}
+  RespawnObject: {fileID: 0}
 --- !u!1 &4951964935070954986
 GameObject:
   m_ObjectHideFlags: 0

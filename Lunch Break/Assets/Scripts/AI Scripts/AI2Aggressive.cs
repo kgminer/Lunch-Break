@@ -196,11 +196,11 @@ public class AI2Aggressive : MonoBehaviour
 
         foreach (Transform vendor in GameManager.vendors)
         {
-            float calculatedDist = (vendor.transform.position - transform.position).sqrMagnitude;
+            float calculatedDist = (vendor.position - transform.position).sqrMagnitude;
 
             if (calculatedDist < curDistance)
             {
-                nearestTF = vendor.transform;
+                nearestTF = vendor;
                 curDistance = calculatedDist;
             }
         }
@@ -214,11 +214,11 @@ public class AI2Aggressive : MonoBehaviour
 
         foreach (Transform cap in GameManager.caps)
         {
-            float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;
+            float calculatedDist = (cap.position - transform.position).sqrMagnitude;
 
             if (calculatedDist < curDistance)
             {
-                nearest = cap.transform;
+                nearest = cap;
                 curDistance = calculatedDist;
                 capDistance = calculatedDist;
             }

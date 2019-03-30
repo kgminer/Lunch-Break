@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         GameManager.BookWormsSpawnObject = BookWormsBase;
         GameManager.RespawnObject = RespawnPoint;
         InvokeRepeating("ScoreCapZones", 0.0f, 3f);
+
         PositionPlayers();
         Time.timeScale = 1f;
         //camera = GameObject.Find("Main Camera");
@@ -127,7 +128,6 @@ public class GameManager : MonoBehaviour
         sciencegeeks.CopyTo(allCharacters, 0);
         jocks.CopyTo(allCharacters, sciencegeeks.Length);
         bookworms.CopyTo(allCharacters, sciencegeeks.Length + jocks.Length);
-
     }
 
     public void UpdateTime()

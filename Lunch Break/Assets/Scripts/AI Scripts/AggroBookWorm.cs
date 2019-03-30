@@ -1,4 +1,4 @@
-﻿// Recklessly aggressive AI for Team1
+﻿// Recklessly aggressive AI for Team2
 // Find Ammo and attack nearest enemy
 using System.Collections.Generic;
 using System.Collections;
@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI1Cap : MonoBehaviour
+public class AggroBookWorm : MonoBehaviour
 {
     public float viewRad;                 // distance at which enemies can be detected
     public float pursueRad;                // distance at which character pursues enemy
@@ -26,17 +26,29 @@ public class AI1Cap : MonoBehaviour
 
     private float health;
     public float startingHealth;
-    private float money;
-    public float startingMoney;
     public int maxInv;
 
     public float barCooldown;
     float nextBar = 0f;
 
     public float fireRate;
+
+    // Projectile object references
     public GameObject burger;
-    public float burgerCost;
-    public GameObject projectile;
+    public GameObject donut;
+    public GameObject drink;
+    public GameObject cake;
+    public GameObject fries;
+
+    // Held object references
+    public GameObject heldBurger;
+    public GameObject heldDonut;
+    public GameObject heldDrink;
+    public GameObject heldCake;
+    public GameObject heldTray;
+    public GameObject heldFries;
+    private GameObject activeItem;
+
     public Transform projSpawn;
     public AudioClip hitSound;
 
@@ -50,52 +62,64 @@ public class AI1Cap : MonoBehaviour
     List<GameObject> Ammo;
 
     public bool alive;
-    public GameObject BookWormsSpawnObject;
+    public GameObject JocksSpawnObject;
     public GameObject RespawnObject;
-
-    enum State {Fleeing, Capping, Replinishing, Attacking};
 
     private void Awake()
     {
+        Debug.Log("I'm ALIVE");
         vendor = FindNearestVendor();
-        nearestCap = FindNearestCap();
 
         nav = GetComponent<NavMeshAgent>();
 
         Ammo = new List<GameObject>();
 
         health = startingHealth;
-        money = startingMoney;
     }
 
     private void Update()
     {
-        if(!alive)
+        if (!alive)
         {
             return;
         }
 
-        nearestCap = FindNearestCap();
         nearestEnemy = FindNearestEnemy();
 
-        if (capDistance < patrolRad) // wander in cap
+        if (!Ammo.Any())
         {
-           // nav.SetDestination(Wander(transform.position, wanderRad));
+            vendor = FindNearestVendor();
+            nav.SetDestination(vendor.position);
         }
-
-        if (capDistance > patrolRad)
+        else if (nearestEnemy != null) // attack mode
         {
-            nav.SetDestination(nearestCap.position);
-        }
-       
+            nav.SetDestination(nearestEnemy.position);
 
-        if(nearestEnemy != null) // enemy in view range
-        {
-            if (enemyDistance < runRad)
+            if (enemyDistance < targetingRad)
+                transform.LookAt(nearestEnemy.position);
+
+            if (enemyDistance <= targetingRad) // enemy within range
             {
-                Vector3 toEnemy = transform.position - nearestEnemy.position;
-                Vector3 fleePos = transform.position + toEnemy + vendor.position;
-                nav.SetDestination(fleePos);
+                if (Time.time > nextFire) // shooting cooldown expired
+                {
+                    if (Ammo.Any()) // has ammo
+                    {
+                        transform.LookAt(nearestEnemy.position); // face enemy
+
+                        
+
+                    }
+                }
+            }
+        }
+        else
+        {
+            nearestCap = FindNearestCap();
+            nav.SetDestination(nearestCap.position);
+
+            if (capDistance < patrolRad) // wander in cap
+            {
+                //    nav.SetDestination(Wander(transform.position, wanderRad));
             }
         }
     }
@@ -105,15 +129,14 @@ public class AI1Cap : MonoBehaviour
         alive = false;
         GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
-        money = startingMoney;
         yield return new WaitForSeconds(10);
-        GameManager.setObjectLocation(gameObject, "bookWorm");
+        GameManager.setObjectLocation(gameObject, "jocks");
         alive = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "scienceGeekThrown" || other.gameObject.tag == "jocksThrown")
+        if (other.gameObject.tag == "jocksThrown" || other.gameObject.tag == "scienceGeekThrown")
         {
             health--;
             Destroy(other.gameObject);
@@ -122,18 +145,18 @@ public class AI1Cap : MonoBehaviour
             if (health <= 0)
             {
                 // increase score for projectile team
-                if (other.gameObject.tag == "scienceGeekThrown")
-                {
-                    GameManager.scienceGeeksScore++;
-                }
-                else if (other.gameObject.tag == "jocksThrown")
+                if (other.gameObject.tag == "jocksThrown")
                 {
                     GameManager.jocksScore++;
+                }
+                else if (other.gameObject.tag == "scienceGeekThrown")
+                {
+                    GameManager.scienceGeeksScore++;
                 }
                 // start respawn timer
                 // die; wait for animation
                 // spawn money equal to amount before death
-                
+
                 StartCoroutine("Respawn");
             }
         }
@@ -141,7 +164,7 @@ public class AI1Cap : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-     
+
     }
 
 
@@ -207,6 +230,7 @@ public class AI1Cap : MonoBehaviour
                 capDistance = calculatedDist;
             }
         }
+        Debug.Log(nearest);
         return nearest;
     }
 }

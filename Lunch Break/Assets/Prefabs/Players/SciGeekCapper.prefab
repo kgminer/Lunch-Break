@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4047030257407286401}
   - component: {fileID: 5036039040896185914}
   - component: {fileID: 7749799460490055459}
+  - component: {fileID: 6683452047218392043}
   - component: {fileID: 8177911440013898043}
   - component: {fileID: 1069346195}
-  - component: {fileID: 6683452047218392043}
+  - component: {fileID: 5405485217995720072}
   m_Layer: 0
   m_Name: SciGeekCapper
   m_TagString: scienceGeek
@@ -68,6 +69,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1.75, z: 0.23}
   m_Center: {x: 0, y: 0.875, z: 0}
+--- !u!136 &6683452047218392043
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069346194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &8177911440013898043
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -125,20 +140,25 @@ MonoBehaviour:
   alive: 1
   ScienceGeeksSpawnObject: {fileID: 0}
   RespawnObject: {fileID: 0}
---- !u!136 &6683452047218392043
-CapsuleCollider:
+--- !u!95 &5405485217995720072
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069346194}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Avatar: {fileID: 9000000, guid: 22a65baa32554984ba1758c295862dda, type: 3}
+  m_Controller: {fileID: 9100000, guid: 57e8edf0aea2ef242a70cff519798c44, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &979308811309768228
 GameObject:
   m_ObjectHideFlags: 0

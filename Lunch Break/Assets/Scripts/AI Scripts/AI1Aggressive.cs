@@ -26,8 +26,6 @@ public class AI1Aggressive : MonoBehaviour
 
     private float health;
     public float startingHealth;
-    private float money;
-    public float startingMoney;
     public int maxInv;
 
     public float barCooldown;
@@ -62,7 +60,6 @@ public class AI1Aggressive : MonoBehaviour
         Ammo = new List<GameObject>();
 
         health = startingHealth;
-        money = startingMoney;
     }
 
     private void Update()
@@ -120,7 +117,6 @@ public class AI1Aggressive : MonoBehaviour
         alive = false;
         GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
-        money = startingMoney;
         yield return new WaitForSeconds(10);
         GameManager.setObjectLocation(gameObject, "bookWorm");
         alive = true;
@@ -199,11 +195,11 @@ public class AI1Aggressive : MonoBehaviour
 
         foreach (Transform vendor in GameManager.vendors)
         {
-            float calculatedDist = (vendor.transform.position - transform.position).sqrMagnitude;
+            float calculatedDist = (vendor.position - transform.position).sqrMagnitude;
 
             if (calculatedDist < curDistance)
             {
-                nearestTF = vendor.transform;
+                nearestTF = vendor;
                 curDistance = calculatedDist;
             }
         }
@@ -217,11 +213,11 @@ public class AI1Aggressive : MonoBehaviour
 
         foreach (Transform cap in GameManager.caps)
         {
-            float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;
+            float calculatedDist = (cap.position - transform.position).sqrMagnitude;
 
             if (calculatedDist < curDistance)
             {
-                nearest = cap.transform;
+                nearest = cap;
                 curDistance = calculatedDist;
                 capDistance = calculatedDist;
             }
