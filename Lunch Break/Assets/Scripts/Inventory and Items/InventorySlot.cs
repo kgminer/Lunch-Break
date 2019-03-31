@@ -67,6 +67,7 @@ public class InventorySlot
         if (first.Name == item.Name)
         {
             mItemStack.Pop();
+            GameObject.Destroy(item.gameObject);
             return true;
         }
         return false;
