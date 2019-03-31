@@ -9,10 +9,16 @@ using UnityEngine.AI;
 
 public class AggroBookWorm : MonoBehaviour
 {
-    public float viewRad;                 // distance at which enemies can be detected
+    // Limits
+    public float viewRad;
+    float nextFire;
+    private float health;
+    public float startingHealth;
+    public int maxInv;
+    public float fireRate;
+    public float barCooldown;
+    float nextBar = 0f;
 
-    public float patrolRad;               // distance at which character starts cap zone wander
-    public float wanderRad;
 
     // Random variables and their ranges
     public float shuffleTime, shuffleMin, shuffleMax;
@@ -20,18 +26,10 @@ public class AggroBookWorm : MonoBehaviour
     public float targetingRange, rangeMin, rangeMax;
     public float runRad, runMin, runMax;
     public float fleeTil, fleeTilMin, fleeTilMax;
+    public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
-
     public int personality;
-
-    private float health;
-    public float startingHealth;
-    public int maxInv;
-
-    public float barCooldown;
-    float nextBar = 0f;
-
-    public float fireRate;
+    public bool idling;
 
     // Projectile object references
     public GameObject burger;
@@ -49,25 +47,20 @@ public class AggroBookWorm : MonoBehaviour
     public GameObject heldFries;
     private GameObject activeItem;
 
-    public Transform projSpawn;
-    Animator NPCAnimator;
-
-    public AudioClip hitSound;
-
-    NavMeshAgent nav;
-
+    // Calculated variables
+    float enemyDistance;
+    float capDistance;
     Transform nearestEnemy;
     Transform nearestCap;
     Transform nearestVendor;
 
-    float enemyDistance;
-    float capDistance;
-    float nextFire;
+    //Component Objects
     List<GameObject> Ammo;
-
+    NavMeshAgent nav;
+    public Transform projSpawn;
+    Animator NPCAnimator;
+    public AudioClip hitSound;
     public bool alive;
-    public GameObject JocksSpawnObject;
-    public GameObject RespawnObject;
 
     private void Awake()
     {
@@ -80,8 +73,6 @@ public class AggroBookWorm : MonoBehaviour
         health = startingHealth;
 
         VariableShuffle();
-
-        personality = Random.Range(0, 3);
     }
 
     private void Update()
@@ -89,11 +80,16 @@ public class AggroBookWorm : MonoBehaviour
         if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
             if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
                 if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
-                    nav.isStopped = false;
+                    if(!idling)
+                    {
+                        nav.isStopped = false;
+                        NPCAnimator.SetBool("Moving", true);
+                    }
 
         if (!alive)
         {
             nav.isStopped = true;
+            NPCAnimator.SetBool("Moving", false);
             return;
         }
 
@@ -107,6 +103,7 @@ public class AggroBookWorm : MonoBehaviour
 
         if (!Ammo.Any())
         {
+            idling = false;
             nearestVendor = FindNearestVendor(null);
             nav.SetDestination(nearestVendor.position);
 
@@ -115,7 +112,7 @@ public class AggroBookWorm : MonoBehaviour
                 switch (personality)
                 {
                     case 0: // run away from enemy
-                        nav.SetDestination(-nearestEnemy.position);
+                        nav.SetDestination(transform.position - nearestEnemy.position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
@@ -133,6 +130,7 @@ public class AggroBookWorm : MonoBehaviour
         }
         else if (nearestEnemy != null) // attack mode
         {
+            idling = false;
             nav.SetDestination(nearestEnemy.position);
 
             if (enemyDistance <= targetingRange) // enemy within range
@@ -150,22 +148,31 @@ public class AggroBookWorm : MonoBehaviour
                 }
             }
         }
-        else
+        else // no enemy nearby; find a cap
         {
             switch(personality)
             {
                 case 0:
-                    nav.SetDestination(GameManager.centerCap.position);
+                    nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
                     break;
 
                 case 1:
-                    nav.SetDestination(FindNearestCap(0).position);
+                    nav.SetDestination(FindNearestCap(0).position); // find a cap not yet taken
                     break;
 
                 case 2:
-                    nav.SetDestination(FindNearestCap(1).position);
+                    nav.SetDestination(FindNearestCap(1).position); // go to any vending cap
                     break;
             }
+
+            if (capDistance < idleDist)
+            {
+                idling = true;
+                nav.isStopped = true;
+                NPCAnimator.SetBool("Moving", false);
+            }
+            else
+                idling = false;
         }
     }
 
@@ -240,6 +247,7 @@ public class AggroBookWorm : MonoBehaviour
         targetingRange = Random.Range(rangeMin, rangeMax);
         fleeTil = Random.Range(fleeTilMin, fleeTilMax);
         runRad = Random.Range(runMin, runMax);
+        idleDist = Random.Range(idleMin, idleMax);
 
         if (Time.time > personalityTimer)
         {
