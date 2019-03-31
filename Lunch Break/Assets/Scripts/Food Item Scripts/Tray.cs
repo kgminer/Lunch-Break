@@ -11,10 +11,4 @@ public class Tray : InventoryItemBase
             return "Tray";
         }
     }
-
-    public override void OnUse()
-    {
-        // TODO: Do something with the object
-        base.OnUse();
-    }
 }

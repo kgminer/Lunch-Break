@@ -11,10 +11,4 @@ public class Cake : InventoryItemBase
             return "Cake";
         }
     }
-
-    public override void OnUse()
-    {
-        // TODO: Do something with the object
-        base.OnUse();
-    }
 }

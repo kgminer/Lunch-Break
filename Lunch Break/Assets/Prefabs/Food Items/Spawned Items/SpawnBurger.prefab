@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Image: {fileID: 21300000, guid: 9551f6791e82eb84db8d597591c3f14f, type: 3}
+  spawnBug: {fileID: 931056029}
 --- !u!122 &9219988206096036942
 Halo:
   m_ObjectHideFlags: 0

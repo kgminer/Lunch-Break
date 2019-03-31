@@ -11,10 +11,4 @@ public class Donut : InventoryItemBase
             return "Donut";
         }
     }
-
-    public override void OnUse()
-    {
-        // TODO: Do something with the object
-        base.OnUse();
-    }
 }

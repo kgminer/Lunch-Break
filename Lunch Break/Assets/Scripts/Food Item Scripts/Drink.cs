@@ -11,10 +11,4 @@ public class Drink : InventoryItemBase
             return "Drink";
         }
     }
-
-    public override void OnUse()
-    {
-        // TODO: Do something with the object
-        base.OnUse();
-    }
 }
