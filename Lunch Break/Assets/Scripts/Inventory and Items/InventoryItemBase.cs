@@ -27,6 +27,7 @@ public class InventoryItemBase : MonoBehaviour, IInventoryItem
 
     public virtual void OnPickup()
     {
+        //Destroy(gameObject);
         gameObject.SetActive(false);
     }
 
@@ -41,8 +42,5 @@ public class InventoryItemBase : MonoBehaviour, IInventoryItem
         }
     }
 
-    public virtual void OnUse()
-    {
-
-    }
+ 
 }

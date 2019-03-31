@@ -16,6 +16,5 @@ public class ItemClickHandler : MonoBehaviour
 
         _Inventory.UseItem(item);
 
-        item.OnUse();
     }
 }
