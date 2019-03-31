@@ -84,6 +84,15 @@ public class AggroBookWorm : MonoBehaviour
 
     private void Update()
     {
+        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
+            nav.isStopped = true;
+
+        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+            nav.isStopped = true;
+
+        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
+            nav.isStopped = true;
+
         if (!alive)
         {
             return;
@@ -145,6 +154,14 @@ public class AggroBookWorm : MonoBehaviour
         }
     }
 
+    void Fire()
+    {
+        GameObject item = Ammo.First();
+        GameObject thrown = Instantiate(item, projSpawn.position, projSpawn.rotation);
+        thrown.tag = this.tag + "Thrown";
+        Ammo.Remove(item);
+    }
+
     IEnumerator Respawn()
     {
         alive = false;
@@ -165,6 +182,8 @@ public class AggroBookWorm : MonoBehaviour
 
             if (health <= 0)
             {
+                NPCAnimator.SetTrigger("Die");
+
                 // increase score for projectile team
                 if (other.gameObject.tag == "jocksThrown")
                 {
@@ -180,6 +199,8 @@ public class AggroBookWorm : MonoBehaviour
 
                 StartCoroutine("Respawn");
             }
+            else
+                NPCAnimator.SetTrigger("TakeDamage");
         }
     }
 
