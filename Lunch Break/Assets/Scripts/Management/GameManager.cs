@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public static Transform centerCap;
     public static GameObject[] allCharacters;
     public static List<Transform> vendors;
-    public static List<Transform> caps;
+    public static List<GameObject> caps;
 
     // Start is called before the first frame update
     public void Start()
@@ -179,12 +179,13 @@ public class GameManager : MonoBehaviour
     private void CollectPositions()
     {
         centerCap = GameObject.FindGameObjectWithTag("Center Cap").transform;
-        caps = new List<Transform>();
+
+        caps = new List<GameObject>();
         vendors = new List<Transform>();
 
         GameObject[] capcircles = GameObject.FindGameObjectsWithTag("Cap");
         foreach (GameObject circle in capcircles)
-            caps.Add(circle.transform);
+            caps.Add(circle);
 
         GameObject[] vending = GameObject.FindGameObjectsWithTag("Vending");
         foreach (GameObject machine in vending)

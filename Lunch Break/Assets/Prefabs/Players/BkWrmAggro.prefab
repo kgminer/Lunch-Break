@@ -427,7 +427,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4562054309413373039}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 22a65baa32554984ba1758c295862dda, type: 3}
+  m_Avatar: {fileID: 9000000, guid: c1cc62de01cc05e4692cd6d7fd9305c9, type: 3}
   m_Controller: {fileID: 9100000, guid: 57e8edf0aea2ef242a70cff519798c44, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -451,14 +451,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRad: 20
   pursueRad: 20
-  targetingRad: 6
   patrolRad: 2
-  runRad: 6
   wanderRad: 4
+  shuffleTime: 0
+  shuffleMin: 0
+  shuffleMax: 0
+  targetingRad: 6
+  rangeMin: 0
+  rangeMax: 0
+  runRad: 6
+  runMin: 0
+  runMax: 0
+  fleeTil: 0
+  fleeTilMin: 0
+  fleeTilMax: 0
+  personality: 0
   runMagMin: 0.5
   runMagMax: 10
-  runTilMin: 1
-  runTilMax: 5
   startingHealth: 3
   maxInv: 9
   barCooldown: 3

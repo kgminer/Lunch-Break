@@ -66,4 +66,9 @@ public class CapZone : MonoBehaviour
                 team = "jocks";
         }
     }
+
+    public string GetOwner()
+    {
+        return team;
+    }
 }
