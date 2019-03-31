@@ -59,8 +59,6 @@ public class GameManager : MonoBehaviour
         scienceGeeksNPCs = new GameObject[NUM_NPCS];
         bookWormsNPCs = new GameObject[NUM_NPCS];
         jocksNPCs = new GameObject[NUM_NPCS];
-        //InvokeRepeating("SpawnFood", 0.0f, 10f);
-        SpawnFood();
         CollectPositions();
         GameManager.ScienceGeeksSpawnObject = ScienceGeeksBase;
         GameManager.JocksSpawnObject = JocksBase;
