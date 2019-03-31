@@ -132,12 +132,25 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: Motion
-    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
-      Ensure both rig type match\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'B_Spine' has translation animation that will
+      be discarded.\n\t'B_Spine2' has translation animation that will be discarded.\n\t'B_Spine2'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tLeftUpperArm
+      average position error 40.1 mm and maximum position error 89.9 mm at time 0:23
+      (59.0%) Frame 23\n\tLeftLowerArm average position error 37.4 mm and maximum
+      position error 66.7 mm at time 0:23 (59.0%) Frame 23\n\tLeftHand average position
+      error 35.0 mm and maximum position error 52.8 mm at time 0:18 (46.2%) Frame
+      18\n\tRightUpperArm average position error 38.7 mm and maximum position error
+      84.8 mm at time 0:17 (43.6%) Frame 17\n\tRightLowerArm average position error
+      35.7 mm and maximum position error 68.4 mm at time 0:23 (59.0%) Frame 23\n\tRightHand
+      average position error 36.2 mm and maximum position error 66.3 mm at time 0:23
+      (59.0%) Frame 23\n\tHead average position error 67.3 mm and maximum position
+      error 159.4 mm at time 0:24 (61.5%) Frame 24\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -172,7 +185,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: Perish
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

@@ -10,15 +10,17 @@ using UnityEngine.AI;
 public class AggroBookWorm : MonoBehaviour
 {
     public float viewRad;                 // distance at which enemies can be detected
-    public float pursueRad;                // distance at which character pursues enemy
 
     public float patrolRad;               // distance at which character starts cap zone wander
     public float wanderRad;
 
+    // Random variables and their ranges
     public float shuffleTime, shuffleMin, shuffleMax;
-    public float targetingRad, rangeMin, rangeMax;
+    public float pursueRad, pursueMin, pursueMax;
+    public float targetingRange, rangeMin, rangeMax;
     public float runRad, runMin, runMax;
     public float fleeTil, fleeTilMin, fleeTilMax;
+    public float personalityTimer, personTimeMin, personTimeMax;
 
     public int personality;
 
@@ -79,27 +81,27 @@ public class AggroBookWorm : MonoBehaviour
 
         VariableShuffle();
 
-        personality = (int)Random.Range(0, 2);
+        personality = Random.Range(0, 3);
     }
 
     private void Update()
     {
-        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
-            nav.isStopped = true;
-
-        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
-            nav.isStopped = true;
-
-        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
-            nav.isStopped = true;
+        if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
+            if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+                if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
+                    nav.isStopped = false;
 
         if (!alive)
         {
+            nav.isStopped = true;
             return;
         }
 
         if (Time.time > shuffleTime)
             VariableShuffle();
+
+        if (Time.time < fleeTil)
+            return;
 
         nearestEnemy = FindNearestEnemy();
 
@@ -108,33 +110,32 @@ public class AggroBookWorm : MonoBehaviour
             nearestVendor = FindNearestVendor(null);
             nav.SetDestination(nearestVendor.position);
 
-            if (enemyDistance < runRad)
+            if (nearestEnemy != null && enemyDistance < runRad)
             {
                 switch (personality)
                 {
                     case 0: // run away from enemy
                         nav.SetDestination(-nearestEnemy.position);
+                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
                     case 1: // run parallel to enemy
                         nav.SetDestination(nearestEnemy.position + nearestVendor.position);
+                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
                     case 2: // find new vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
+                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
                 }
             }
-                
-                    
-                
-                
         }
         else if (nearestEnemy != null) // attack mode
         {
             nav.SetDestination(nearestEnemy.position);
 
-            if (enemyDistance <= targetingRad) // enemy within range
+            if (enemyDistance <= targetingRange) // enemy within range
             {
                 if (Time.time > nextFire) // shooting cooldown expired
                 {
@@ -142,6 +143,7 @@ public class AggroBookWorm : MonoBehaviour
                     {
                         transform.LookAt(nearestEnemy.position); // face enemy
 
+                        nav.isStopped = true;
                         NPCAnimator.SetTrigger("Attack");
                         nextFire = Time.time + fireRate;
                     }
@@ -150,7 +152,20 @@ public class AggroBookWorm : MonoBehaviour
         }
         else
         {
-            nav.SetDestination(GameManager.centerCap.position);
+            switch(personality)
+            {
+                case 0:
+                    nav.SetDestination(GameManager.centerCap.position);
+                    break;
+
+                case 1:
+                    nav.SetDestination(FindNearestCap(0).position);
+                    break;
+
+                case 2:
+                    nav.SetDestination(FindNearestCap(1).position);
+                    break;
+            }
         }
     }
 
@@ -168,7 +183,7 @@ public class AggroBookWorm : MonoBehaviour
         GameManager.setObjectLocation(gameObject, "respawn");
         health = startingHealth;
         yield return new WaitForSeconds(10);
-        GameManager.setObjectLocation(gameObject, "jocks");
+        GameManager.setObjectLocation(gameObject, "bookWorm");
         alive = true;
     }
 
@@ -182,6 +197,7 @@ public class AggroBookWorm : MonoBehaviour
 
             if (health <= 0)
             {
+                nav.isStopped = true;
                 NPCAnimator.SetTrigger("Die");
 
                 // increase score for projectile team
@@ -193,15 +209,18 @@ public class AggroBookWorm : MonoBehaviour
                 {
                     GameManager.scienceGeeksScore++;
                 }
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-
-                StartCoroutine("Respawn");
             }
             else
+            {
+                nav.isStopped = true;
                 NPCAnimator.SetTrigger("TakeDamage");
+            }
         }
+    }
+
+    void Perish()
+    {
+        StartCoroutine("Respawn");
     }
 
     private void OnTriggerStay(Collider other)
@@ -217,13 +236,32 @@ public class AggroBookWorm : MonoBehaviour
 
     private void VariableShuffle()
     {
-        targetingRad = Random.Range(rangeMin, rangeMax);
+        pursueRad = Random.Range(pursueMin, pursueMax);
+        targetingRange = Random.Range(rangeMin, rangeMax);
         fleeTil = Random.Range(fleeTilMin, fleeTilMax);
         runRad = Random.Range(runMin, runMax);
+
+        if (Time.time > personalityTimer)
+        {
+            ChangePersonality(3);
+            personalityTimer = Time.time + Random.Range(personTimeMin, personTimeMax);
+        }
 
         shuffleTime = Time.time + Random.Range(shuffleMin, shuffleMax);
     }
 
+    private void ChangePersonality(int mode)
+    {
+        if (mode == 3)
+            personality = Random.Range(0, 3);
+
+        if (mode == 0)
+            personality = 0;
+        if (mode == 1)
+            personality = 1;
+        if (mode == 2)
+            personality = 2;
+    }
 
     private Transform FindNearestEnemy()
     {

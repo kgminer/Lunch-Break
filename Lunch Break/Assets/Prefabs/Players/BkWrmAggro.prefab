@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 3155161150801482604}
   - component: {fileID: 427451638953162268}
   - component: {fileID: 3508579195143616279}
-  - component: {fileID: 8363421901722041292}
+  - component: {fileID: 481010720743722806}
   m_Layer: 0
   m_Name: BkWrmAggro
   m_TagString: bookWorm
@@ -405,8 +405,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 4562054309413373039}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.35
-  m_Speed: 3
+  m_Radius: 0.3
+  m_Speed: 5
   m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 500
@@ -417,7 +417,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!95 &3508579195143616279
 Animator:
   serializedVersion: 3
@@ -437,7 +437,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8363421901722041292
+--- !u!114 &481010720743722806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -450,27 +450,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRad: 20
-  pursueRad: 20
-  patrolRad: 2
-  wanderRad: 4
+  patrolRad: 0
+  wanderRad: 0
   shuffleTime: 0
-  shuffleMin: 0
-  shuffleMax: 0
-  targetingRad: 6
-  rangeMin: 0
-  rangeMax: 0
-  runRad: 6
-  runMin: 0
-  runMax: 0
+  shuffleMin: 3
+  shuffleMax: 15
+  pursueRad: 0
+  pursueMin: 7
+  pursueMax: 20
+  targetingRange: 0
+  rangeMin: 5
+  rangeMax: 17
+  runRad: 0
+  runMin: 3
+  runMax: 15
   fleeTil: 0
-  fleeTilMin: 0
-  fleeTilMax: 0
+  fleeTilMin: 1
+  fleeTilMax: 10
   personality: 0
-  runMagMin: 0.5
-  runMagMax: 10
   startingHealth: 3
   maxInv: 9
-  barCooldown: 3
+  barCooldown: 5
   fireRate: 0.5
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
@@ -484,7 +484,7 @@ MonoBehaviour:
   heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
   heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
   projSpawn: {fileID: 5491738914349396955}
-  hitSound: {fileID: 8300000, guid: d21c96b20db2b4f8bbe3e10a367f525e, type: 3}
+  hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
   alive: 1
   JocksSpawnObject: {fileID: 0}
   RespawnObject: {fileID: 0}

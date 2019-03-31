@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movement;
     Rigidbody playerRigid;
     Animator playerAnimator;
+    public AudioClip hitSound;
     int floorMask;
     float camRayLen = 100f;
 
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public Transform rightSpawn;
     public float fireRate = 0.5f;
     private float nextFire;
-    private float health;
+    public float health;
     public float startingHealth;
     public bool alive;
 
@@ -567,13 +568,15 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
-            playerAnimator.SetTrigger("Hit");
-            //SoundManager.HitSound(transform);
+            
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
             if (health <= 0)
             {
+                playerAnimator.SetTrigger("Die");
+
                 // increase score for projectile team
-                if(other.tag == "scienceGeekThrown")
+                if (other.tag == "scienceGeekThrown")
                 {
                     GameManager.scienceGeeksScore++;
                 }
@@ -585,13 +588,14 @@ public class PlayerController : MonoBehaviour
                 {
                     GameManager.bookWormsScore++;
                 }
-                // start respawn timer
-                // die; wait for animation
-                // spawn money equal to amount before death
-                playerAnimator.SetTrigger("Die");
-                StartCoroutine("Respawn");
             }
+            playerAnimator.SetTrigger("Hit");
         }
+    }
+
+    void Perish()
+    {
+        StartCoroutine("Respawn");
     }
 
     // Boolean return of enemy projectile entering collider

@@ -8,6 +8,7 @@ public class FoodSpawner : MonoBehaviour
     private int activeFoodIndex;
     private const int MIN_TIME = 1, MAX_TIME = 30, MIN_INDEX = 0, MAX_INDEX = 5;
 
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class FoodSpawner : MonoBehaviour
         StartCoroutine("SpawnNewFood");
     }
 
+    
     private void Update()
     {
         if(!spawnableFoods[activeFoodIndex].activeSelf)
@@ -23,6 +25,7 @@ public class FoodSpawner : MonoBehaviour
             StartCoroutine("SpawnNewFood");
         }
     }
+    */
 
     IEnumerator SpawnNewFood()
     {
