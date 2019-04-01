@@ -453,8 +453,9 @@ MonoBehaviour:
   viewRad: 20
   startingHealth: 3
   maxInv: 9
-  fireRate: 0.5
+  fireRate: 1
   barCooldown: 5
+  respawnTimer: 0
   shuffleTime: 0
   shuffleMin: 3
   shuffleMax: 15
@@ -462,7 +463,7 @@ MonoBehaviour:
   pursueMin: 5
   pursueMax: 20
   targetingRange: 0
-  rangeMin: 5
+  rangeMin: 8
   rangeMax: 17
   runRad: 0
   runMin: 3
@@ -477,6 +478,7 @@ MonoBehaviour:
   personTimeMin: 20
   personTimeMax: 120
   personality: 0
+  idling: 0
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
@@ -763,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6768942599819833564}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 3505374366603298754}
