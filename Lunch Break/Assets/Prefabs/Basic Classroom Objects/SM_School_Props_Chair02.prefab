@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 469344}
   - component: {fileID: 3365688}
   - component: {fileID: 2393694}
+  - component: {fileID: 1755715124618813913}
   m_Layer: 0
   m_Name: SM_School_Props_Chair02
   m_TagString: Untagged
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1755715124618813913
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36300015, y: 0.8499998, z: 0.4510001}
+  m_Center: {x: 0.000000007450581, y: 0.4249999, z: -0.000000022351742}

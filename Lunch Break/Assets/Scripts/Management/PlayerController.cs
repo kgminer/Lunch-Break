@@ -568,7 +568,6 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
-            
             AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
             if (health <= 0)
