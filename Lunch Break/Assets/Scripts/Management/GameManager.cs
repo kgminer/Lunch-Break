@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         GameManager.JocksSpawnObject = JocksBase;
         GameManager.BookWormsSpawnObject = BookWormsBase;
         GameManager.RespawnObject = RespawnPoint;
-        InvokeRepeating("ScoreCapZones", 0.0f, 3f);
+        InvokeRepeating("ScoreCapZones", 0.0f, 5f);
 
         PositionPlayers();
         Time.timeScale = 1f;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
                 {
                     gameDisplay.SetTimeRemainingText(minutes, seconds);
                     gameDisplay.SetScoreText();
-                    scoreReached = scienceGeeksScore >= 100 || bookWormsScore >= 100 || jocksScore >= 100;
+                    scoreReached = scienceGeeksScore >= 250 || bookWormsScore >= 250 || jocksScore >= 250;
                     if(scoreReached)
                     {
                         gameState = 1;

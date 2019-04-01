@@ -136,7 +136,7 @@ public class HUD : MonoBehaviour
 
     public void SetScoreText()
     {
-        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore + "/100 " + "Book Worms: " + GameManager.bookWormsScore + "/100 " + "Jocks: " + GameManager.jocksScore + "/100";
+        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore + "/250     " + "Book Worms: " + GameManager.bookWormsScore + "/250     " + "Jocks: " + GameManager.jocksScore + "/250";
     }
 
     public void SetFinalScoreText()
