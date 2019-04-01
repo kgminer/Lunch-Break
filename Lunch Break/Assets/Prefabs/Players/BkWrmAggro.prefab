@@ -455,7 +455,7 @@ MonoBehaviour:
   maxInv: 9
   fireRate: 1
   barCooldown: 5
-  respawnTimer: 0
+  respawnTimer: 10
   shuffleTime: 0
   shuffleMin: 3
   shuffleMax: 15
@@ -472,7 +472,7 @@ MonoBehaviour:
   fleeTilMin: 1
   fleeTilMax: 8
   idleDist: 0
-  idleMin: 1
+  idleMin: 2
   idleMax: 8
   personalityTimer: 0
   personTimeMin: 20

@@ -189,55 +189,34 @@ public class GameManager : MonoBehaviour
 
     private void SpawnScienceGeeksNPCs(int spawnNumber)
     {
-        int numAggressiveNPCs = (int) Random.Range(1, spawnNumber);
-        int numCapNPCs = spawnNumber - numAggressiveNPCs;
-        int arrayIndex = 0;
+        //int arrayIndex = 0;
 
-        for (int i = 0; i < numAggressiveNPCs; i++)
+        for (int i = 0; i < spawnNumber; i++)
         {
-            scienceGeeksNPCs[arrayIndex] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
-        }
-        for (int i = 0; i < numCapNPCs; i++)
-        {
-            scienceGeeksNPCs[arrayIndex] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
+            scienceGeeksNPCs[i] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            //arrayIndex++;
         }
     }
 
     private void SpawnJocksNPCs(int spawnNumber)
     {
-        int numAggressiveNPCs = (int)Random.Range(1, spawnNumber);
-        int numCapNPCs = spawnNumber - numAggressiveNPCs;
-        int arrayIndex = 0;
+        //int arrayIndex = 0;
 
-        for (int i = 0; i < numAggressiveNPCs; i++)
+        for (int i = 0; i < spawnNumber; i++)
         {
-            jocksNPCs[arrayIndex] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
-        }
-        for (int i = 0; i < numCapNPCs; i++)
-        {
-            jocksNPCs[arrayIndex] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
+            jocksNPCs[i] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
+            //arrayIndex++;
         }
     }
 
     private void SpawnBookWormsNPCs(int spawnNumber)
     {
-        int numAggressiveNPCs = (int)Random.Range(1, spawnNumber);
-        int numCapNPCs = spawnNumber - numAggressiveNPCs;
-        int arrayIndex = 0;
+        //int arrayIndex = 0;
 
-        for (int i = 0; i < numAggressiveNPCs; i++)
+        for (int i = 0; i < spawnNumber; i++)
         {
-            bookWormsNPCs[arrayIndex] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
-        }
-        for (int i = 0; i < numCapNPCs; i++)
-        {
-            bookWormsNPCs[arrayIndex] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
-            arrayIndex++;
+            bookWormsNPCs[i] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            //arrayIndex++;
         }
     }
 

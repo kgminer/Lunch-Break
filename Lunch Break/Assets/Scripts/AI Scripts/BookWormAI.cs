@@ -16,7 +16,7 @@ public class BookWormAI : MonoBehaviour
     public int maxInv;
     public float fireRate;
     public float barCooldown;
-    float nextBar = 0f;
+    public float nextBar;
     public float respawnTimer;
 
 
