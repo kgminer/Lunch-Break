@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public GameObject drink;
     public GameObject cake;
     public GameObject fries;
+    public GameObject mainFries;
 
     // Held object references
     public GameObject heldBurger;
@@ -45,10 +46,9 @@ public class PlayerController : MonoBehaviour
 
     public Inventory inventory;
     public HUD hud;
-    public GameObject Hand;
 
     // Variable to be set upon projectile selection within Update for either item 0, 1, or 2. Initialized to 0 for first slot
-    private int projectileSelect = 0;
+    private int projectileSelect = -1;
 
     // Tracking each inventory slot for easy highlighting
     Button slot1;
@@ -380,7 +380,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject thrown1 = Instantiate(fries, leftSpawn.position, leftSpawn.rotation);
             thrown1.tag = this.tag + "Thrown";
-            GameObject thrown2 = Instantiate(fries, projSpawn.position, projSpawn.rotation);
+            GameObject thrown2 = Instantiate(mainFries, projSpawn.position, projSpawn.rotation);
             thrown2.tag = this.tag + "Thrown";
             GameObject thrown3 = Instantiate(fries, rightSpawn.position, rightSpawn.rotation);
             thrown3.tag = this.tag + "Thrown";
@@ -388,6 +388,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check and see if the slot is now empty, if it is remove the object from the hand
+        
         if (inventory.mSlots[projectileSelect].Count < 1)
             activeItem.SetActive(false);
     }
@@ -408,9 +409,10 @@ public class PlayerController : MonoBehaviour
         slot1 = slots.GetChild(0).GetChild(0).GetComponent<Button>();
         slot2 = slots.GetChild(1).GetChild(0).GetComponent<Button>();
         slot3 = slots.GetChild(2).GetChild(0).GetComponent<Button>();
+        Button dummySlot = slots.GetChild(3).GetChild(0).GetComponent<Button>();
 
         // Initialize color presets for slot in use and slot not in use
-        ColorBlock cbUse = slot1.colors;
+        ColorBlock cbUse = dummySlot.colors;
         ColorBlock cbUnuse = slot2.colors;
 
         usedSlot = cbUse;
@@ -635,12 +637,15 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         IInventoryItem item = other.GetComponent<IInventoryItem>();
-        if (item != null)
+        if (other.CompareTag("Food"))
         {
-            hud.CloseMessagePanel();
-            mItemToPickup = null;
-            mItemGlow.enabled = false;
-            mItemGlow = null;
+            if (item != null)
+            {
+                hud.CloseMessagePanel();
+                mItemToPickup = null;
+                mItemGlow.enabled = false;
+                mItemGlow = null;
+            }
         }
     }
 

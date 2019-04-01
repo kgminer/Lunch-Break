@@ -41,7 +41,7 @@ public class BoundaryDestroyer : MonoBehaviour
             Instantiate(spawnDrink, hitPosition, hitRotation);
         }
 
-        else if (other.GetComponent<Burger>())
+        else if (other.GetComponent<MainFries>())
         {
             Vector3 hitPosition = other.gameObject.transform.position;
             Quaternion hitRotation = other.gameObject.transform.rotation;

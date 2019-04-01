@@ -67,8 +67,11 @@ public class InventorySlot
         if (first.Name == item.Name)
         {
             mItemStack.Pop();
-            if (!item.transform.parent.CompareTag("Spawner"))
-                GameObject.Destroy(item.gameObject);
+            if (item.transform.parent != null)
+            {
+                if (!item.transform.parent.CompareTag("Spawner"))
+                    GameObject.Destroy(item.gameObject);
+            }
             return true;
         }
         return false;
