@@ -25,6 +25,7 @@ TagManager:
   - bookWormThrown
   - jocksThrown
   - Center Cap
+  - Spawner
   layers:
   - Default
   - TransparentFX
