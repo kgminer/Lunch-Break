@@ -218,7 +218,7 @@ public class ScienceGeekAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "jocksThrown" || other.gameObject.tag == "scienceGeekThrown")
+        if (other.gameObject.tag == "jocksThrown" || other.gameObject.tag == "bookWormThrown")
         {
             health--;
             Destroy(other.gameObject);
