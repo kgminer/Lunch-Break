@@ -8,6 +8,13 @@ public class CapZone : MonoBehaviour
     int teamInd = 0;
     public string team = "uncapped";
 
+    // Lights
+    public GameObject noTeam;
+    public GameObject geekTeam;
+    public GameObject jockTeam;
+    public GameObject wormTeam;
+    private GameObject prevTeam;
+
     List<Collider> Cappers = new List<Collider>();
 
     public string GetTeam()
@@ -59,12 +66,32 @@ public class CapZone : MonoBehaviour
             teamInd = contestingTeam;
 
             if (teamInd == 1)
+            {
                 team = "scienceGeek";
+                prevTeam.SetActive(false);
+                geekTeam.SetActive(true);
+                prevTeam = geekTeam;
+            }
             if (teamInd == 2)
+            {
                 team = "bookWorm";
+                prevTeam.SetActive(false);
+                wormTeam.SetActive(true);
+                prevTeam = wormTeam;
+            }
             if (teamInd == 3)
+            {
                 team = "jocks";
+                prevTeam.SetActive(false);
+                jockTeam.SetActive(true);
+                prevTeam = jockTeam;
+            }
         }
+    }
+
+    void Awake()
+    {
+        prevTeam = noTeam;
     }
 
     public string GetOwner()
