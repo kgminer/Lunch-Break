@@ -459,7 +459,8 @@ public class PlayerController : MonoBehaviour
         health = startingHealth;
 
         String[] controllers = Input.GetJoystickNames();
-        if (controllers[0].Equals("Controller (XBOX 360 For Windows)"))
+        //if (controllers[0].Equals("Controller (XBOX 360 For Windows)"))
+        if(!controllers[0].Equals(""))
         {
             Debug.Log("using controller");
             isController = true;
