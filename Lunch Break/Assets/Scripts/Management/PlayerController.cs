@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     // Create a sound manager reference
     private SoundManager SoundManager;
 
+    // Is the user using a controller or not
+    private Boolean isController;
+
     public float speed = 5f;
 
     Vector3 movement;
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
     ColorBlock unusedSlot;
 
     // Use Update method for throwing projectiles
-    void Update ()
+    void Update()
     {
         if (Input.GetButton("Pause"))
         {
@@ -388,7 +391,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check and see if the slot is now empty, if it is remove the object from the hand
-        
+
         if (inventory.mSlots[projectileSelect].Count < 1)
             activeItem.SetActive(false);
     }
@@ -401,7 +404,7 @@ public class PlayerController : MonoBehaviour
 
         // Reaching the border components of the slots for highlighting
         GameObject hudInterface = GameObject.Find("HUD");
-        
+
         // Get the InventoryPanel object
         Transform slots = hudInterface.transform.GetChild(0);
 
@@ -421,6 +424,13 @@ public class PlayerController : MonoBehaviour
         // Collect the held item references
 
         health = startingHealth;
+
+        String[] controllers = Input.GetJoystickNames();
+        if (controllers[0].Equals("Controller (XBOX 360 For Windows)"))
+        {
+            Debug.Log("using controller");
+            isController = true;
+        }
     }
 
     void Start()
@@ -451,25 +461,53 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-
-        /*
-        string[] gamePads = Input.GetJoystickNames();
-        if(gamePads[0].Length > 1)
+        float h;
+        float v;
+        float hj;
+        float vj;
+        
+ 
+        if (isController)
         {
-            TurnWithStick();
+            h = Input.GetAxisRaw("JoyMoveX");
+            v = Input.GetAxisRaw("JoyMoveY");
+            hj = Input.GetAxisRaw("JoyTurnX");
+            vj = Input.GetAxisRaw("JoyTurnY");
+
+            if ((h > 0.1 || h < -0.1) || (v > 0.1 || v < -0.1))
+            {
+                Move(h, v);
+            }
+
+            AnimateWithStick(h, v);
+
+            if((hj > 0.1 || hj < -0.1) || (vj > 0.1 || vj < -0.1))
+            {
+                TurnWithStick(hj, vj);
+            }
         }
+
         else
         {
+            h = Input.GetAxisRaw("Horizontal");
+            v = Input.GetAxisRaw("Vertical");
+
+            Move(h, v);
+            Animate(h, v);
             TurnWithMouse();
         }
-        */
 
-        TurnWithMouse();
-        Move(h, v);
-        Animate(h, v);
-        
+        //T
+
+        //TurnWithStick(hj, vj);
+
+        //Animate(h, v);
+
+        //TurnWithStick(hj, vj);
+
+
+
+
     }
 
     private void Move(float h, float v)
@@ -478,8 +516,8 @@ public class PlayerController : MonoBehaviour
         movement = movement.normalized * speed * Time.deltaTime;
 
         if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
-            if(!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
-                if(!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
+            if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+                if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
                     playerRigid.MovePosition(transform.position + movement);
 
     }
@@ -501,15 +539,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    private void TurnWithStick()
+
+    private void TurnWithStick(float h, float v)
     {
+        Vector3 lookDirection = new Vector3(h, 0, v);
+        transform.rotation = Quaternion.LookRotation(lookDirection);
+
+        /*
         Vector3 lookVector = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
 
         if(lookVector.x != 0 || lookVector.y != 0)
             transform.rotation = Quaternion.LookRotation(lookVector);
+            */
     }
-    */
+
 
 
 
@@ -525,15 +568,15 @@ public class PlayerController : MonoBehaviour
         health = startingHealth;
         //money = startingMoney;
         yield return new WaitForSeconds(10);
-        if(gameObject.tag == "scienceGeek")
+        if (gameObject.tag == "scienceGeek")
         {
             GameManager.setObjectLocation(gameObject, "scienceGeek");
         }
-        else if(gameObject.tag == "bookWorm")
+        else if (gameObject.tag == "bookWorm")
         {
             GameManager.setObjectLocation(gameObject, "bookWorm");
         }
-        else if(gameObject.tag == "jocks")
+        else if (gameObject.tag == "jocks")
         {
             GameManager.setObjectLocation(gameObject, "jocks");
         }
@@ -565,7 +608,7 @@ public class PlayerController : MonoBehaviour
                 hud.OpenMessagePanel("");
             }
         }
-        
+
         if (GetHit(other))
         {
             health--;
@@ -581,11 +624,11 @@ public class PlayerController : MonoBehaviour
                 {
                     GameManager.scienceGeeksScore++;
                 }
-                else if(other.tag == "jocksThrown")
+                else if (other.tag == "jocksThrown")
                 {
                     GameManager.jocksScore++;
                 }
-                else if(other.tag == "bookWormThrown")
+                else if (other.tag == "bookWormThrown")
                 {
                     GameManager.bookWormsScore++;
                 }
@@ -623,7 +666,7 @@ public class PlayerController : MonoBehaviour
                 enemy2 = "jocks";
                 break;
         }
-        
+
         if (other.tag == (enemy1 + "Thrown") || other.tag == (enemy2 + "Thrown"))
         {
             return true;
@@ -650,12 +693,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Animate(float h, float v)
+
     {
         if (h == 0 && v == 0) //not moving
             playerAnimator.SetInteger("WalkState", 4); // return to idle
 
         float facingAngle = playerRigid.rotation.eulerAngles.y;
-
 
         if (h == 0 && v == 1) // moving north
         {
@@ -776,6 +819,137 @@ public class PlayerController : MonoBehaviour
             if (facingAngle > 0 && facingAngle <= 90) // facing northeast
                 playerAnimator.SetInteger("WalkState", 3); // strafe left
         }
+
+        
+    }
+
+    private void AnimateWithStick(float h, float v)
+    {
+        if ((h > -0.1 && h < 0.1) && (v > -0.1 && v < 0.1)) //not moving
+            playerAnimator.SetInteger("WalkState", 4); // return to idle
+
+        float facingAngle = playerRigid.rotation.eulerAngles.y;
+
+        if ((h > -0.1 && h < 0.1) && v > 0.3) // moving north
+        {
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h > 0.3 && v > 0.3) // moving northeast
+        {
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h > 0.3 && (v > -0.1 && v < 0.1)) // moving east
+        {
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h > 0.3 && v < -0.3) // moving southeast
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if ((h > -0.1 && h < 0.1) && v < -0.3) // moving south
+        {
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+        }
+
+        if (h < -0.3 && v < -0.3) // moving southwest
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 0); // walk forward
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+        }
+
+        if (h < -0.3 && (v > -0.1 && v < 0.1)) // moving west
+        {
+            if (facingAngle > 45 && facingAngle <= 135) // facing east
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 135 && facingAngle <= 225) // facing south
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 225 && facingAngle <= 315) // facing west
+                playerAnimator.SetInteger("WalkState", 0); // walk forwards
+
+            if (facingAngle > 315 || facingAngle <= 45) // facing north
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+        }
+
+        if (h < -0.3 && v > 0.3) // moving northwest
+        {
+            if (facingAngle > 90 && facingAngle <= 180) // facing southeast
+                playerAnimator.SetInteger("WalkState", 2); // walk backwards
+
+            if (facingAngle > 180 && facingAngle <= 270) // facing southwest
+                playerAnimator.SetInteger("WalkState", 1); // strafe right
+
+            if (facingAngle > 270 && facingAngle <= 360) // facing northwest
+                playerAnimator.SetInteger("WalkState", 0); // walk forwards
+
+            if (facingAngle > 0 && facingAngle <= 90) // facing northeast
+                playerAnimator.SetInteger("WalkState", 3); // strafe left
+        }
+
     }
 }
 
