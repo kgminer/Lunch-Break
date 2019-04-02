@@ -156,6 +156,36 @@ Transform:
   m_Father: {fileID: 3681561767139983282}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3171301640742809948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1222434963249349770}
+  m_Layer: 0
+  m_Name: leftSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1222434963249349770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171301640742809948}
+  m_LocalRotation: {x: 0, y: -0.258819, z: 0, w: 0.9659259}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2920311602208033816}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -30, z: 0}
 --- !u!1 &3459121558141643424
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +627,8 @@ Transform:
   - {fileID: 6003194387969523045}
   - {fileID: 7862701152220675186}
   - {fileID: 5220191760686310070}
+  - {fileID: 1222434963249349770}
+  - {fileID: 6673064532700795185}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -733,7 +765,9 @@ MonoBehaviour:
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
   cake: {fileID: 1147061323, guid: 60a4bf959d3e86542ab72612b9fb94a8, type: 3}
-  fries: {fileID: 332533938, guid: b12fcd19be36d4f4581eb1c2bde778b7, type: 3}
+  mainFries: {fileID: 145256330015739173, guid: 1fccab21abde08141b0794c13e611fd5,
+    type: 3}
+  sideFries: {fileID: 332533938, guid: b12fcd19be36d4f4581eb1c2bde778b7, type: 3}
   heldBurger: {fileID: 928125361, guid: 3be181cc8b329f04a9a3fd2108f447e5, type: 3}
   heldDonut: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
   heldDrink: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
@@ -741,6 +775,8 @@ MonoBehaviour:
   heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
   heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
   projSpawn: {fileID: 6003194387969523045}
+  leftSpawn: {fileID: 1222434963249349770}
+  rightSpawn: {fileID: 6673064532700795185}
   RespawnHell: {fileID: 7659815991584147568, guid: 8171510904cd77d4fb0be306408d92d5,
     type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
@@ -778,6 +814,36 @@ Transform:
   m_Father: {fileID: 3955780426609912258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8520666023074006150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6673064532700795185}
+  m_Layer: 0
+  m_Name: rightSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6673064532700795185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520666023074006150}
+  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2920311602208033816}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
 --- !u!1 &8640027347176198908
 GameObject:
   m_ObjectHideFlags: 0

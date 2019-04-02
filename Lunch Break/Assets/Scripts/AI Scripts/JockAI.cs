@@ -33,7 +33,8 @@ public class JockAI: MonoBehaviour
     public GameObject donut;
     public GameObject drink;
     public GameObject cake;
-    public GameObject fries;
+    public GameObject mainFries;
+    public GameObject sideFries;
 
     // Held object references
     public GameObject heldBurger;
@@ -56,6 +57,8 @@ public class JockAI: MonoBehaviour
     List<GameObject> Ammo;
     NavMeshAgent nav;
     public Transform projSpawn;
+    public Transform leftSpawn;
+    public Transform rightSpawn;
     Animator NPCAnimator;
     public Transform RespawnHell;
     public AudioClip hitSound;
@@ -203,8 +206,22 @@ public class JockAI: MonoBehaviour
     void Fire()
     {
         GameObject item = Ammo.First();
-        GameObject thrown = Instantiate(item, projSpawn.position, projSpawn.rotation);
-        thrown.tag = this.tag + "Thrown";
+
+        // Fries fire in a special pattern
+        if (item.GetComponent<MainFries>())
+        {
+            GameObject thrown1 = Instantiate(sideFries, leftSpawn.position, leftSpawn.rotation);
+            thrown1.tag = this.tag + "Thrown";
+            GameObject thrown2 = Instantiate(mainFries, projSpawn.position, projSpawn.rotation);
+            thrown2.tag = this.tag + "Thrown";
+            GameObject thrown3 = Instantiate(sideFries, rightSpawn.position, rightSpawn.rotation);
+            thrown3.tag = this.tag + "Thrown";
+        }
+        else
+        {
+            GameObject thrown = Instantiate(item, projSpawn.position, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
+        }
         Ammo.Remove(item);
     }
 
