@@ -593,17 +593,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
+  hitSound: {fileID: 0}
   projSpawn: {fileID: 971742864}
   leftSpawn: {fileID: 516344937}
   rightSpawn: {fileID: 1174010656}
   fireRate: 0.5
+  health: 0
   startingHealth: 3
   alive: 1
+  respawnTimer: 10
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
   cake: {fileID: 1147061323, guid: 60a4bf959d3e86542ab72612b9fb94a8, type: 3}
   fries: {fileID: 332533938, guid: b12fcd19be36d4f4581eb1c2bde778b7, type: 3}
+  mainFries: {fileID: 0}
   heldBurger: {fileID: 0}
   heldDonut: {fileID: 0}
   heldDrink: {fileID: 0}
@@ -612,7 +616,6 @@ MonoBehaviour:
   heldFries: {fileID: 0}
   inventory: {fileID: 0}
   hud: {fileID: 0}
-  Hand: {fileID: 0}
 --- !u!95 &1649242409
 Animator:
   serializedVersion: 3

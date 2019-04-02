@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public float startingHealth;
     public bool alive;
     private bool atVendingMachine;
+    public float respawnTimer;
+    float respawnTime;
 
     // Projectile object references
     public GameObject burger;
@@ -74,9 +76,24 @@ public class PlayerController : MonoBehaviour
             hud.OpenPausePanel();
         }
 
-        if (!alive)
-        {
+        if (Time.time < respawnTime)
             return;
+        else if (!alive) // respawn
+        {
+            alive = true;
+            health = startingHealth;
+            if (gameObject.tag == "scienceGeek")
+            {
+                GameManager.setObjectLocation(gameObject, "scienceGeek");
+            }
+            else if (gameObject.tag == "bookWorm")
+            {
+                GameManager.setObjectLocation(gameObject, "bookWorm");
+            }
+            else if (gameObject.tag == "jocks")
+            {
+                GameManager.setObjectLocation(gameObject, "jocks");
+            }
         }
 
         // Projectile selection will change slot of use and update ui component to reflect selection
@@ -470,10 +487,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!alive)
-        {
+        if (Time.time < respawnTime)
             return;
-        }
 
         float h;
         float v;
@@ -658,6 +673,7 @@ public class PlayerController : MonoBehaviour
                 {
                     GameManager.bookWormsScore++;
                 }
+                Perish();
             }
             playerAnimator.SetTrigger("Hit");
         }
@@ -665,7 +681,9 @@ public class PlayerController : MonoBehaviour
 
     void Perish()
     {
-        StartCoroutine("Respawn");
+        alive = false;
+        respawnTime = Time.time + respawnTimer;
+        GameManager.setObjectLocation(gameObject, "respawn");
     }
 
     // Boolean return of enemy projectile entering collider
