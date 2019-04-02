@@ -63,6 +63,12 @@ public class PlayerController : MonoBehaviour
     Button slot2;
     Button slot3;
 
+    // Team underlighting
+    public GameObject bookTeamLight;
+    public GameObject jockTeamLight;
+    public GameObject geekTeamLight;
+    private bool lightAssigned = false;
+
     // List for holding each food item being collided with
     List<GameObject> touching = new List<GameObject>();
 
@@ -496,6 +502,20 @@ public class PlayerController : MonoBehaviour
         if(inMenu)
         {
             return;
+        }
+
+        if (!lightAssigned)
+        {
+            if (this.CompareTag("scienceGeek"))
+                geekTeamLight.SetActive(true);
+
+            else if (this.CompareTag("jocks"))
+                jockTeamLight.SetActive(true);
+
+            else if (this.CompareTag("bookWorm"))
+                bookTeamLight.SetActive(true);
+
+            lightAssigned = true;
         }
 
         float h;
