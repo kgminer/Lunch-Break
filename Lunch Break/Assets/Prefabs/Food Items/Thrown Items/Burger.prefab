@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3723e83153da3d5449b8567458804422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
 --- !u!114 &6852240212156117325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +55,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Image: {fileID: 21300000, guid: 9551f6791e82eb84db8d597591c3f14f, type: 3}
-  spawnBug: {fileID: 931056029, guid: d5064328da8d39243beb51b10d5afa50, type: 3}
 --- !u!1001 &2164456429596435398
 PrefabInstance:
   m_ObjectHideFlags: 0
