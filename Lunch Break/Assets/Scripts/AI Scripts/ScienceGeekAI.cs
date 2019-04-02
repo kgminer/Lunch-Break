@@ -86,7 +86,8 @@ public class ScienceGeekAI : MonoBehaviour
         else if (!alive) // respawn
         {
             alive = true;
-            transform.position = GameManager.ScienceGeeksSpawnObject.transform.position;
+            health = startingHealth;
+            nav.Warp(GameManager.ScienceGeeksSpawnObject.transform.position);
             idling = false;
         }
 
@@ -252,7 +253,7 @@ public class ScienceGeekAI : MonoBehaviour
         alive = false;
         nav.isStopped = true;
         respawnTime = Time.time + respawnTimer;
-        GameManager.setObjectLocation(gameObject, "respawn");
+        nav.Warp(GameManager.RespawnObject.transform.position);
     }
 
     private void OnTriggerStay(Collider other)

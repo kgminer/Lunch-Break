@@ -86,7 +86,8 @@ public class BookWormAI : MonoBehaviour
         else if(!alive) // respawn
         {
             alive = true;
-            transform.position = GameManager.BookWormsSpawnObject.transform.position;
+            health = startingHealth;
+            nav.Warp(GameManager.BookWormsSpawnObject.transform.position);
             idling = false;
         }
 
@@ -257,7 +258,7 @@ public class BookWormAI : MonoBehaviour
         alive = false;
         nav.isStopped = true;
         respawnTime = Time.time + respawnTimer;
-        GameManager.setObjectLocation(gameObject, "respawn");
+        nav.Warp(GameManager.RespawnObject.transform.position);
     }
 
     private void OnTriggerStay(Collider other)

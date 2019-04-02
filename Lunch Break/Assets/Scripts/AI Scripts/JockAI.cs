@@ -86,7 +86,8 @@ public class JockAI : MonoBehaviour
         else if (!alive) // respawn
         {
             alive = true;
-            transform.position = GameManager.JocksSpawnObject.transform.position;
+            health = startingHealth;
+            nav.Warp(GameManager.JocksSpawnObject.transform.position);
             idling = false;
         }
 
@@ -252,7 +253,7 @@ public class JockAI : MonoBehaviour
         alive = false;
         nav.isStopped = true;
         respawnTime = Time.time + respawnTimer;
-        GameManager.setObjectLocation(gameObject, "respawn");
+        nav.Warp(GameManager.RespawnObject.transform.position);
     }
 
     private void OnTriggerStay(Collider other)
