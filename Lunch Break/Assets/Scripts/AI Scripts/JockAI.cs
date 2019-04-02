@@ -1,22 +1,19 @@
-﻿// Recklessly aggressive AI for BookWorms
-// Find Ammo and attack nearest enemy
-// Move to Cafeteria cap point when no enemies present
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class JockAI : MonoBehaviour
+public class JockAI: MonoBehaviour
 {
     // Limits
     public float viewRad;
-    float nextFire;
-    private float health;
+    public float nextFire;
+    public float health;
     public float startingHealth;
     public int maxInv;
     public float fireRate;
     public float barCooldown;
-    float nextBar = 0f;
+    public float nextBar;
     public float respawnTimer;
 
 
@@ -28,7 +25,7 @@ public class JockAI : MonoBehaviour
     public float fleeTil, fleeTilMin, fleeTilMax;
     public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
-    public int personality;
+    public int fleePersonality, capPersonality;
     public bool idling;
 
     // Projectile object references
@@ -60,6 +57,7 @@ public class JockAI : MonoBehaviour
     NavMeshAgent nav;
     public Transform projSpawn;
     Animator NPCAnimator;
+    public Transform RespawnHell;
     public AudioClip hitSound;
     public bool alive;
 
@@ -116,7 +114,7 @@ public class JockAI : MonoBehaviour
 
             if (nearestEnemy != null && enemyDistance < runRad)
             {
-                switch (personality)
+                switch (fleePersonality)
                 {
                     case 0: // run away from enemy
                         nav.SetDestination(transform.position - nearestEnemy.position);
@@ -130,6 +128,11 @@ public class JockAI : MonoBehaviour
 
                     case 2: // find new vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
+                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        break;
+
+                    case 3:
+                        nav.SetDestination(GameManager.JocksSpawnObject.transform.position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
                 }
@@ -164,7 +167,7 @@ public class JockAI : MonoBehaviour
     void GoToCap()
     {
         idling = false;
-        switch (personality)
+        switch (capPersonality)
         {
             case 0:
                 nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
@@ -233,7 +236,7 @@ public class JockAI : MonoBehaviour
                 // increase score for projectile team
                 if (other.gameObject.tag == "bookWormThrown")
                 {
-                    GameManager.jocksScore++;
+                    GameManager.bookWormsScore++;
                 }
                 else if (other.gameObject.tag == "scienceGeekThrown")
                 {
@@ -277,24 +280,40 @@ public class JockAI : MonoBehaviour
 
         if (Time.time > personalityTimer)
         {
-            ChangePersonality(3);
+            ChangeCapPersonality(3);
+            ChangeFleePersonality(4);
             personalityTimer = Time.time + Random.Range(personTimeMin, personTimeMax);
         }
 
         shuffleTime = Time.time + Random.Range(shuffleMin, shuffleMax);
     }
 
-    private void ChangePersonality(int mode)
+    private void ChangeFleePersonality(int mode)
     {
-        if (mode == 3)
-            personality = Random.Range(0, 3);
+        if (mode == 4)
+            fleePersonality = Random.Range(0, 4);
 
         if (mode == 0)
-            personality = 0;
+            fleePersonality = 0;
         if (mode == 1)
-            personality = 1;
+            fleePersonality = 1;
         if (mode == 2)
-            personality = 2;
+            fleePersonality = 2;
+        if (mode == 3)
+            fleePersonality = 3;
+    }
+
+    private void ChangeCapPersonality(int mode)
+    {
+        if (mode == 3)
+            capPersonality = Random.Range(0, 3);
+
+        if (mode == 0)
+            capPersonality = 0;
+        if (mode == 1)
+            capPersonality = 1;
+        if (mode == 2)
+            capPersonality = 2;
     }
 
     private Transform FindNearestEnemy()
@@ -350,10 +369,13 @@ public class JockAI : MonoBehaviour
 
         foreach (GameObject cap in GameManager.caps)
         {
-            if (mode == 0 && cap.GetComponent<CapZone>().GetOwner() == this.tag) // mode 0: don't consider team's caps
+            if (mode == 0 && cap.GetComponent<CapZone>().GetOwner() == this.tag) // don't consider team's caps
                 continue;
 
             if (mode == 1 && cap.transform == nearestCap) // find any new cap
+                continue;
+
+            if (mode == 2 && cap.GetComponent<CapZone>().GetOwner() != this.tag) // only consider team's cap
                 continue;
 
             float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;

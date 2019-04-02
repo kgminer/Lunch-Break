@@ -1,7 +1,4 @@
-﻿// Recklessly aggressive AI for BookWorms
-// Find Ammo and attack nearest enemy
-// Move to Cafeteria cap point when no enemies present
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -59,6 +56,7 @@ public class BookWormAI : MonoBehaviour
     List<GameObject> Ammo;
     NavMeshAgent nav;
     public Transform projSpawn;
+    public Transform RespawnHell;
     Animator NPCAnimator;
     public AudioClip hitSound;
     public bool alive;
