@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
                 gameState = 2;
                 break;
             case 2:
+                Time.timeScale = 0f;
                 break;
         }
 
