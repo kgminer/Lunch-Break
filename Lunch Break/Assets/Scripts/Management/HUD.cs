@@ -17,6 +17,7 @@ public class HUD : MonoBehaviour
     public GameObject BookWormsFinalScore;
     public GameObject JocksFinalScore;
     public GameObject PausePanel;
+    public GameObject VendingMachinePanel;
 
     // Use this for initialization
     void Start()
@@ -145,6 +146,16 @@ public class HUD : MonoBehaviour
         ScienceGeeksFinalScore.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore;
         BookWormsFinalScore.GetComponent<Text>().text = "Book Worms: " + GameManager.bookWormsScore;
         JocksFinalScore.GetComponent<Text>().text = "Jocks: " + GameManager.jocksScore;
+    }
+
+    public void OpenVendingMachinePanel()
+    {
+        VendingMachinePanel.SetActive(true);
+    }
+
+    public void CloseVendingMachinePanel()
+    {
+        VendingMachinePanel.SetActive(false);
     }
 
     public void OpenRespawnMap()

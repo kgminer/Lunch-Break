@@ -19,7 +19,7 @@ public class SelectOnInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((Input.GetAxisRaw("Vertical") >= deadzone || Input.GetAxisRaw("Vertical") <= deadzone * -1) && buttonSelected == false)
+        if((Input.GetAxisRaw("JoyMoveY") >= deadzone || Input.GetAxisRaw("JoyMoveY") <= deadzone * -1) && buttonSelected == false)
         {
             eventSystem.SetSelectedGameObject(selectedObject);
             buttonSelected = true;

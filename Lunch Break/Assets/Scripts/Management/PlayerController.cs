@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float health;
     public float startingHealth;
     public bool alive;
+    private bool atVendingMachine;
 
     // Projectile object references
     public GameObject burger;
@@ -337,6 +338,15 @@ public class PlayerController : MonoBehaviour
             mItemGlow.enabled = false;
         }
 
+        if(atVendingMachine && Input.GetButton("Submit"))
+        {
+            hud.OpenVendingMachinePanel();
+            if (isController)
+                hud.CloseMessagePanel(true);
+            else
+                hud.CloseMessagePanel(false);
+        }
+
         // If a projectile has been selected allow for firing
         if (projectileSelect >= 0)
         {
@@ -616,6 +626,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(other.gameObject.CompareTag("Cap"))
+        {
+            atVendingMachine = true;
+            if (isController)
+                hud.OpenMessagePanel(true);
+            else
+                hud.OpenMessagePanel(false);
+        }
+
         if (GetHit(other))
         {
             health--;
@@ -699,6 +718,16 @@ public class PlayerController : MonoBehaviour
                 mItemGlow.enabled = false;
                 mItemGlow = null;
             }
+        }
+
+        if (other.gameObject.CompareTag("Cap"))
+        {
+            atVendingMachine = false;
+            hud.CloseVendingMachinePanel();
+            if (isController)
+                hud.CloseMessagePanel(true);
+            else
+                hud.CloseMessagePanel(false);
         }
     }
 
