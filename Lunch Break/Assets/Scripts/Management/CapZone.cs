@@ -25,22 +25,27 @@ public class CapZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
-         //   return;
+        //   return;
 
-        if (!Cappers.Contains(other))
-            Cappers.Add(other);
+        if (other.CompareTag("jocks") || other.CompareTag("bookWorm") || other.CompareTag("scienceGeek"))
+        {
+            if (!Cappers.Contains(other))
+                Cappers.Add(other);
 
-        if (other.gameObject.tag != team)
-            CountCappers();
+            if (other.gameObject.tag != team)
+                CountCappers();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-       // if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
+        // if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
         //    return;
-
-        Cappers.Remove(other);
-        CountCappers();
+        if (other.CompareTag("jocks") || other.CompareTag("bookWorm") || other.CompareTag("scienceGeek"))
+        {
+            Cappers.Remove(other);
+            CountCappers();
+        }
     }
 
     private void CountCappers()
@@ -49,12 +54,15 @@ public class CapZone : MonoBehaviour
 
         foreach(Collider capper in Cappers)
         {
-            if (capper.gameObject.tag == "scienceGeek")
-                teamcount[1]++;
-            if (capper.gameObject.tag == "bookWorm")
-                teamcount[2]++;
-            if (capper.gameObject.tag == "jocks")
-                teamcount[3]++;
+            if (!capper.CompareTag("Food"))
+            {
+                if (capper.gameObject.tag == "scienceGeek")
+                    teamcount[1]++;
+                if (capper.gameObject.tag == "bookWorm")
+                    teamcount[2]++;
+                if (capper.gameObject.tag == "jocks")
+                    teamcount[3]++;
+            }
         }
 
         int max = teamcount.Max();

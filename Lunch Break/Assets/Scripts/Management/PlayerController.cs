@@ -354,7 +354,7 @@ public class PlayerController : MonoBehaviour
             // TODO: Add If logic to say if the object is moving you can't pick it up
             inventory.AddItem(mItemToPickup);
             mItemToPickup.OnPickup();
-            Debug.Log("submitted");
+
             if (isController)
                 hud.CloseMessagePanel(true);
             else
@@ -666,13 +666,16 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hit tray");
                 inventory.RemoveItem(inventory.mSlots[projectileSelect].FirstItem);
 
+                //TODO: Add dink sound?
+
                 if (inventory.mSlots[projectileSelect].Count < 1)
                     activeItem.SetActive(false);
             }
             else
             {
+                Debug.Log("ouch");
                 health--;
-                Destroy(other.gameObject);
+                
                 AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
                 if (health <= 0)
@@ -695,6 +698,7 @@ public class PlayerController : MonoBehaviour
                     Perish();
                 }
             }
+            Destroy(other.gameObject);
             playerAnimator.SetTrigger("Hit");
         }
     }
