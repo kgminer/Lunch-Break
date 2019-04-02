@@ -10,8 +10,8 @@ public class BookWormAI : MonoBehaviour
 {
     // Limits
     public float viewRad;
-    float nextFire;
-    private float health;
+    public float nextFire;
+    public float health;
     public float startingHealth;
     public int maxInv;
     public float fireRate;
@@ -28,7 +28,7 @@ public class BookWormAI : MonoBehaviour
     public float fleeTil, fleeTilMin, fleeTilMax;
     public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
-    public int personality;
+    public int fleePersonality, capPersonality;
     public bool idling;
 
     // Projectile object references
@@ -115,7 +115,7 @@ public class BookWormAI : MonoBehaviour
 
             if (nearestEnemy != null && enemyDistance < runRad)
             {
-                switch (personality)
+                switch (fleePersonality)
                 {
                     case 0: // run away from enemy
                         nav.SetDestination(transform.position - nearestEnemy.position);
@@ -129,6 +129,11 @@ public class BookWormAI : MonoBehaviour
 
                     case 2: // find new vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
+                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        break;
+
+                    case 3:
+                        nav.SetDestination(GameManager.BookWormsSpawnObject.transform.position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
                 }
@@ -163,7 +168,7 @@ public class BookWormAI : MonoBehaviour
     void GoToCap()
     {
         idling = false;
-        switch (personality)
+        switch (capPersonality)
         {
             case 0:
                 nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
@@ -276,24 +281,40 @@ public class BookWormAI : MonoBehaviour
 
         if (Time.time > personalityTimer)
         {
-            ChangePersonality(3);
+            ChangeCapPersonality(3);
+            ChangeFleePersonality(4);
             personalityTimer = Time.time + Random.Range(personTimeMin, personTimeMax);
         }
 
         shuffleTime = Time.time + Random.Range(shuffleMin, shuffleMax);
     }
 
-    private void ChangePersonality(int mode)
+    private void ChangeFleePersonality(int mode)
     {
-        if (mode == 3)
-            personality = Random.Range(0, 3);
+        if (mode == 4)
+            fleePersonality = Random.Range(0, 4);
 
         if (mode == 0)
-            personality = 0;
+            fleePersonality = 0;
         if (mode == 1)
-            personality = 1;
+            fleePersonality = 1;
         if (mode == 2)
-            personality = 2;
+            fleePersonality = 2;
+        if (mode == 3)
+            fleePersonality = 3;
+    }
+
+    private void ChangeCapPersonality(int mode)
+    {
+        if (mode == 3)
+            capPersonality = Random.Range(0, 3);
+
+        if (mode == 0)
+            capPersonality = 0;
+        if (mode == 1)
+            capPersonality = 1;
+        if (mode == 2)
+            capPersonality = 2;
     }
 
     private Transform FindNearestEnemy()
@@ -349,10 +370,13 @@ public class BookWormAI : MonoBehaviour
 
         foreach (GameObject cap in GameManager.caps)
         {
-            if (mode == 0 && cap.GetComponent<CapZone>().GetOwner() == this.tag) // mode 0: don't consider team's caps
+            if (mode == 0 && cap.GetComponent<CapZone>().GetOwner() == this.tag) // don't consider team's caps
                 continue;
 
             if (mode == 1 && cap.transform == nearestCap) // find any new cap
+                continue;
+
+            if (mode == 2 && cap.GetComponent<CapZone>().GetOwner() != this.tag) // only consider team's cap
                 continue;
 
             float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;
