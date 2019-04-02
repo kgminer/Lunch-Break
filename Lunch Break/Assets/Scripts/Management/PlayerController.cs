@@ -328,7 +328,11 @@ public class PlayerController : MonoBehaviour
             // TODO: Add If logic to say if the object is moving you can't pick it up
             inventory.AddItem(mItemToPickup);
             mItemToPickup.OnPickup();
-            hud.CloseMessagePanel();
+            Debug.Log("submitted");
+            if (isController)
+                hud.CloseMessagePanel(true);
+            else
+                hud.CloseMessagePanel(false);
             mItemToPickup = null;
             mItemGlow.enabled = false;
         }
@@ -605,7 +609,10 @@ public class PlayerController : MonoBehaviour
                 prevItem = item;
                 prevGlow = mItemGlow;
                 mItemToPickup = item;
-                hud.OpenMessagePanel("");
+                if (isController)
+                    hud.OpenMessagePanel(true);
+                else
+                    hud.OpenMessagePanel(false);
             }
         }
 
@@ -684,7 +691,10 @@ public class PlayerController : MonoBehaviour
         {
             if (item != null)
             {
-                hud.CloseMessagePanel();
+                if (isController)
+                    hud.CloseMessagePanel(true);
+                else
+                    hud.CloseMessagePanel(false);
                 mItemToPickup = null;
                 mItemGlow.enabled = false;
                 mItemGlow = null;

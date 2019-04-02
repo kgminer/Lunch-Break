@@ -7,7 +7,8 @@ public class HUD : MonoBehaviour
 {
     public Inventory Inventory;
 
-    public GameObject MessagePanel;
+    public GameObject MousePanel;
+    public GameObject ControllerPanel;
     public GameObject TimeRemainingLabel;
     public GameObject RespawnMap;
     public GameObject GameOverPanel;
@@ -177,15 +178,21 @@ public class HUD : MonoBehaviour
         GameOverPanel.SetActive(false);
     }
 
-    public void OpenMessagePanel(string text)
+    public void OpenMessagePanel(bool controller)
     {
-        MessagePanel.SetActive(true);
+        if (controller)
+            ControllerPanel.SetActive(true);
+        else
+            MousePanel.SetActive(true);
 
         // TODO: set text when we will use this for other messages as well
     }
 
-    public void CloseMessagePanel()
+    public void CloseMessagePanel(bool controller)
     {
-        MessagePanel.SetActive(false);
+        if (controller)
+            ControllerPanel.SetActive(false);
+        else
+            MousePanel.SetActive(false);
     }
 }
