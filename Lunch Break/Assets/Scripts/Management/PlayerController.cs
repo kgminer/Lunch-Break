@@ -362,6 +362,7 @@ public class PlayerController : MonoBehaviour
             hud.OpenVendingMachinePanel();
             hud.UpdateVendingMachinePanel(purchases);
             SetInMenu(true);
+            playerAnimator.SetInteger("WalkState", 4);
             if (isController)
                 hud.CloseMessagePanel(true);
             else
@@ -371,7 +372,7 @@ public class PlayerController : MonoBehaviour
         // If a projectile has been selected allow for firing
         if (projectileSelect >= 0)
         {
-            if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty)
+            if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty && !inMenu)
             {
                 playerAnimator.SetTrigger("Attack");
                 nextFire = Time.time + fireRate;
@@ -763,6 +764,12 @@ public class PlayerController : MonoBehaviour
                 SetInMenu(false);
             }
         }
+    }
+
+    public void PurchaseFromVendingMachine(GameObject objectToBuy)
+    {
+        InventoryItemBase item = objectToBuy.GetComponent<InventoryItemBase>();
+        inventory.AddItem(item);
     }
 
     public void SetInMenu(bool value)
