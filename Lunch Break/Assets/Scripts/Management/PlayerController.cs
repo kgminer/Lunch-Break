@@ -784,6 +784,8 @@ public class PlayerController : MonoBehaviour
             if (purchases == 0)
             {
                 hud.CloseVendingMachinePanel();
+                SetAtVendingMachine(false);
+                SetInMenu(false);
             }
         }
     }
