@@ -656,28 +656,41 @@ public class PlayerController : MonoBehaviour
 
         if (GetHit(other))
         {
-            health--;
-            Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
-
-            if (health <= 0)
+            Debug.Log(other);
+            if (activeItem.activeSelf && activeItem == heldTray)
             {
-                playerAnimator.SetTrigger("Die");
+                Debug.Log("hit tray");
+                //inventory.mSlots[projectileSelect].FirstItem;
+                inventory.RemoveItem(inventory.mSlots[projectileSelect].FirstItem);
 
-                // increase score for projectile team
-                if (other.tag == "scienceGeekThrown")
+                if (inventory.mSlots[projectileSelect].Count < 1)
+                    activeItem.SetActive(false);
+            }
+            else
+            {
+                health--;
+                Destroy(other.gameObject);
+                AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+                if (health <= 0)
                 {
-                    GameManager.scienceGeeksScore++;
+                    playerAnimator.SetTrigger("Die");
+
+                    // increase score for projectile team
+                    if (other.tag == "scienceGeekThrown")
+                    {
+                        GameManager.scienceGeeksScore++;
+                    }
+                    else if (other.tag == "jocksThrown")
+                    {
+                        GameManager.jocksScore++;
+                    }
+                    else if (other.tag == "bookWormThrown")
+                    {
+                        GameManager.bookWormsScore++;
+                    }
+                    Perish();
                 }
-                else if (other.tag == "jocksThrown")
-                {
-                    GameManager.jocksScore++;
-                }
-                else if (other.tag == "bookWormThrown")
-                {
-                    GameManager.bookWormsScore++;
-                }
-                Perish();
             }
             playerAnimator.SetTrigger("Hit");
         }
