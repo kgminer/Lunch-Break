@@ -697,10 +697,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRad: 20
+  nextFire: 0
+  health: 0
   startingHealth: 3
   maxInv: 9
   fireRate: 1
   barCooldown: 5
+  nextBar: 0
   respawnTimer: 10
   shuffleTime: 0
   shuffleMin: 3
@@ -723,7 +726,8 @@ MonoBehaviour:
   personalityTimer: 0
   personTimeMin: 20
   personTimeMax: 120
-  personality: 0
+  fleePersonality: 0
+  capPersonality: 0
   idling: 0
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
@@ -737,6 +741,8 @@ MonoBehaviour:
   heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
   heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
   projSpawn: {fileID: 6003194387969523045}
+  RespawnHell: {fileID: 7659815991584147568, guid: 8171510904cd77d4fb0be306408d92d5,
+    type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
   alive: 1
 --- !u!1 &8108619265237582752
