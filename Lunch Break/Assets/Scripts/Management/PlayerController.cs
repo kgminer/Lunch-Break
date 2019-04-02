@@ -461,7 +461,6 @@ public class PlayerController : MonoBehaviour
         health = startingHealth;
 
         String[] controllers = Input.GetJoystickNames();
-        //if (controllers[0].Equals("Controller (XBOX 360 For Windows)"))
         if (controllers.Length > 0)
         {
             if (!controllers[0].Equals(""))
@@ -486,11 +485,6 @@ public class PlayerController : MonoBehaviour
 
         goItem.SetActive(true);
         goItem.GetComponent<Collider>().enabled = false;
-
-        //goItem.transform.parent = Hand.transform;
-        //goItem.transform.position = Hand.transform.position;
-        //projectile = goItem;
-
     }
 
     private void FixedUpdate()
@@ -538,18 +532,6 @@ public class PlayerController : MonoBehaviour
             Animate(h, v);
             TurnWithMouse();
         }
-
-        //T
-
-        //TurnWithStick(hj, vj);
-
-        //Animate(h, v);
-
-        //TurnWithStick(hj, vj);
-
-
-
-
     }
 
     private void Move(float h, float v)
@@ -586,13 +568,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 lookDirection = new Vector3(h, 0, v);
         transform.rotation = Quaternion.LookRotation(lookDirection);
-
-        /*
-        Vector3 lookVector = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
-
-        if(lookVector.x != 0 || lookVector.y != 0)
-            transform.rotation = Quaternion.LookRotation(lookVector);
-            */
     }
 
 
@@ -631,7 +606,6 @@ public class PlayerController : MonoBehaviour
         {
             // Get the item reference
             InventoryItemBase item = other.GetComponent<InventoryItemBase>();
-            //Halo glow = other.GetComponent<Halo>();
             mItemGlow = (Behaviour)other.GetComponent("Halo");
 
             // Ensure that the glow on the previously hovered item is off if the colliders overlap
@@ -666,11 +640,9 @@ public class PlayerController : MonoBehaviour
 
         if (GetHit(other))
         {
-            Debug.Log(other);
             if (activeItem.activeSelf && activeItem == heldTray)
             {
                 Debug.Log("hit tray");
-                //inventory.mSlots[projectileSelect].FirstItem;
                 inventory.RemoveItem(inventory.mSlots[projectileSelect].FirstItem);
 
                 if (inventory.mSlots[projectileSelect].Count < 1)
