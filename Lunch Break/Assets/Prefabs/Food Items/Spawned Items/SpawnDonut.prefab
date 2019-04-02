@@ -121,7 +121,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.33, y: 0.09, z: 0.3}
+  m_Size: {x: 0.7, y: 0.09, z: 0.7}
   m_Center: {x: -0.0010448247, y: 0.028952312, z: 0.0013607889}
 --- !u!122 &4054227973188508460
 Halo:

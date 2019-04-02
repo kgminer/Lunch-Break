@@ -108,7 +108,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.2, z: 0.3}
+  m_Size: {x: 0.7, y: 0.2, z: 0.7}
   m_Center: {x: -0.00045813993, y: 0.06921328, z: 0.0013193376}
 --- !u!114 &931056030
 MonoBehaviour:
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Image: {fileID: 21300000, guid: 9551f6791e82eb84db8d597591c3f14f, type: 3}
-  spawnBug: {fileID: 931056029}
 --- !u!122 &9219988206096036942
 Halo:
   m_ObjectHideFlags: 0
