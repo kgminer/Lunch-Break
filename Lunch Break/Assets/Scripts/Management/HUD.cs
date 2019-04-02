@@ -18,6 +18,7 @@ public class HUD : MonoBehaviour
     public GameObject JocksFinalScore;
     public GameObject PausePanel;
     public GameObject VendingMachinePanel;
+    public GameObject RemainingBuysLabel;
 
     // Use this for initialization
     void Start()
@@ -151,6 +152,11 @@ public class HUD : MonoBehaviour
     public void OpenVendingMachinePanel()
     {
         VendingMachinePanel.SetActive(true);
+    }
+
+    public void UpdateVendingMachinePanel(int purchases)
+    {
+        RemainingBuysLabel.GetComponent<Text>().text = "Purchases Remaining: " + purchases;
     }
 
     public void CloseVendingMachinePanel()

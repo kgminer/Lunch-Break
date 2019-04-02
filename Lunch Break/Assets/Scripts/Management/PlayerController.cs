@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private float nextFire;
     public float health;
     public float startingHealth;
+    public int purchases;
     public bool alive;
     private bool atVendingMachine;
     public float respawnTimer;
@@ -355,9 +356,10 @@ public class PlayerController : MonoBehaviour
             mItemGlow.enabled = false;
         }
 
-        if(atVendingMachine && Input.GetButton("Submit"))
+        if(atVendingMachine &&  purchases != 0 && Input.GetButton("Submit"))
         {
             hud.OpenVendingMachinePanel();
+            hud.UpdateVendingMachinePanel(purchases);
             if (isController)
                 hud.CloseMessagePanel(true);
             else
@@ -644,6 +646,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Cap"))
         {
             atVendingMachine = true;
+            purchases = 3;
             if (isController)
                 hud.OpenMessagePanel(true);
             else
@@ -746,6 +749,20 @@ public class PlayerController : MonoBehaviour
                 hud.CloseMessagePanel(true);
             else
                 hud.CloseMessagePanel(false);
+            
+        }
+    }
+
+    public void UpdatePurchases()
+    {
+        purchases--;
+        if (atVendingMachine)
+        {
+            hud.UpdateVendingMachinePanel(purchases);
+            if (purchases == 0)
+            {
+                hud.CloseVendingMachinePanel();
+            }
         }
     }
 

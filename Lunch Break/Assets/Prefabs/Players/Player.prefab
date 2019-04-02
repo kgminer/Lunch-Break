@@ -600,6 +600,7 @@ MonoBehaviour:
   fireRate: 0.5
   health: 0
   startingHealth: 3
+  purchases: 3
   alive: 1
   respawnTimer: 10
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
