@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public int purchases;
     public bool alive;
     private bool atVendingMachine;
+    private bool inMenu;
     public float respawnTimer;
     float respawnTime;
 
@@ -356,10 +357,11 @@ public class PlayerController : MonoBehaviour
             mItemGlow.enabled = false;
         }
 
-        if(atVendingMachine &&  purchases != 0 && Input.GetButton("Submit"))
+        if(atVendingMachine &&  purchases != 0 && Input.GetButtonDown("Submit"))
         {
             hud.OpenVendingMachinePanel();
             hud.UpdateVendingMachinePanel(purchases);
+            SetInMenu(true);
             if (isController)
                 hud.CloseMessagePanel(true);
             else
@@ -492,6 +494,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time < respawnTime)
             return;
+
+        if(inMenu)
+        {
+            return;
+        }
 
         float h;
         float v;
@@ -646,7 +653,7 @@ public class PlayerController : MonoBehaviour
 
         if(other.gameObject.CompareTag("Cap"))
         {
-            atVendingMachine = true;
+            SetAtVendingMachine(true);
             purchases = 3;
             if (isController)
                 hud.OpenMessagePanel(true);
@@ -757,7 +764,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Cap"))
         {
-            atVendingMachine = false;
+            SetAtVendingMachine(false);
+            SetInMenu(false);
             hud.CloseVendingMachinePanel();
             if (isController)
                 hud.CloseMessagePanel(true);
@@ -778,6 +786,16 @@ public class PlayerController : MonoBehaviour
                 hud.CloseVendingMachinePanel();
             }
         }
+    }
+
+    public void SetInMenu(bool value)
+    {
+        inMenu = value;
+    }
+
+    public void SetAtVendingMachine(bool value)
+    {
+        atVendingMachine = value;
     }
 
     private void Animate(float h, float v)
