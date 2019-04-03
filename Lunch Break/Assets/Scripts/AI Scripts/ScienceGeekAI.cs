@@ -22,7 +22,7 @@ public class ScienceGeekAI : MonoBehaviour
     public float pursueRad, pursueMin, pursueMax;
     public float targetingRange, rangeMin, rangeMax;
     public float runRad, runMin, runMax;
-    public float fleeShort, fleeTil, fleeTilMin, fleeTilMax;
+    public float fleeShort, fleeMag, fleeTil, fleeTilMin, fleeTilMax;
     public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
     public int fleePersonality, capPersonality;
@@ -125,22 +125,17 @@ public class ScienceGeekAI : MonoBehaviour
                 switch (fleePersonality)
                 {
                     case 0: // run away from enemy
-                        nav.SetDestination(transform.position - nearestEnemy.position);
-                        // fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        nav.SetDestination((transform.position - nearestEnemy.position) * fleeMag);
+                        //fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         fleeTil = Time.time + fleeShort;
                         break;
 
-                    case 1: // run parallel to enemy
-                        nav.SetDestination(nearestEnemy.position + nearestVendor.position);
-                        // fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
-                        break;
-
-                    case 2: // find new vendor
+                    case 1: // find new vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
-                    case 3:
+                    case 2:
                         nav.SetDestination(GameManager.ScienceGeeksSpawnObject.transform.position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
@@ -207,11 +202,14 @@ public class ScienceGeekAI : MonoBehaviour
 
     }
 
+    void FaceEnemy()
+    {
+        transform.LookAt(nearestEnemy.position); // face enemy
+    }
+
     void Fire()
     {
         GameObject item = Ammo.First();
-
-        transform.LookAt(nearestEnemy.position); // face enemy
 
         // Fries fire in a special pattern
         if (item.GetComponent<MainFries>())
@@ -233,6 +231,9 @@ public class ScienceGeekAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!alive)
+            return;
+
         if (other.gameObject.tag == "jocksThrown" || other.gameObject.tag == "bookWormThrown")
         {
             health--;
@@ -339,7 +340,7 @@ public class ScienceGeekAI : MonoBehaviour
     private void ChangeFleePersonality(int mode)
     {
         if (mode == 4)
-            fleePersonality = Random.Range(0, 4);
+            fleePersonality = Random.Range(0, 3);
 
         if (mode == 0)
             fleePersonality = 0;
@@ -347,8 +348,8 @@ public class ScienceGeekAI : MonoBehaviour
             fleePersonality = 1;
         if (mode == 2)
             fleePersonality = 2;
-        if (mode == 3)
-            fleePersonality = 3;
+        //if (mode == 3)
+        //fleePersonality = 3;
     }
 
     private void ChangeCapPersonality(int mode)

@@ -22,7 +22,7 @@ public class BookWormAI : MonoBehaviour
     public float pursueRad, pursueMin, pursueMax;
     public float targetingRange, rangeMin, rangeMax;
     public float runRad, runMin, runMax;
-    public float fleeShort, fleeTil, fleeTilMin, fleeTilMax;
+    public float fleeShort, fleeMag, fleeTil, fleeTilMin, fleeTilMax;
     public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
     public int fleePersonality, capPersonality;
@@ -46,7 +46,7 @@ public class BookWormAI : MonoBehaviour
     private GameObject activeItem;
 
     // Calculated variables
-    float respawnTime;
+    public float respawnTime;
     float enemyDistance;
     float capDistance;
     Transform nearestEnemy;
@@ -59,7 +59,7 @@ public class BookWormAI : MonoBehaviour
     public Transform projSpawn;
     public Transform leftSpawn;
     public Transform rightSpawn;
-    public Transform RespawnHell;
+    public GameObject RespawnObject;
     Animator NPCAnimator;
     public AudioClip hitSound;
     public AudioClip hitSound2;
@@ -125,22 +125,17 @@ public class BookWormAI : MonoBehaviour
                 switch (fleePersonality)
                 {
                     case 0: // run away from enemy
-                        nav.SetDestination(transform.position - nearestEnemy.position);
+                        nav.SetDestination((transform.position - nearestEnemy.position) * fleeMag);
                         //fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         fleeTil = Time.time + fleeShort;
                         break;
 
-                    case 1: // run parallel to enemy
-                        nav.SetDestination(nearestEnemy.position + nearestVendor.position);
-                        // fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
-                        break;
-
-                    case 2: // find new vendor
+                    case 1: // find new vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
-                    case 3:
+                    case 2:
                         nav.SetDestination(GameManager.BookWormsSpawnObject.transform.position);
                         fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
@@ -207,11 +202,14 @@ public class BookWormAI : MonoBehaviour
         
     }
 
+    void FaceEnemy()
+    {
+        transform.LookAt(nearestEnemy.position); // face enemy
+    }
+
     void Fire()
     {
         GameObject item = Ammo.First();
-
-        transform.LookAt(nearestEnemy.position); // face enemy
 
         // The fries fire in a special pattern
         if (item.GetComponent<MainFries>())
@@ -245,6 +243,9 @@ public class BookWormAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!alive)
+            return;
+
         if (other.gameObject.tag == "jocksThrown" || other.gameObject.tag == "scienceGeekThrown")
         {
             health--;
@@ -269,6 +270,7 @@ public class BookWormAI : MonoBehaviour
             {
                 nav.isStopped = true;
                 alive = false;
+                respawnTime = Time.time + respawnTimer;
                 NPCAnimator.SetTrigger("Die");
 
                 // increase score for projectile team
@@ -291,9 +293,7 @@ public class BookWormAI : MonoBehaviour
 
     void Perish()
     {
-        nav.isStopped = true;
-        respawnTime = Time.time + respawnTimer;
-        nav.Warp(GameManager.RespawnObject.transform.position);
+        nav.Warp(RespawnObject.transform.position);
         NPCAnimator.SetBool("Moving", false);
     }
 
@@ -351,7 +351,7 @@ public class BookWormAI : MonoBehaviour
     private void ChangeFleePersonality(int mode)
     {
         if (mode == 4)
-            fleePersonality = Random.Range(0, 4);
+            fleePersonality = Random.Range(0, 3);
 
         if (mode == 0)
             fleePersonality = 0;
@@ -359,8 +359,8 @@ public class BookWormAI : MonoBehaviour
             fleePersonality = 1;
         if (mode == 2)
             fleePersonality = 2;
-        if (mode == 3)
-            fleePersonality = 3;
+        //if (mode == 3)
+            //fleePersonality = 3;
     }
 
     private void ChangeCapPersonality(int mode)

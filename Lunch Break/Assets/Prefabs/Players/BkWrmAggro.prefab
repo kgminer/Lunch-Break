@@ -503,6 +503,7 @@ MonoBehaviour:
   runRad: 0
   runMin: 10
   runMax: 20
+  fleeShort: 2
   fleeTil: 0
   fleeTilMin: 3
   fleeTilMax: 15
@@ -528,10 +529,11 @@ MonoBehaviour:
   heldCake: {fileID: 2137305078, guid: 9d9a076e13e449e4c83447ef3e04eded, type: 3}
   heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
   heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
+  respawnTime: 0
   projSpawn: {fileID: 5491738914349396955}
   leftSpawn: {fileID: 22028494277553781}
   rightSpawn: {fileID: 2291043938030023431}
-  RespawnHell: {fileID: 7659815991584147568, guid: 8171510904cd77d4fb0be306408d92d5,
+  RespawnObject: {fileID: 1399969426224655010, guid: 35e8b6d4f1605f947abd2e79373b03b0,
     type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
   hitSound2: {fileID: 8300000, guid: 8b3a1a7baf89e4aa7ab0c775f81dc00b, type: 3}

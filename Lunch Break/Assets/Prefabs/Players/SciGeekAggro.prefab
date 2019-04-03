@@ -160,6 +160,7 @@ MonoBehaviour:
   runRad: 0
   runMin: 3
   runMax: 15
+  fleeShort: 2
   fleeTil: 0
   fleeTilMin: 1
   fleeTilMax: 8

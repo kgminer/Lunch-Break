@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRigid;
     Animator playerAnimator;
     public AudioClip hitSound;
+    public AudioClip hitSound2;
+    public AudioClip hitSound3;
     int floorMask;
     float camRayLen = 100f;
 
@@ -675,8 +677,21 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("ouch");
                 health--;
-                
-                AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+                switch (UnityEngine.Random.Range(0, 3)) // hit sound shuffle
+                {
+                    case 0:
+                        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+                        break;
+
+                    case 1:
+                        AudioSource.PlayClipAtPoint(hitSound2, transform.position);
+                        break;
+
+                    case 2:
+                        AudioSource.PlayClipAtPoint(hitSound3, transform.position);
+                        break;
+                }
 
                 if (health <= 0)
                 {
