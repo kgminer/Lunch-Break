@@ -732,11 +732,11 @@ MonoBehaviour:
   nextFire: 0
   health: 0
   startingHealth: 3
-  maxInv: 9
-  fireRate: 1
-  barCooldown: 5
+  maxInv: 3
+  fireRate: 1.5
+  barCooldown: 2
   nextBar: 0
-  respawnTimer: 10
+  respawnTimer: 4
   shuffleTime: 0
   shuffleMin: 3
   shuffleMax: 15
@@ -750,6 +750,7 @@ MonoBehaviour:
   runMin: 3
   runMax: 15
   fleeShort: 2
+  fleeMag: 10
   fleeTil: 0
   fleeTilMin: 1
   fleeTilMax: 8
@@ -778,7 +779,7 @@ MonoBehaviour:
   projSpawn: {fileID: 6003194387969523045}
   leftSpawn: {fileID: 1222434963249349770}
   rightSpawn: {fileID: 6673064532700795185}
-  RespawnHell: {fileID: 7659815991584147568, guid: 8171510904cd77d4fb0be306408d92d5,
+  RespawnHell: {fileID: 1399969426224655011, guid: 35e8b6d4f1605f947abd2e79373b03b0,
     type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
   hitSound2: {fileID: 8300000, guid: 8b3a1a7baf89e4aa7ab0c775f81dc00b, type: 3}
