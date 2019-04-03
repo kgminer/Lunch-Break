@@ -46,7 +46,7 @@ public class BookWormAI : MonoBehaviour
     private GameObject activeItem;
 
     // Calculated variables
-    public float respawnTime;
+    float respawnTime;
     float enemyDistance;
     float capDistance;
     Transform nearestEnemy;
@@ -59,11 +59,11 @@ public class BookWormAI : MonoBehaviour
     public Transform projSpawn;
     public Transform leftSpawn;
     public Transform rightSpawn;
-    public GameObject RespawnObject;
     Animator NPCAnimator;
     public AudioClip hitSound;
     public AudioClip hitSound2;
     public AudioClip hitSound3;
+
     public bool alive;
 
     private void Awake()
@@ -86,13 +86,16 @@ public class BookWormAI : MonoBehaviour
     {
         if (Time.time < respawnTime)
             return;
-        else if(!alive) // respawn
+        else if (!alive) // respawn
         {
             alive = true;
             health = startingHealth;
             nav.Warp(GameManager.BookWormsSpawnObject.transform.position);
             idling = false;
         }
+
+        if (!alive)
+            return;
 
         if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
             if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
@@ -107,9 +110,6 @@ public class BookWormAI : MonoBehaviour
             VariableShuffle();
 
         if (Time.time < fleeTil)
-            return;
-
-        if (!alive)
             return;
 
         nearestEnemy = FindNearestEnemy();
@@ -229,18 +229,6 @@ public class BookWormAI : MonoBehaviour
         Ammo.Remove(item);
     }
 
-    /*
-    IEnumerator Respawn()
-    {
-        alive = false;
-        GameManager.setObjectLocation(gameObject, "respawn");
-        health = startingHealth;
-        yield return new WaitForSeconds(10);
-        GameManager.setObjectLocation(gameObject, "bookWorm");
-        alive = true;
-    }
-    */
-
     private void OnTriggerEnter(Collider other)
     {
         if (!alive)
@@ -270,9 +258,9 @@ public class BookWormAI : MonoBehaviour
             {
                 nav.isStopped = true;
                 alive = false;
-                respawnTime = Time.time + respawnTimer;
                 NPCAnimator.SetTrigger("Die");
-
+                respawnTime = Time.time + respawnTimer;
+                
                 // increase score for projectile team
                 if (other.gameObject.tag == "jocksThrown")
                 {
@@ -293,8 +281,8 @@ public class BookWormAI : MonoBehaviour
 
     void Perish()
     {
-        nav.Warp(RespawnObject.transform.position);
-        NPCAnimator.SetBool("Moving", false);
+        Debug.Log("perished");
+        nav.Warp(GameManager.RespawnObject.transform.position);
     }
 
     private void OnTriggerStay(Collider other)

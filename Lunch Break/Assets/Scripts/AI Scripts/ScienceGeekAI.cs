@@ -59,11 +59,11 @@ public class ScienceGeekAI : MonoBehaviour
     public Transform projSpawn;
     public Transform leftSpawn;
     public Transform rightSpawn;
-    public Transform RespawnHell;
     Animator NPCAnimator;
     public AudioClip hitSound;
     public AudioClip hitSound2;
     public AudioClip hitSound3;
+
     public bool alive;
 
     private void Awake()
@@ -94,6 +94,9 @@ public class ScienceGeekAI : MonoBehaviour
             idling = false;
         }
 
+        if (!alive)
+            return;
+
         if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
             if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
                 if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
@@ -107,9 +110,6 @@ public class ScienceGeekAI : MonoBehaviour
             VariableShuffle();
 
         if (Time.time < fleeTil)
-            return;
-
-        if (!alive)
             return;
 
         nearestEnemy = FindNearestEnemy();
@@ -259,6 +259,7 @@ public class ScienceGeekAI : MonoBehaviour
                 nav.isStopped = true;
                 alive = false;
                 NPCAnimator.SetTrigger("Die");
+                respawnTime = Time.time + respawnTimer;
 
                 // increase score for projectile team
                 if (other.gameObject.tag == "jocksThrown")
@@ -280,10 +281,8 @@ public class ScienceGeekAI : MonoBehaviour
 
     void Perish()
     {
-        nav.isStopped = true;
-        respawnTime = Time.time + respawnTimer;
+        Debug.Log("perished");
         nav.Warp(GameManager.RespawnObject.transform.position);
-        NPCAnimator.SetBool("Moving", false);
     }
 
     private void OnTriggerStay(Collider other)

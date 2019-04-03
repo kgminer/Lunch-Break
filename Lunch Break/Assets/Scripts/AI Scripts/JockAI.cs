@@ -60,7 +60,6 @@ public class JockAI: MonoBehaviour
     public Transform leftSpawn;
     public Transform rightSpawn;
     Animator NPCAnimator;
-    public Transform RespawnHell;
     public AudioClip hitSound;
     public AudioClip hitSound2;
     public AudioClip hitSound3;
@@ -95,6 +94,9 @@ public class JockAI: MonoBehaviour
             idling = false;
         }
 
+        if (!alive)
+            return;
+
         if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
             if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
                 if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
@@ -108,9 +110,6 @@ public class JockAI: MonoBehaviour
             VariableShuffle();
 
         if (Time.time < fleeTil)
-            return;
-
-        if (!alive)
             return;
 
         nearestEnemy = FindNearestEnemy();
@@ -230,18 +229,6 @@ public class JockAI: MonoBehaviour
         Ammo.Remove(item);
     }
 
-    /*
-    IEnumerator Respawn()
-    {
-        alive = false;
-        GameManager.setObjectLocation(gameObject, "respawn");
-        health = startingHealth;
-        yield return new WaitForSeconds(10);
-        GameManager.setObjectLocation(gameObject, "bookWorm");
-        alive = true;
-    }
-    */
-
     private void OnTriggerEnter(Collider other)
     {
         if (!alive)
@@ -272,6 +259,7 @@ public class JockAI: MonoBehaviour
                 nav.isStopped = true;
                 alive = false;
                 NPCAnimator.SetTrigger("Die");
+                respawnTime = Time.time + respawnTimer;
 
                 // increase score for projectile team
                 if (other.gameObject.tag == "bookWormThrown")
@@ -293,10 +281,8 @@ public class JockAI: MonoBehaviour
 
     void Perish()
     {
-        nav.isStopped = true;
-        respawnTime = Time.time + respawnTimer;
+        Debug.Log("perished");
         nav.Warp(GameManager.RespawnObject.transform.position);
-        NPCAnimator.SetBool("Moving", false);
     }
 
     private void OnTriggerStay(Collider other)
