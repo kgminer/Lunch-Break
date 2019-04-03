@@ -19,12 +19,14 @@ public class HUD : MonoBehaviour
     public GameObject PausePanel;
     public GameObject VendingMachinePanel;
     public GameObject RemainingBuysLabel;
+    private Transform inventoryPanel;
 
     // Use this for initialization
     void Start()
     {
         Inventory.ItemAdded += InventoryScript_ItemAdded;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
+        inventoryPanel = transform.Find("InventoryPanel");
     }
 
     private void InventoryScript_ItemAdded(object sender, InventoryEventArgs e)
@@ -79,8 +81,6 @@ public class HUD : MonoBehaviour
 
     private void Inventory_ItemRemoved(object sender, InventoryEventArgs e)
     {
-        Transform inventoryPanel = transform.Find("InventoryPanel");
-
         int index = -1;
 
         foreach(Transform slot in inventoryPanel)
@@ -128,6 +128,30 @@ public class HUD : MonoBehaviour
                 break;
             }
             */
+        }
+    }
+
+    public void inventoryRemoveAll()
+    {
+        int index = -1;
+
+        foreach (Transform slot in inventoryPanel)
+        {
+            index++;
+
+            Transform imageTransform = slot.GetChild(0).GetChild(0);
+            Transform textTransform = slot.GetChild(0).GetChild(1);
+            Image image = imageTransform.GetComponent<Image>();
+            Text txtCount = textTransform.GetComponent<Text>();
+            ItemDragHandler itemDragHandler = imageTransform.GetComponent<ItemDragHandler>();
+
+            // We found the item in the UI
+            if (itemDragHandler.Item == null)
+                continue;
+
+            txtCount.text = "";
+            image.enabled = false;
+            image.sprite = null;
         }
     }
 

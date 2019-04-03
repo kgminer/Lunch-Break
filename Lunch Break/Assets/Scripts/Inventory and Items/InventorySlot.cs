@@ -76,4 +76,19 @@ public class InventorySlot
         }
         return false;
     }
+
+    public void RemoveAllInSlot()
+    {
+        while (!IsEmpty)
+        {
+            InventoryItemBase first = mItemStack.Peek();
+            mItemStack.Pop();
+
+            if (first.transform.parent != null)
+            {
+                if (!first.transform.parent.CompareTag("Spawner"))
+                GameObject.Destroy(first.gameObject);
+            }
+        }   
+    }
 }

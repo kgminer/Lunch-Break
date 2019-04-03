@@ -125,4 +125,12 @@ public class Inventory : MonoBehaviour
             counter++;
         }
     }
+    
+    public void Empty()
+    {
+        foreach (InventorySlot slot in mSlots)
+        {
+            slot.RemoveAllInSlot();
+        }
+    }
 }

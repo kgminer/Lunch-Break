@@ -721,8 +721,18 @@ public class PlayerController : MonoBehaviour
     void Perish()
     {
         alive = false;
-        //playerAnimator.SetInteger("WalkState", 4);
         respawnTime = Time.time + respawnTimer;
+
+        // Clear inventory
+        inventory.Empty();
+
+        // Empty hud labels
+        hud.inventoryRemoveAll();
+
+        // Reset held item
+        activeItem.SetActive(false);
+        activeItem = null;
+       
         GameManager.setObjectLocation(gameObject, "respawn");
     }
 
