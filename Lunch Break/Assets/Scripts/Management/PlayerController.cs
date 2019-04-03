@@ -696,12 +696,10 @@ public class PlayerController : MonoBehaviour
                         GameManager.bookWormsScore++;
                     }
                     Perish();
-                    Debug.Log("Finished death logic");
                 }
             }
             Destroy(other.gameObject);
             playerAnimator.SetTrigger("Hit");
-            Debug.Log("Finished Hit function");
         }
     }
 
@@ -709,8 +707,7 @@ public class PlayerController : MonoBehaviour
     {
         alive = false;
         respawnTime = Time.time + respawnTimer;
-        //GameManager.setObjectLocation(gameObject, "respawn");
-        transform.position = GameManager.RespawnObject.transform.position;
+        GameManager.setObjectLocation(gameObject, "respawn");
     }
 
     // Boolean return of enemy projectile entering collider
