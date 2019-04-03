@@ -14,6 +14,7 @@ public class BoundaryDestroyer : MonoBehaviour
     // This is a missed projectile throw
     void OnTriggerExit(Collider other)
     {
+        /*
         if (other.GetComponent<Burger>())
         {
             Vector3 hitPosition = other.gameObject.transform.position;
@@ -48,7 +49,7 @@ public class BoundaryDestroyer : MonoBehaviour
             hitPosition.y = 0.23f;
 
             Instantiate(spawnFries, hitPosition, hitRotation);
-        }
+        }*/
 
         Destroy(other.gameObject);
     }
