@@ -22,7 +22,7 @@ public class JockAI: MonoBehaviour
     public float pursueRad, pursueMin, pursueMax;
     public float targetingRange, rangeMin, rangeMax;
     public float runRad, runMin, runMax;
-    public float fleeTil, fleeTilMin, fleeTilMax;
+    public float fleeShort, fleeTil, fleeTilMin, fleeTilMax;
     public float idleDist, idleMin, idleMax;
     public float personalityTimer, personTimeMin, personTimeMax;
     public int fleePersonality, capPersonality;
@@ -62,6 +62,9 @@ public class JockAI: MonoBehaviour
     Animator NPCAnimator;
     public Transform RespawnHell;
     public AudioClip hitSound;
+    public AudioClip hitSound2;
+    public AudioClip hitSound3;
+
     public bool alive;
 
     private void Awake()
@@ -124,12 +127,13 @@ public class JockAI: MonoBehaviour
                 {
                     case 0: // run away from enemy
                         nav.SetDestination(transform.position - nearestEnemy.position);
-                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        // fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        fleeTil = Time.time + fleeShort;
                         break;
 
                     case 1: // run parallel to enemy
                         nav.SetDestination(nearestEnemy.position + nearestVendor.position);
-                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        // fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
                         break;
 
                     case 2: // find new vendor
@@ -155,8 +159,6 @@ public class JockAI: MonoBehaviour
                 {
                     if (Ammo.Any()) // has ammo
                     {
-                        transform.LookAt(nearestEnemy.position); // face enemy
-
                         nav.isStopped = true;
                         NPCAnimator.SetTrigger("Attack");
                         nextFire = Time.time + fireRate;
@@ -210,6 +212,8 @@ public class JockAI: MonoBehaviour
     {
         GameObject item = Ammo.First();
 
+        transform.LookAt(nearestEnemy.position); // face enemy
+
         // Fries fire in a special pattern
         if (item.GetComponent<MainFries>())
         {
@@ -246,7 +250,21 @@ public class JockAI: MonoBehaviour
         {
             health--;
             Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+            switch (Random.Range(0, 3)) // hit sound shuffle
+            {
+                case 0:
+                    AudioSource.PlayClipAtPoint(hitSound, transform.position);
+                    break;
+
+                case 1:
+                    AudioSource.PlayClipAtPoint(hitSound2, transform.position);
+                    break;
+
+                case 2:
+                    AudioSource.PlayClipAtPoint(hitSound3, transform.position);
+                    break;
+            }
 
             if (health <= 0)
             {

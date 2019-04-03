@@ -171,7 +171,7 @@ MonoBehaviour:
   personTimeMax: 120
   fleePersonality: 0
   capPersonality: 0
-  idling: 0
+  idling: 1
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
   drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
@@ -191,6 +191,8 @@ MonoBehaviour:
   RespawnHell: {fileID: 7659815991584147568, guid: 8171510904cd77d4fb0be306408d92d5,
     type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
+  hitSound2: {fileID: 8300000, guid: 8b3a1a7baf89e4aa7ab0c775f81dc00b, type: 3}
+  hitSound3: {fileID: 8300000, guid: 8a378e68568524190bd7f80a5c77f1b6, type: 3}
   alive: 1
 --- !u!1 &498891868526585267
 GameObject:
