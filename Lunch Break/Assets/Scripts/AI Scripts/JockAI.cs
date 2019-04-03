@@ -107,6 +107,9 @@ public class JockAI: MonoBehaviour
         if (Time.time < fleeTil)
             return;
 
+        if (!alive)
+            return;
+
         nearestEnemy = FindNearestEnemy();
 
         if (!Ammo.Any())
@@ -248,6 +251,7 @@ public class JockAI: MonoBehaviour
             if (health <= 0)
             {
                 nav.isStopped = true;
+                alive = false;
                 NPCAnimator.SetTrigger("Die");
 
                 // increase score for projectile team
@@ -270,10 +274,10 @@ public class JockAI: MonoBehaviour
 
     void Perish()
     {
-        alive = false;
         nav.isStopped = true;
         respawnTime = Time.time + respawnTimer;
         nav.Warp(GameManager.RespawnObject.transform.position);
+        NPCAnimator.SetBool("Moving", false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -282,8 +286,30 @@ public class JockAI: MonoBehaviour
             if (Ammo.Count() < maxInv)
                 if (Time.time > nextBar)
                 {
-                    Ammo.Add(burger);
-                    nextBar = Time.time + barCooldown;
+                    int ammoType = Random.Range(0, 5); // set to 6 for cake
+
+                    switch(ammoType)
+                    {
+                        case 0: // burger
+                            Ammo.Add(burger);
+                            nextBar = Time.time + barCooldown;
+                            break;
+
+                        case 1: // drink
+                            Ammo.Add(drink);
+                            nextBar = Time.time + barCooldown;
+                            break;
+
+                        case 2:
+                            Ammo.Add(donut);
+                            nextBar = Time.time + barCooldown;
+                            break;
+
+                        case 3:
+                            Ammo.Add(mainFries);
+                            nextBar = Time.time + barCooldown;
+                            break;
+                    }
                 }
     }
 
