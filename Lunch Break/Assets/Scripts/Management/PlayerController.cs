@@ -661,7 +661,7 @@ public class PlayerController : MonoBehaviour
 
         if (GetHit(other))
         {
-            if (activeItem.activeSelf && activeItem == heldTray)
+            if (activeItem == heldTray && activeItem.activeSelf)
             {
                 Debug.Log("hit tray");
                 inventory.RemoveItem(inventory.mSlots[projectileSelect].FirstItem);
@@ -706,6 +706,7 @@ public class PlayerController : MonoBehaviour
     void Perish()
     {
         alive = false;
+        //playerAnimator.SetInteger("WalkState", 4);
         respawnTime = Time.time + respawnTimer;
         GameManager.setObjectLocation(gameObject, "respawn");
     }
