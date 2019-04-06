@@ -380,10 +380,21 @@ public class PlayerController : MonoBehaviour
         // If a projectile has been selected allow for firing
         if (projectileSelect >= 0)
         {
-            if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty && !inMenu)
+            if (isController)
             {
-                playerAnimator.SetTrigger("Attack");
-                nextFire = Time.time + fireRate;
+                if (Input.GetAxis("Fire1") == 1 && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty && !inMenu)
+                {
+                    playerAnimator.SetTrigger("Attack");
+                    nextFire = Time.time + fireRate;
+                }
+            }
+            else
+            {
+                if (Input.GetButton("Fire1") && Time.time > nextFire && !inventory.mSlots[projectileSelect].IsEmpty && !inMenu)
+                {
+                    playerAnimator.SetTrigger("Attack");
+                    nextFire = Time.time + fireRate;
+                }
             }
         }
     }
