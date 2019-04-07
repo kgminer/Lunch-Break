@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     Button slot1;
     Button slot2;
     Button slot3;
+    private int INV_SIZE = 3;
 
     // Team underlighting
     public GameObject bookTeamLight;
@@ -110,9 +111,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Item0"))
         {
             projectileSelect = 0;
-            slot1.colors = usedSlot;
-            slot2.colors = unusedSlot;
-            slot3.colors = unusedSlot;
+            pickSlot(projectileSelect);
 
             // If the slot is not empty, hold the item
             if (inventory.mSlots[projectileSelect].Count > 0)
@@ -191,9 +190,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Item1"))
         {
             projectileSelect = 1;
-            slot1.colors = unusedSlot;
-            slot2.colors = usedSlot;
-            slot3.colors = unusedSlot;
+            pickSlot(projectileSelect);
 
             // If the slot is not empty, hold the item
             if (inventory.mSlots[projectileSelect].Count > 0)
@@ -272,9 +269,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Item2"))
         {
             projectileSelect = 2;
-            slot1.colors = unusedSlot;
-            slot2.colors = unusedSlot;
-            slot3.colors = usedSlot;
+            pickSlot(projectileSelect);
 
             // If the slot is not empty, hold the item
             if (inventory.mSlots[projectileSelect].Count > 0)
@@ -349,6 +344,200 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Controller Item shifting using RB/LB
+        if (isController)
+        {
+            // RB pressed, cycle inventory slot one to the right
+            if (Input.GetButtonDown("Controller ItemRight"))
+            {
+                if (projectileSelect < 0)
+                {
+                    projectileSelect = 0;
+                    pickSlot(projectileSelect);
+                }
+
+                else
+                {
+                    // Increase slot by one
+                    projectileSelect = (projectileSelect + 1) % INV_SIZE;
+                    pickSlot(projectileSelect);
+                }
+                
+
+                // If the slot is not empty, hold the item
+                if (inventory.mSlots[projectileSelect].Count > 0)
+                {
+                    InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                    if (item.GetComponent<Burger>())
+                    {
+                        if (activeItem != null && activeItem != heldBurger)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldBurger.SetActive(true);
+                        activeItem = heldBurger;
+                    }
+
+                    if (item.GetComponent<Donut>())
+                    {
+                        if (activeItem != null && activeItem != heldDonut)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldDonut.SetActive(true);
+                        activeItem = heldDonut;
+                    }
+
+                    if (item.GetComponent<Drink>())
+                    {
+                        if (activeItem != null && activeItem != heldDrink)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldDrink.SetActive(true);
+                        activeItem = heldDrink;
+                    }
+
+                    if (item.GetComponent<Cake>())
+                    {
+                        if (activeItem != null && activeItem != heldCake)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldCake.SetActive(true);
+                        activeItem = heldCake;
+                    }
+
+                    if (item.GetComponent<Fries>())
+                    {
+                        if (activeItem != null && activeItem != heldFries)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldFries.SetActive(true);
+                        activeItem = heldFries;
+                    }
+
+                    if (item.GetComponent<Tray>())
+                    {
+                        if (activeItem != null && activeItem != heldTray)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldTray.SetActive(true);
+                        activeItem = heldTray;
+                    }
+                }
+            }
+
+            // RB pressed, cycle inventory slot one to the right
+            if (Input.GetButtonDown("Controller ItemLeft"))
+            {
+                if (projectileSelect < 0)
+                {
+                    projectileSelect = 0;
+                    pickSlot(projectileSelect);
+                }
+
+                else
+                {
+                    // Decrease slot by one
+                    // Have to do this logic because modulo in c# is annoying. Apparently (-1) % 3 is still -1 rather than 2
+                    if (projectileSelect == 0)
+                    {
+                        projectileSelect = 2;
+                        pickSlot(projectileSelect);
+                    }
+                    else
+                    {
+                        projectileSelect = (projectileSelect - 1) % INV_SIZE;
+                        pickSlot(projectileSelect);
+                    }
+                    
+                }
+
+
+                // If the slot is not empty, hold the item
+                if (inventory.mSlots[projectileSelect].Count > 0)
+                {
+                    InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
+
+                    if (item.GetComponent<Burger>())
+                    {
+                        if (activeItem != null && activeItem != heldBurger)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldBurger.SetActive(true);
+                        activeItem = heldBurger;
+                    }
+
+                    if (item.GetComponent<Donut>())
+                    {
+                        if (activeItem != null && activeItem != heldDonut)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldDonut.SetActive(true);
+                        activeItem = heldDonut;
+                    }
+
+                    if (item.GetComponent<Drink>())
+                    {
+                        if (activeItem != null && activeItem != heldDrink)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldDrink.SetActive(true);
+                        activeItem = heldDrink;
+                    }
+
+                    if (item.GetComponent<Cake>())
+                    {
+                        if (activeItem != null && activeItem != heldCake)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldCake.SetActive(true);
+                        activeItem = heldCake;
+                    }
+
+                    if (item.GetComponent<Fries>())
+                    {
+                        if (activeItem != null && activeItem != heldFries)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldFries.SetActive(true);
+                        activeItem = heldFries;
+                    }
+
+                    if (item.GetComponent<Tray>())
+                    {
+                        if (activeItem != null && activeItem != heldTray)
+                        {
+                            activeItem.SetActive(false);
+                        }
+
+                        heldTray.SetActive(true);
+                        activeItem = heldTray;
+                    }
+                }
+            }
+        }
+
 
         // Check if there is a keypress for an item to pickup
         if (mItemToPickup != null && Input.GetButton("Submit"))
@@ -396,6 +585,30 @@ public class PlayerController : MonoBehaviour
                     nextFire = Time.time + fireRate;
                 }
             }
+        }
+    }
+    
+    private void pickSlot(int slot)
+    {
+        switch(slot)
+        {
+            case 0:
+                slot1.colors = usedSlot;
+                slot2.colors = unusedSlot;
+                slot3.colors = unusedSlot;
+                break;
+
+            case 1:
+                slot1.colors = unusedSlot;
+                slot2.colors = usedSlot;
+                slot3.colors = unusedSlot;
+                break;
+
+            case 2:
+                slot1.colors = unusedSlot;
+                slot2.colors = unusedSlot;
+                slot3.colors = usedSlot;
+                break;
         }
     }
 
