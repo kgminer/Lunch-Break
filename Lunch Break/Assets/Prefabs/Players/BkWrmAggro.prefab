@@ -530,12 +530,9 @@ MonoBehaviour:
   heldCake: {fileID: 2137305078, guid: 9d9a076e13e449e4c83447ef3e04eded, type: 3}
   heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
   heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
-  respawnTime: 0
   projSpawn: {fileID: 5491738914349396955}
   leftSpawn: {fileID: 22028494277553781}
   rightSpawn: {fileID: 2291043938030023431}
-  RespawnObject: {fileID: 1399969426224655010, guid: 35e8b6d4f1605f947abd2e79373b03b0,
-    type: 3}
   hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
   hitSound2: {fileID: 8300000, guid: 8b3a1a7baf89e4aa7ab0c775f81dc00b, type: 3}
   hitSound3: {fileID: 8300000, guid: 8a378e68568524190bd7f80a5c77f1b6, type: 3}
@@ -828,7 +825,7 @@ GameObject:
   - component: {fileID: 2119403640508973597}
   - component: {fileID: 1545699050786286778}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Book Worm Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -842,7 +839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6768942599819833564}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 3505374366603298754}
