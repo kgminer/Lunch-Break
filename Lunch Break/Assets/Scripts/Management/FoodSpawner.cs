@@ -6,7 +6,8 @@ public class FoodSpawner : MonoBehaviour
 {
     public  GameObject[] spawnableFoods;
     private int activeFoodIndex;
-    private const int MIN_TIME = 1, MAX_TIME = 30, MIN_INDEX = 0, MAX_INDEX = 5;
+    [SerializeField]
+    private int MIN_TIME = 1, MAX_TIME = 30, MIN_INDEX = 0, MAX_INDEX = 6;
     private bool canCheck;
 
     
