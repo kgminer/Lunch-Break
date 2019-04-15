@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
             pickSlot(projectileSelect);
 
             // If the slot is not empty, hold the item
-            if (inventory.mSlots[projectileSelect].Count > 0)
+            if (inventory.mSlots[projectileSelect].Count > 0)         
             {
                 InventoryItemBase item = inventory.mSlots[projectileSelect].FirstItem;
 
@@ -183,6 +183,15 @@ public class PlayerController : MonoBehaviour
                     heldTray.SetActive(true);
                     activeItem = heldTray;
                 }
+            }
+
+            // If there is no item in this inventory slot there should be no item held
+            else
+            {
+                if (activeItem != null)
+                    activeItem.SetActive(false);
+
+                activeItem = null;
             }
         }
 
@@ -263,6 +272,15 @@ public class PlayerController : MonoBehaviour
                     activeItem = heldTray;
                 }
             }
+
+            // If there is no item in this inventory slot there should be no item held
+            else
+            {
+                if (activeItem != null)
+                    activeItem.SetActive(false);
+
+                activeItem = null;
+            }
         }
 
         // Projectile selection will change slot of use and update ui component to reflect selection
@@ -341,6 +359,15 @@ public class PlayerController : MonoBehaviour
                     heldTray.SetActive(true);
                     activeItem = heldTray;
                 }
+            }
+
+            // If there is no item in this inventory slot there should be no item held
+            else
+            {
+                if (activeItem != null)
+                    activeItem.SetActive(false);
+
+                activeItem = null;
             }
         }
 
