@@ -6,26 +6,44 @@ using UnityEngine.AI;
 public class JockAI: MonoBehaviour
 {
     // Limits
-    public float viewRad;
-    public float nextFire;
-    public float health;
+    public float viewRadius;
+    public float attackCooldown;
+    private float nextAttackTime = 0;
+    private float health;
     public float startingHealth;
-    public int maxInv;
-    public float fireRate;
-    public float barCooldown;
-    public float nextBar;
+    public int maxInventory;
+    public float vendorCooldown;
+    private float nextVendorTime;
     public float respawnTimer;
 
 
     // Random variables and their ranges
-    public float shuffleTime, shuffleMin, shuffleMax;
-    public float pursueRad, pursueMin, pursueMax;
-    public float targetingRange, rangeMin, rangeMax;
-    public float runRad, runMin, runMax;
-    public float fleeShort, fleeMag, fleeTil, fleeTilMin, fleeTilMax;
-    public float idleDist, idleMin, idleMax;
-    public float personalityTimer, personTimeMin, personTimeMax;
-    public int fleePersonality, capPersonality;
+    private float nextShuffleTime;
+    public float shuffleDelayMin, shuffleDelayMax;
+
+    private float pursuitRadius;
+    public float pursuitRadiusMin, pursuitRadiusMax;
+
+    private float attackRadius;
+    public float attackRadiusMin, attackRadiusMax;
+
+    private float fleeRadius;
+    public float fleeRadiusMin, fleeRadiusMax;
+
+    public float shortFleeTimer;
+    public float fleeMagnitude;
+
+    private float fleeUntilTime;
+    public float fleeTimerMin, fleeTimerMax;
+
+    private float idleAnimationRadius;
+    public float idleRadiusMin, idleRadiusMax;
+
+    private float personalityShuffleTimer;
+    public float personalityShuffleDelayMin, personalityShuffleDelayMax;
+
+    private CapPersonality capPersonality;
+    private FleePersonality fleePersonality;
     public bool idling;
 
     // Projectile object references
@@ -65,6 +83,21 @@ public class JockAI: MonoBehaviour
     public AudioClip hitSound3;
 
     public bool alive;
+
+    enum CapPersonality
+    {
+        Cafeteria, Attacker, Defender, AnyCap
+    };
+
+    enum FleePersonality
+    {
+        Direct, ToVendor, ToBase
+    };
+
+    enum Food
+    {
+        Burger, Drink, Donut, Fries, Cake
+    };
 
     private void Awake()
     {
@@ -106,10 +139,10 @@ public class JockAI: MonoBehaviour
                         NPCAnimator.SetBool("Moving", true);
                     }
 
-        if (Time.time > shuffleTime)
+        if (Time.time > nextShuffleTime)
             VariableShuffle();
 
-        if (Time.time < fleeTil)
+        if (Time.time < fleeUntilTime)
             return;
 
         nearestEnemy = FindNearestEnemy();
@@ -120,24 +153,24 @@ public class JockAI: MonoBehaviour
             nearestVendor = FindNearestVendor(null);
             nav.SetDestination(nearestVendor.position);
 
-            if (nearestEnemy != null && enemyDistance < runRad)
+            if (nearestEnemy != null && enemyDistance < fleeRadius)
             {
                 switch (fleePersonality)
                 {
-                    case 0: // run away from enemy
-                        nav.SetDestination((transform.position - nearestEnemy.position) * fleeMag);
-                        //fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
-                        fleeTil = Time.time + fleeShort;
+                    case FleePersonality.Direct: // run away from enemy
+                        nav.SetDestination((transform.position - nearestEnemy.position) * fleeMagnitude);
+                        //fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
+                        fleeUntilTime = Time.time + shortFleeTimer;
                         break;
 
-                    case 1: // find new vendor
+                    case FleePersonality.ToVendor: // find nearest vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
-                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
                         break;
 
-                    case 2:
+                    case FleePersonality.ToBase: // flee to base
                         nav.SetDestination(GameManager.JocksSpawnObject.transform.position);
-                        fleeTil = Time.time + Random.Range(fleeTilMin, fleeTilMax);
+                        fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
                         break;
                 }
             }
@@ -147,15 +180,15 @@ public class JockAI: MonoBehaviour
             idling = false;
             nav.SetDestination(nearestEnemy.position);
 
-            if (enemyDistance <= targetingRange) // enemy within range
+            if (enemyDistance <= attackRadius) // enemy within range
             {
-                if (Time.time > nextFire) // shooting cooldown expired
+                if (Time.time > nextAttackTime) // shooting cooldown expired
                 {
                     if (Ammo.Any()) // has ammo
                     {
                         nav.isStopped = true;
                         NPCAnimator.SetTrigger("Attack");
-                        nextFire = Time.time + fireRate;
+                        nextAttackTime = Time.time + attackCooldown;
                     }
                 }
             }
@@ -171,27 +204,31 @@ public class JockAI: MonoBehaviour
         idling = false;
         switch (capPersonality)
         {
-            case 0:
+            case CapPersonality.Cafeteria:
                 nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
                 break;
 
-            case 1:
+            case CapPersonality.Attacker:
                 Transform dest = FindNearestCap(0);
-                if (dest == null) // if all caps are taken...
+                if (dest == null) // if all caps are taken for this team...
                 {
                     nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
                 }
                 else
-                    nav.SetDestination(FindNearestCap(0).position); // find a cap not yet taken
+                    nav.SetDestination(FindNearestCap(CapPersonality.Attacker).position); // find a cap not yet taken
                 break;
 
-            case 2:
-                nav.SetDestination(FindNearestCap(1).position); // go to any vending cap
+            case CapPersonality.Defender:
+                nav.SetDestination(FindNearestCap(CapPersonality.Defender).position); // go to team's nearest cap
+                break;
+
+            case CapPersonality.AnyCap:
+                nav.SetDestination(FindNearestCap(CapPersonality.AnyCap).position); // go to any nearest cap
                 break;
         }
 
 
-        if (capDistance < idleDist || (GameManager.centerCap.position - transform.position).sqrMagnitude < idleDist)
+        if (capDistance < idleAnimationRadius || (GameManager.centerCap.position - transform.position).sqrMagnitude < idleAnimationRadius)
         {
             idling = true;
             nav.isStopped = true;
@@ -288,31 +325,31 @@ public class JockAI: MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Vending")
-            if (Ammo.Count() < maxInv)
-                if (Time.time > nextBar)
+            if (Ammo.Count() < maxInventory)
+                if (Time.time > nextVendorTime)
                 {
-                    int ammoType = Random.Range(0, 5); // set to 6 for cake
+                    Food ammoType = (Food)Random.Range(0, System.Enum.GetNames(typeof(Food)).Length);
 
                     switch(ammoType)
                     {
-                        case 0: // burger
+                        case Food.Burger: 
                             Ammo.Add(burger);
-                            nextBar = Time.time + barCooldown;
+                            nextVendorTime = Time.time + vendorCooldown;
                             break;
 
-                        case 1: // drink
+                        case Food.Drink: 
                             Ammo.Add(drink);
-                            nextBar = Time.time + barCooldown;
+                            nextVendorTime = Time.time + vendorCooldown;
                             break;
 
-                        case 2:
+                        case Food.Donut:
                             Ammo.Add(donut);
-                            nextBar = Time.time + barCooldown;
+                            nextVendorTime = Time.time + vendorCooldown;
                             break;
 
-                        case 3:
+                        case Food.Fries:
                             Ammo.Add(mainFries);
-                            nextBar = Time.time + barCooldown;
+                            nextVendorTime = Time.time + vendorCooldown;
                             break;
                     }
                 }
@@ -320,48 +357,21 @@ public class JockAI: MonoBehaviour
 
     private void VariableShuffle()
     {
-        pursueRad = Random.Range(pursueMin, pursueMax);
-        targetingRange = Random.Range(rangeMin, rangeMax);
-        fleeTil = Random.Range(fleeTilMin, fleeTilMax);
-        runRad = Random.Range(runMin, runMax);
-        idleDist = Random.Range(idleMin, idleMax);
+        pursuitRadius = Random.Range(pursuitRadiusMin, pursuitRadiusMax);
+        attackRadius = Random.Range(attackRadiusMin, attackRadiusMax);
+        fleeUntilTime = Random.Range(fleeTimerMin, fleeTimerMax);
+        fleeRadius = Random.Range(fleeRadiusMin, fleeRadiusMax);
+        idleAnimationRadius = Random.Range(idleRadiusMin, idleRadiusMax);
 
-        if (Time.time > personalityTimer)
+        if (Time.time > personalityShuffleTimer)
         {
-            ChangeCapPersonality(3);
-            ChangeFleePersonality(4);
-            personalityTimer = Time.time + Random.Range(personTimeMin, personTimeMax);
+            fleePersonality = (FleePersonality)Random.Range(0, System.Enum.GetNames(typeof(FleePersonality)).Length);
+            capPersonality = (CapPersonality)Random.Range(0, System.Enum.GetNames(typeof(CapPersonality)).Length);
+
+            personalityShuffleTimer = Time.time + Random.Range(personalityShuffleDelayMin, personalityShuffleDelayMax);
         }
 
-        shuffleTime = Time.time + Random.Range(shuffleMin, shuffleMax);
-    }
-
-    private void ChangeFleePersonality(int mode)
-    {
-        if (mode == 4)
-            fleePersonality = Random.Range(0, 3);
-
-        if (mode == 0)
-            fleePersonality = 0;
-        if (mode == 1)
-            fleePersonality = 1;
-        if (mode == 2)
-            fleePersonality = 2;
-        //if (mode == 3)
-        //fleePersonality = 3;
-    }
-
-    private void ChangeCapPersonality(int mode)
-    {
-        if (mode == 3)
-            capPersonality = Random.Range(0, 3);
-
-        if (mode == 0)
-            capPersonality = 0;
-        if (mode == 1)
-            capPersonality = 1;
-        if (mode == 2)
-            capPersonality = 2;
+        nextShuffleTime = Time.time + Random.Range(shuffleDelayMin, shuffleDelayMax);
     }
 
     private Transform FindNearestEnemy()
@@ -376,7 +386,7 @@ public class JockAI: MonoBehaviour
 
             float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
 
-            if (calculatedDist > viewRad)
+            if (calculatedDist > viewRadius)
                 continue;
 
             if (calculatedDist < curDistance)
@@ -410,20 +420,23 @@ public class JockAI: MonoBehaviour
         return nearestTF;
     }
 
-    private Transform FindNearestCap(int mode)
+    private Transform FindNearestCap(CapPersonality mode)
     {
         Transform nearest = null;
         float curDistance = Mathf.Infinity;
 
         foreach (GameObject cap in GameManager.caps)
         {
-            if (mode == 0 && cap.GetComponent<CapZone>().GetOwner() == this.tag) // don't consider team's caps
+            // If attacker, ignore own team's zones
+            if (mode == CapPersonality.Attacker && cap.GetComponent<CapZone>().GetOwner() == this.tag)
                 continue;
 
-            if (mode == 1 && cap.transform == nearestCap) // find any new cap
+            // If any cap, ignore current nearest zone
+            if (mode == CapPersonality.AnyCap && cap.transform == nearestCap)
                 continue;
 
-            if (mode == 2 && cap.GetComponent<CapZone>().GetOwner() != this.tag) // only consider team's cap
+            // If defender, ignore other teams' zones
+            if (mode == CapPersonality.Defender && cap.GetComponent<CapZone>().GetOwner() != this.tag)
                 continue;
 
             float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;

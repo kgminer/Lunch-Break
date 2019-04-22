@@ -728,40 +728,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7203795918b09b04a95e14f558bb3868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRad: 20
-  nextFire: 0
-  health: 0
+  viewRadius: 20
+  attackCooldown: 1.5
   startingHealth: 3
-  maxInv: 3
-  fireRate: 1.5
-  barCooldown: 2
-  nextBar: 0
+  maxInventory: 3
+  vendorCooldown: 2
   respawnTimer: 4
-  shuffleTime: 0
-  shuffleMin: 3
-  shuffleMax: 15
-  pursueRad: 0
-  pursueMin: 5
-  pursueMax: 20
-  targetingRange: 0
-  rangeMin: 8
-  rangeMax: 17
-  runRad: 0
-  runMin: 3
-  runMax: 15
-  fleeShort: 2
-  fleeMag: 10
-  fleeTil: 0
-  fleeTilMin: 1
-  fleeTilMax: 8
-  idleDist: 0
-  idleMin: 2
-  idleMax: 8
-  personalityTimer: 0
-  personTimeMin: 20
-  personTimeMax: 120
-  fleePersonality: 0
-  capPersonality: 0
+  shuffleDelayMin: 3
+  shuffleDelayMax: 15
+  pursuitRadiusMin: 10
+  pursuitRadiusMax: 20
+  attackRadiusMin: 10
+  attackRadiusMax: 20
+  fleeRadiusMin: 10
+  fleeRadiusMax: 20
+  shortFleeTimer: 2
+  fleeMagnitude: 10
+  fleeTimerMin: 3
+  fleeTimerMax: 15
+  idleRadiusMin: 2
+  idleRadiusMax: 8
+  personalityShuffleDelayMin: 20
+  personalityShuffleDelayMax: 120
   idling: 1
   burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
   donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
