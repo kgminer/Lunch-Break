@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
         PositionPlayers();
         Time.timeScale = 1f;
+        Cursor.visible = false;
         //camera = GameObject.Find("Main Camera");
         //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
         //camera.GetComponent<CameraFollow>().target = player.transform;
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 gameDisplay.SetFinalScoreText();
                 gameDisplay.OpenGameOverPanel();
+                Cursor.visible = true;
                 gameState = 2;
                 break;
             case 2:

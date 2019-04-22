@@ -176,6 +176,7 @@ public class HUD : MonoBehaviour
     public void OpenVendingMachinePanel()
     {
         VendingMachinePanel.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void UpdateVendingMachinePanel(int purchases)
@@ -186,6 +187,7 @@ public class HUD : MonoBehaviour
     public void CloseVendingMachinePanel()
     {
         VendingMachinePanel.SetActive(false);
+        Cursor.visible = false;
     }
 
     public void OpenRespawnMap()
@@ -201,12 +203,14 @@ public class HUD : MonoBehaviour
     public void OpenPausePanel()
     {
         PausePanel.SetActive(true);
+        Cursor.visible = true;
         Time.timeScale = 0f;
     }
     
     public void ClosePausePanel()
     {
         PausePanel.SetActive(false);
+        Cursor.visible = false;
         Time.timeScale = 1f;
     }
     public void OpenGameOverPanel()
