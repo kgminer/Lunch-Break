@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private int gameState; //0 = Running, 1 = Game Over
     public static int scienceGeeksScore, bookWormsScore, jocksScore;
     private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3, NUM_NPCS = 6;
-    //private GameObject camera;
 
     public HUD gameDisplay;
     public static GameObject ScienceGeeksSpawnObject;
@@ -66,9 +65,6 @@ public class GameManager : MonoBehaviour
         PositionPlayers();
         Time.timeScale = 1f;
         Cursor.visible = false;
-        //camera = GameObject.Find("Main Camera");
-        //Instantiate(player, spawningObject.transform.position, Quaternion.identity);
-        //camera.GetComponent<CameraFollow>().target = player.transform;
     }
     
     // Update is called once per frame
@@ -156,22 +152,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
         
-        /*Player.transform.position = ScienceGeeksSpawnObject.transform.position;
-        NPC1Team2.transform.position = ScienceGeeksSpawnObject.transform.position;
-
-        NPC1Team1.transform.position = BookWormsSpawnObject.transform.position;
-        NPC2Team1.transform.position = BookWormsSpawnObject.transform.position;
-
-        NPC1Team3.transform.position = JocksSpawnObject.transform.position;
-        NPC2Team3.transform.position = JocksSpawnObject.transform.position;*/
-    }
-
-    private void SpawnFood()
-    {
-        Instantiate(foodItem, foodSpawnPosition1.transform.position, Quaternion.identity);
-        Instantiate(foodItem, foodSpawnPosition2.transform.position, Quaternion.identity);
-        Instantiate(foodItem, foodSpawnPosition3.transform.position, Quaternion.identity);
-        Instantiate(foodItem, foodSpawnPosition4.transform.position, Quaternion.identity);
     }
 
     private void CollectPositions()
@@ -192,34 +172,25 @@ public class GameManager : MonoBehaviour
 
     private void SpawnScienceGeeksNPCs(int spawnNumber)
     {
-        //int arrayIndex = 0;
-
         for (int i = 0; i < spawnNumber; i++)
         {
             scienceGeeksNPCs[i] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
-            //arrayIndex++;
         }
     }
 
     private void SpawnJocksNPCs(int spawnNumber)
     {
-        //int arrayIndex = 0;
-
         for (int i = 0; i < spawnNumber; i++)
         {
             jocksNPCs[i] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
-            //arrayIndex++;
         }
     }
 
     private void SpawnBookWormsNPCs(int spawnNumber)
     {
-        //int arrayIndex = 0;
-
         for (int i = 0; i < spawnNumber; i++)
         {
             bookWormsNPCs[i] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
-            //arrayIndex++;
         }
     }
 

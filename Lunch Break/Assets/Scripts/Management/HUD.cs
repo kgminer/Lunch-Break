@@ -62,20 +62,6 @@ public class HUD : MonoBehaviour
 
                 break;
             }
-
-            /*
-            // We found the empty slot
-            if (!image.enabled)
-            {
-                image.enabled = true;
-                image.sprite = e.Item.Image;
-
-                // Store a reference to the item
-                itemDragHandler.Item = e.Item;
-
-                break;
-            }
-            */
         }
     }
 
@@ -119,15 +105,6 @@ public class HUD : MonoBehaviour
                 }
                 break;
             }
-            /*
-            if(itemDragHandler.Item.Equals(e.Item))
-            {
-                image.enabled = false;
-                image.sprite = null;
-                itemDragHandler.Item = null;
-                break;
-            }
-            */
         }
     }
 
@@ -230,7 +207,6 @@ public class HUD : MonoBehaviour
         else
             MousePanel.SetActive(true);
 
-        // TODO: set text when we will use this for other messages as well
     }
 
     public void CloseMessagePanel(bool controller)

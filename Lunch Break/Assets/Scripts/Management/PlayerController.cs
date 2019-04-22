@@ -1047,28 +1047,6 @@ public class PlayerController : MonoBehaviour
     private Behaviour mItemGlow = null;
     private Behaviour prevGlow = null;
 
-    IEnumerator Respawn()
-    {
-        alive = false;
-        GameManager.setObjectLocation(gameObject, "respawn");
-        health = startingHealth;
-        //money = startingMoney;
-        yield return new WaitForSeconds(10);
-        if (gameObject.tag == "scienceGeek")
-        {
-            GameManager.setObjectLocation(gameObject, "scienceGeek");
-        }
-        else if (gameObject.tag == "bookWorm")
-        {
-            GameManager.setObjectLocation(gameObject, "bookWorm");
-        }
-        else if (gameObject.tag == "jocks")
-        {
-            GameManager.setObjectLocation(gameObject, "jocks");
-        }
-        alive = true;
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Food"))

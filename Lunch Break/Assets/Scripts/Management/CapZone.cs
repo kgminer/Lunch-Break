@@ -24,9 +24,6 @@ public class CapZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
-        //   return;
-
         if (other.CompareTag("jocks") || other.CompareTag("bookWorm") || other.CompareTag("scienceGeek"))
         {
             if (!Cappers.Contains(other))
@@ -39,8 +36,6 @@ public class CapZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // if (other.gameObject.tag != "Team1" || other.gameObject.tag != "Team2" || other.gameObject.tag != "Team3")
-        //    return;
         if (other.CompareTag("jocks") || other.CompareTag("bookWorm") || other.CompareTag("scienceGeek"))
         {
             Cappers.Remove(other);
