@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class JockAI: MonoBehaviour
+public class NpcScript : MonoBehaviour
 {
     // Limits
     public float viewRadius;
@@ -136,11 +136,11 @@ public class JockAI: MonoBehaviour
             alive = true;
             health = startingHealth;
 
-            if(team == Team.bookWorm)
+            if (team == Team.bookWorm)
                 nav.Warp(GameManager.BookWormsSpawnObject.transform.position);
-            if(team == Team.jocks)
+            if (team == Team.jocks)
                 nav.Warp(GameManager.JocksSpawnObject.transform.position);
-            if(team == Team.scienceGeek)
+            if (team == Team.scienceGeek)
                 nav.Warp(GameManager.ScienceGeeksSpawnObject.transform.position);
 
             idling = false;
@@ -300,7 +300,7 @@ public class JockAI: MonoBehaviour
                 return;
             if (team == Team.jocks && other.gameObject.tag == "jocksThrown")
                 return;
-            
+
             health--;
             Destroy(other.gameObject);
 
@@ -362,14 +362,14 @@ public class JockAI: MonoBehaviour
                 {
                     Food ammoType = (Food)Random.Range(0, System.Enum.GetNames(typeof(Food)).Length);
 
-                    switch(ammoType)
+                    switch (ammoType)
                     {
-                        case Food.Burger: 
+                        case Food.Burger:
                             Ammo.Add(burger);
                             nextVendorTime = Time.time + vendorCooldown;
                             break;
 
-                        case Food.Drink: 
+                        case Food.Drink:
                             Ammo.Add(drink);
                             nextVendorTime = Time.time + vendorCooldown;
                             break;

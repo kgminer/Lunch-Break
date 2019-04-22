@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 3155161150801482604}
   - component: {fileID: 427451638953162268}
   - component: {fileID: 3508579195143616279}
-  - component: {fileID: 481010720743722806}
+  - component: {fileID: 3136365485994190571}
   m_Layer: 0
   m_Name: BkWrmAggro
   m_TagString: bookWorm
@@ -470,7 +470,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &481010720743722806
+--- !u!114 &3136365485994190571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -479,64 +479,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 4562054309413373039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01ddf0301f5be4b4ab2a3f437b3edd99, type: 3}
+  m_Script: {fileID: 11500000, guid: 78007e5117daa184aa4082cf48369f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRad: 20
-  nextFire: 0
-  health: 0
-  startingHealth: 3
-  maxInv: 3
-  fireRate: 1.5
-  barCooldown: 2
-  nextBar: 0
-  respawnTimer: 4
-  shuffleTime: 0
-  shuffleMin: 3
-  shuffleMax: 15
-  pursueRad: 0
-  pursueMin: 10
-  pursueMax: 20
-  targetingRange: 0
-  rangeMin: 10
-  rangeMax: 20
-  runRad: 0
-  runMin: 10
-  runMax: 20
-  fleeShort: 2
-  fleeMag: 10
-  fleeTil: 0
-  fleeTilMin: 3
-  fleeTilMax: 15
-  idleDist: 0
-  idleMin: 2
-  idleMax: 8
-  personalityTimer: 0
-  personTimeMin: 20
-  personTimeMax: 120
-  fleePersonality: 0
-  capPersonality: 0
-  idling: 1
-  burger: {fileID: 2164456429596285354, guid: f75a5b8b2c0f23c40b10ffb8b09f024f, type: 3}
-  donut: {fileID: 2085717052255276367, guid: f11cdb35dc7396a4fa4a57fba3c6503c, type: 3}
-  drink: {fileID: 739134927, guid: 6e5713e3f07ce8148a1667eb37d06d01, type: 3}
-  cake: {fileID: 1147061323, guid: 60a4bf959d3e86542ab72612b9fb94a8, type: 3}
-  mainFries: {fileID: 145256330015739173, guid: 1fccab21abde08141b0794c13e611fd5,
-    type: 3}
-  sideFries: {fileID: 332533938, guid: b12fcd19be36d4f4581eb1c2bde778b7, type: 3}
-  heldBurger: {fileID: 928125361, guid: 3be181cc8b329f04a9a3fd2108f447e5, type: 3}
-  heldDonut: {fileID: 1846210655, guid: b2388cecade6f9446b44e11cfb423c24, type: 3}
-  heldDrink: {fileID: 1509844270, guid: 1801fbc7fb7b46c44a687fabf70a3a7b, type: 3}
-  heldCake: {fileID: 2137305078, guid: 9d9a076e13e449e4c83447ef3e04eded, type: 3}
-  heldTray: {fileID: 1254195346, guid: 640e29f250022f244a24346dc9422a90, type: 3}
-  heldFries: {fileID: 1391622688, guid: 041e4a53794f1034a9c231b015025a1c, type: 3}
-  projSpawn: {fileID: 5491738914349396955}
-  leftSpawn: {fileID: 22028494277553781}
-  rightSpawn: {fileID: 2291043938030023431}
-  hitSound: {fileID: 8300000, guid: d12c5b1e430164aca9203e4240596585, type: 3}
-  hitSound2: {fileID: 8300000, guid: 8b3a1a7baf89e4aa7ab0c775f81dc00b, type: 3}
-  hitSound3: {fileID: 8300000, guid: 8a378e68568524190bd7f80a5c77f1b6, type: 3}
-  alive: 1
+  viewRadius: 0
+  attackCooldown: 0
+  startingHealth: 0
+  maxInventory: 0
+  vendorCooldown: 0
+  respawnTimer: 0
+  shuffleDelayMin: 0
+  shuffleDelayMax: 0
+  pursuitRadiusMin: 0
+  pursuitRadiusMax: 0
+  attackRadiusMin: 0
+  attackRadiusMax: 0
+  fleeRadiusMin: 0
+  fleeRadiusMax: 0
+  shortFleeTimer: 0
+  fleeMagnitude: 0
+  fleeTimerMin: 0
+  fleeTimerMax: 0
+  idleRadiusMin: 0
+  idleRadiusMax: 0
+  personalityShuffleDelayMin: 0
+  personalityShuffleDelayMax: 0
+  idling: 0
+  burger: {fileID: 0}
+  donut: {fileID: 0}
+  drink: {fileID: 0}
+  cake: {fileID: 0}
+  mainFries: {fileID: 0}
+  sideFries: {fileID: 0}
+  heldBurger: {fileID: 0}
+  heldDonut: {fileID: 0}
+  heldDrink: {fileID: 0}
+  heldCake: {fileID: 0}
+  heldTray: {fileID: 0}
+  heldFries: {fileID: 0}
+  projSpawn: {fileID: 0}
+  leftSpawn: {fileID: 0}
+  rightSpawn: {fileID: 0}
+  hitSound: {fileID: 0}
+  hitSound2: {fileID: 0}
+  hitSound3: {fileID: 0}
+  alive: 0
 --- !u!1 &4951964935070954986
 GameObject:
   m_ObjectHideFlags: 0
