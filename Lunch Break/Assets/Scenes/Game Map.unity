@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44982374, g: 0.4998923, b: 0.57559, a: 1}
+  m_IndirectSpecularColor: {r: 0.44982356, g: 0.4998923, b: 0.5755894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -72332,11 +72332,10 @@ MonoBehaviour:
   BookWormsBase: {fileID: 463426611}
   RespawnPoint: {fileID: 1803796774}
   Player: {fileID: 1649242408}
-  BookWormAggro: {fileID: 4562054309413373039, guid: fb8051415d1e2b147a7addf117d115bd,
+  BookWormNPC: {fileID: 4562054309413373039, guid: fb8051415d1e2b147a7addf117d115bd,
     type: 3}
-  SciGeekAggro: {fileID: 2051427906, guid: f2e118d1278038c44b7010e080ae71f8, type: 3}
-  JockAggro: {fileID: 7149668877016289575, guid: 32f70ade4bdde30488d6a6832a3f0794,
-    type: 3}
+  SciGeekNPC: {fileID: 2051427906, guid: f2e118d1278038c44b7010e080ae71f8, type: 3}
+  JockNPC: {fileID: 7149668877016289575, guid: 32f70ade4bdde30488d6a6832a3f0794, type: 3}
   foodSpawnPosition1: {fileID: 513551364}
   foodSpawnPosition2: {fileID: 0}
   foodSpawnPosition3: {fileID: 0}

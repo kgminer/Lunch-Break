@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     public  GameObject BookWormsBase;
     public  GameObject RespawnPoint;
     public GameObject Player;
-    public GameObject BookWormAggro;
-    public GameObject SciGeekAggro;
-    public GameObject JockAggro;
+    public GameObject BookWormNPC;
+    public GameObject SciGeekNPC;
+    public GameObject JockNPC;
     private GameObject[] scienceGeeksNPCs;
     private GameObject[] bookWormsNPCs;
     private GameObject[] jocksNPCs;
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < spawnNumber; i++)
         {
-            scienceGeeksNPCs[i] = Instantiate(SciGeekAggro, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
+            scienceGeeksNPCs[i] = Instantiate(SciGeekNPC, ScienceGeeksSpawnObject.transform.position, Quaternion.identity);
         }
     }
 
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < spawnNumber; i++)
         {
-            jocksNPCs[i] = Instantiate(JockAggro, JocksSpawnObject.transform.position, Quaternion.identity);
+            jocksNPCs[i] = Instantiate(JockNPC, JocksSpawnObject.transform.position, Quaternion.identity);
         }
     }
 
@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < spawnNumber; i++)
         {
-            bookWormsNPCs[i] = Instantiate(BookWormAggro, BookWormsSpawnObject.transform.position, Quaternion.identity);
+            bookWormsNPCs[i] = Instantiate(BookWormNPC, BookWormsSpawnObject.transform.position, Quaternion.identity);
         }
     }
 

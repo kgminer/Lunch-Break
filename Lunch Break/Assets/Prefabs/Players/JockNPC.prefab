@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 7992147572771988104}
   - component: {fileID: 6142523231567526331}
   m_Layer: 0
-  m_Name: JockAggro
+  m_Name: JockNPC
   m_TagString: jocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

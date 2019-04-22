@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 3508579195143616279}
   - component: {fileID: 3136365485994190571}
   m_Layer: 0
-  m_Name: BkWrmAggro
+  m_Name: BkWrmNPC
   m_TagString: bookWorm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

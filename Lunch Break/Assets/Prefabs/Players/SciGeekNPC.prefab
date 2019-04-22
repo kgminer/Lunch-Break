@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8637321822148120949}
   - component: {fileID: 5911946460028649294}
   m_Layer: 0
-  m_Name: SciGeekAggro
+  m_Name: SciGeekNPC
   m_TagString: scienceGeek
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
