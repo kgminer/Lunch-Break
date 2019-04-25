@@ -139,9 +139,9 @@ public class HUD : MonoBehaviour
         TimeRemainingLabel.GetComponent<Text>().text = "Time Remaining: " + formattedTime;
     }
 
-    public void SetScoreText()
+    public void SetScoreText(int maxScore)
     {
-        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore + "/250     " + "Book Worms: " + GameManager.bookWormsScore + "/250     " + "Jocks: " + GameManager.jocksScore + "/250";
+        ScoreLabel.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore + "/" + maxScore + "     Book Worms: " + GameManager.bookWormsScore + "/" + maxScore + "    Jocks: " + GameManager.jocksScore + "/" + maxScore;
     }
 
     public void SetFinalScoreText()

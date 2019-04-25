@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private float timeRemaining;
+    [SerializeField]
+    private int scoreLimit;
     private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
     public static int scienceGeeksScore, bookWormsScore, jocksScore;
@@ -26,11 +28,6 @@ public class GameManager : MonoBehaviour
     private GameObject[] scienceGeeksNPCs;
     private GameObject[] bookWormsNPCs;
     private GameObject[] jocksNPCs;
-    public GameObject foodSpawnPosition1;
-    public GameObject foodSpawnPosition2;
-    public GameObject foodSpawnPosition3;
-    public GameObject foodSpawnPosition4;
-    public GameObject foodItem;
 
     public static Transform centerCap;
     public static GameObject[] allCharacters;
@@ -80,8 +77,8 @@ public class GameManager : MonoBehaviour
                 if (!outOfTime)
                 {
                     gameDisplay.SetTimeRemainingText(minutes, seconds);
-                    gameDisplay.SetScoreText();
-                    scoreReached = scienceGeeksScore >= 250 || bookWormsScore >= 250 || jocksScore >= 250;
+                    gameDisplay.SetScoreText(scoreLimit);
+                    scoreReached = scienceGeeksScore >= scoreLimit || bookWormsScore >= scoreLimit || jocksScore >= scoreLimit;
                     if(scoreReached)
                     {
                         gameState = 1;

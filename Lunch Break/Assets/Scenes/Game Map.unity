@@ -5018,7 +5018,7 @@ PrefabInstance:
     - target: {fileID: 1660918915572823200, guid: 2a20e70153248994a906fa76b9f8d440,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a20e70153248994a906fa76b9f8d440, type: 3}
@@ -19435,12 +19435,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 479540, guid: 684778fda29bd6a4b949a7d080146b3c,
     type: 3}
   m_PrefabInstance: {fileID: 513519424}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &513551364 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8825780957619715875, guid: be74d3b911cd4ed48a74d0adc5997a82,
-    type: 3}
-  m_PrefabInstance: {fileID: 8825780957191099175}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &513551365 stripped
 Transform:
@@ -61384,7 +61378,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Science Geeks: 0/250     Book Worms: 0/250     Jocks: 0/250'
+  m_Text: 'Science Geeks: 0/200     Book Worms: 0/200     Jocks: 0/200'
 --- !u!222 &1508047815
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72501,6 +72495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f4458c993442342982d071363b0d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreLimit: 200
   gameDisplay: {fileID: 1269156673}
   ScienceGeeksBase: {fileID: 260737507}
   JocksBase: {fileID: 48385859}
@@ -72511,11 +72506,6 @@ MonoBehaviour:
     type: 3}
   SciGeekNPC: {fileID: 2051427906, guid: f2e118d1278038c44b7010e080ae71f8, type: 3}
   JockNPC: {fileID: 7149668877016289575, guid: 32f70ade4bdde30488d6a6832a3f0794, type: 3}
-  foodSpawnPosition1: {fileID: 513551364}
-  foodSpawnPosition2: {fileID: 0}
-  foodSpawnPosition3: {fileID: 0}
-  foodSpawnPosition4: {fileID: 0}
-  foodItem: {fileID: 931056029, guid: d5064328da8d39243beb51b10d5afa50, type: 3}
 --- !u!4 &1794255749
 Transform:
   m_ObjectHideFlags: 0
