@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private int scoreLimit;
     private bool outOfTime, scoreReached;
     private int gameState; //0 = Running, 1 = Game Over
-    public static int scienceGeeksScore, bookWormsScore, jocksScore;
+    public static int scienceGeeksScore, bookWormsScore, jocksScore, winningScore;
     private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3, NUM_NPCS = 6;
 
     public HUD gameDisplay;
@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 1:
+                winningScore = Mathf.Max(scienceGeeksScore, bookWormsScore, jocksScore);
                 gameDisplay.SetFinalScoreText();
                 gameDisplay.OpenGameOverPanel();
                 Cursor.visible = true;

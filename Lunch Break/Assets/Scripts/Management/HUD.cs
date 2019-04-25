@@ -13,6 +13,7 @@ public class HUD : MonoBehaviour
     public GameObject RespawnMap;
     public GameObject GameOverPanel;
     public GameObject ScoreLabel;
+    public GameObject WinnerLabel;
     public GameObject ScienceGeeksFinalScore;
     public GameObject BookWormsFinalScore;
     public GameObject JocksFinalScore;
@@ -146,6 +147,18 @@ public class HUD : MonoBehaviour
 
     public void SetFinalScoreText()
     {
+        if(GameManager.winningScore == GameManager.scienceGeeksScore)
+        {
+            WinnerLabel.GetComponent<Text>().text = "Science Geeks   Win!";
+        }
+        else if(GameManager.winningScore == GameManager.bookWormsScore)
+        {
+            WinnerLabel.GetComponent<Text>().text = "Book Worms   Win!";
+        }
+        else if(GameManager.winningScore == GameManager.jocksScore)
+        {
+            WinnerLabel.GetComponent<Text>().text = "Jocks   Win!";
+        }
         ScienceGeeksFinalScore.GetComponent<Text>().text = "Science Geeks: " + GameManager.scienceGeeksScore;
         BookWormsFinalScore.GetComponent<Text>().text = "Book Worms: " + GameManager.bookWormsScore;
         JocksFinalScore.GetComponent<Text>().text = "Jocks: " + GameManager.jocksScore;
