@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public bool alive;
     private bool atVendingMachine;
     private bool inMenu;
+    private bool mapPulledUp;
     public float respawnTimer;
     float respawnTime;
 
@@ -786,6 +787,20 @@ public class PlayerController : MonoBehaviour
                 hud.CloseMessagePanel(true);
             else
                 hud.CloseMessagePanel(false);
+        }
+
+        if(Input.GetButtonDown("Map Accessor"))
+        {
+            if(!mapPulledUp)
+            {
+                hud.OpenLargeViewMap();
+                mapPulledUp = true;
+            }
+            else
+            {
+                hud.CloseLargeViewMap();
+                mapPulledUp = false;
+            }
         }
 
         // If a projectile has been selected allow for firing

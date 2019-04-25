@@ -19,6 +19,7 @@ public class HUD : MonoBehaviour
     public GameObject PausePanel;
     public GameObject VendingMachinePanel;
     public GameObject RemainingBuysLabel;
+    public GameObject LargeViewMap;
     private Transform inventoryPanel;
 
     // Use this for initialization
@@ -215,5 +216,15 @@ public class HUD : MonoBehaviour
             ControllerPanel.SetActive(false);
         else
             MousePanel.SetActive(false);
+    }
+
+    public void OpenLargeViewMap()
+    {
+        LargeViewMap.SetActive(true);
+    }
+
+    public void CloseLargeViewMap()
+    {
+        LargeViewMap.SetActive(false);
     }
 }
