@@ -26,6 +26,7 @@ TagManager:
   - jocksThrown
   - Center Cap
   - Spawner
+  - Base
   layers:
   - Default
   - TransparentFX

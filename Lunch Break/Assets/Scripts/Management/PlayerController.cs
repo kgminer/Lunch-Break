@@ -1094,7 +1094,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(other.gameObject.CompareTag("Cap"))
+        if(other.gameObject.CompareTag("Cap") || other.gameObject.CompareTag("Base"))
         {
             SetAtVendingMachine(true);
             purchases = 3;
@@ -1231,7 +1231,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Cap"))
+        if (other.gameObject.CompareTag("Cap") || other.gameObject.CompareTag("Base"))
         {
             SetAtVendingMachine(false);
             SetInMenu(false);
