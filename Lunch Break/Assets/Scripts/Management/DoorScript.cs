@@ -16,7 +16,7 @@ public class DoorScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if(other.tag == "scienceGeek" || other.tag == "bookWorm" || other.tag == "jocks")
+        if(other.tag == "Physical Collider")
         {
             anim.SetTrigger("OpenDoor");
             exited = false;
@@ -25,8 +25,11 @@ public class DoorScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        anim.enabled = true;
-        exited = true;
+        if (other.tag == "Physical Collider")
+        {
+            anim.enabled = true;
+            exited = true;
+        }
     }
 
     private void PauseAnimationEvent()
