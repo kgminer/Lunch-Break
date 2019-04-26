@@ -604,6 +604,7 @@ MonoBehaviour:
   leftSpawn: {fileID: 516344937}
   rightSpawn: {fileID: 1174010656}
   fireRate: 0.5
+  mouseSensitivity: 0.001
   health: 0
   startingHealth: 3
   purchases: 3

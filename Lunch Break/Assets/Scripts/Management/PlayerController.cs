@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public Transform leftSpawn;
     public Transform rightSpawn;
     public float fireRate = 0.5f;
+    [SerializeField]
+    private float mouseSensitivity;
     private float nextFire;
     public float health;
     public float startingHealth;
@@ -1001,7 +1003,7 @@ public class PlayerController : MonoBehaviour
 
             AnimateWithStick(h, v);
 
-            if((hj > 0.1 || hj < -0.1) || (vj > 0.1 || vj < -0.1))
+            if ((hj > 0.1 || hj < -0.1) || (vj > 0.1 || vj < -0.1))
             {
                 TurnWithStick(hj, vj);
             }
@@ -1011,6 +1013,8 @@ public class PlayerController : MonoBehaviour
         {
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
+            //hj = Input.GetAxisRaw("Mouse X");
+            //vj = Input.GetAxisRaw("Mouse Y");
 
             Move(h, v);
             Animate(h, v);
@@ -1040,9 +1044,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0f;
-
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
+            newRotation.x *= mouseSensitivity;
+            newRotation.z *= mouseSensitivity;
             playerRigid.MoveRotation(newRotation);
         }
     }

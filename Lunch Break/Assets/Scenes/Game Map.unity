@@ -24994,6 +24994,10 @@ PrefabInstance:
       propertyPath: respawnTimer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1649242410, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
+      propertyPath: mouseSensitivity
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 1148522369, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
