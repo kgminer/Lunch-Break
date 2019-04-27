@@ -92,7 +92,7 @@ public class NpcScript : MonoBehaviour
 
     enum CapPersonality
     {
-        Cafeteria, Attacker, Defender, AnyCap, CapTaker
+        Cafeteria, Attacker, /*Defender,*/ AnyCap, CapTaker
     };
 
     enum FleePersonality
@@ -277,9 +277,10 @@ public class NpcScript : MonoBehaviour
                 if (enemycap == null)
                     nav.SetDestination(GameManager.centerCap.position); // all caps taken, default to cafeteria
                 else
-                    nav.SetDestination(enemycap.position); // go to ene
+                    nav.SetDestination(enemycap.position); // go to enemy cap
                 break;
 
+                /*
             case CapPersonality.Defender:
                 Transform teamcap = FindNearestCap(CapPersonality.Defender); // find a cap taken by team
                 if (teamcap == null)
@@ -287,6 +288,7 @@ public class NpcScript : MonoBehaviour
                 else
                     nav.SetDestination(teamcap.position); // go to team's nearest cap
                 break;
+                */
 
             case CapPersonality.CapTaker:
                 Transform uncapped = FindNearestCap(CapPersonality.CapTaker); // find a cap with no team
@@ -445,6 +447,11 @@ public class NpcScript : MonoBehaviour
                             Ammo.Add(mainFries);
                             nextVendorTime = Time.time + vendorCooldown;
                             break;
+
+                        case Food.Cake:
+                            Ammo.Add(cake);
+                            nextVendorTime = Time.time + vendorCooldown;
+                            break;
                     }
                 }
     }
@@ -538,9 +545,11 @@ public class NpcScript : MonoBehaviour
             if (mode == CapPersonality.AnyCap && cap.transform == nearestCap)
                 continue;
 
+            /*
             // If defender, ignore other teams' zones
             if (mode == CapPersonality.Defender && cap.GetComponent<CapZone>().GetOwner() != this.tag)
                 continue;
+            */
 
             // If capTaker, only search for unclaimed zones
             if (mode == CapPersonality.CapTaker && cap.GetComponent<CapZone>().GetOwner() != "uncapped")
