@@ -8,7 +8,8 @@ public class NpcScript : MonoBehaviour
     // Limits
     public float viewRadius;
     public float attackCooldown;
-    private float nextAttackTime = 0;
+    private float nextAttackTime;
+    private float hitAndRunTimer;
     private float health;
     public float startingHealth;
     public int maxInventory;
@@ -30,8 +31,7 @@ public class NpcScript : MonoBehaviour
     private float fleeRadius;
     public float fleeRadiusMin, fleeRadiusMax;
 
-    public float shortFleeTimer;
-    public float fleeMagnitude;
+    public float hitAndRunDelay;
 
     private float fleeUntilTime;
     public float fleeTimerMin, fleeTimerMax;
@@ -44,6 +44,7 @@ public class NpcScript : MonoBehaviour
 
     private CapPersonality capPersonality;
     private FleePersonality fleePersonality;
+    private AttackingPersonality attackingPersonality;
 
     public bool idling;
 
@@ -96,13 +97,19 @@ public class NpcScript : MonoBehaviour
 
     enum FleePersonality
     {
-        Direct, ToVendor, ToBase
+        ToVendor, ToBase
+    };
+
+    enum AttackingPersonality
+    {
+        Strafe, BackAway, HitnRun
     };
 
     enum Food
     {
         Burger, Drink, Donut, Fries, Cake
     };
+
     enum Team
     {
         scienceGeek, jocks, bookWorm
@@ -166,7 +173,13 @@ public class NpcScript : MonoBehaviour
         if (Time.time > nextShuffleTime)
             VariableShuffle();
 
-        if (Time.time < fleeUntilTime)
+        if (Time.time > personalityShuffleTimer)
+            PersonalityShuffle();
+
+        if (Time.time < fleeUntilTime && !Ammo.Any())
+            return;
+
+        if (Time.time < hitAndRunTimer)
             return;
 
         nearestEnemy = FindNearestEnemy();
@@ -181,19 +194,19 @@ public class NpcScript : MonoBehaviour
             {
                 switch (fleePersonality)
                 {
-                    case FleePersonality.Direct: // run away from enemy
-                        nav.SetDestination((transform.position - nearestEnemy.position) * fleeMagnitude);
-                        //fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
-                        fleeUntilTime = Time.time + shortFleeTimer;
-                        break;
-
                     case FleePersonality.ToVendor: // find nearest vendor
                         nav.SetDestination(FindNearestVendor(nearestVendor).position);
                         fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
                         break;
 
                     case FleePersonality.ToBase: // flee to base
-                        nav.SetDestination(GameManager.JocksSpawnObject.transform.position);
+                        if (team == Team.jocks)
+                            nav.SetDestination(GameManager.JocksSpawnObject.transform.position);
+                        if (team == Team.bookWorm)
+                            nav.SetDestination(GameManager.BookWormsSpawnObject.transform.position);
+                        if (team == Team.scienceGeek)
+                            nav.SetDestination(GameManager.ScienceGeeksSpawnObject.transform.position);
+
                         fleeUntilTime = Time.time + Random.Range(fleeTimerMin, fleeTimerMax);
                         break;
                 }
@@ -201,6 +214,33 @@ public class NpcScript : MonoBehaviour
         }
         else if (nearestEnemy != null) // attack mode
         {
+            if(Time.time < nextAttackTime) // if on cooldoown, reference AttackPersonality to avoid hugging enemy
+            {
+                switch(attackingPersonality)
+                {
+                    case AttackingPersonality.BackAway:
+                        FaceEnemy(nearestEnemy);
+                        nav.SetDestination(-nearestEnemy.position * 2);
+                        break;
+
+                    case AttackingPersonality.HitnRun:
+                        if (team == Team.jocks)
+                            nav.SetDestination(GameManager.JocksSpawnObject.transform.position);
+                        if (team == Team.bookWorm)
+                            nav.SetDestination(GameManager.BookWormsSpawnObject.transform.position);
+                        if (team == Team.scienceGeek)
+                            nav.SetDestination(GameManager.ScienceGeeksSpawnObject.transform.position);
+
+                        hitAndRunTimer = Time.time + hitAndRunDelay;
+                        break;
+
+                    case AttackingPersonality.Strafe:
+                        FaceEnemy(nearestEnemy);
+                        nav.SetDestination(Vector3.Cross(transform.position, nearestEnemy.position));
+                        break;
+                }
+            }
+
             idling = false;
             nav.SetDestination(nearestEnemy.position);
 
@@ -272,9 +312,10 @@ public class NpcScript : MonoBehaviour
 
     }
 
-    void FaceEnemy()
+    void FaceEnemy(Transform enemy)
     {
-        transform.LookAt(nearestEnemy.position); // face enemy
+        if(enemy != null)
+            transform.LookAt(enemy.position); // face enemy
     }
 
     void Fire()
@@ -290,6 +331,13 @@ public class NpcScript : MonoBehaviour
             thrown2.tag = this.tag + "Thrown";
             GameObject thrown3 = Instantiate(sideFries, rightSpawn.position, rightSpawn.rotation);
             thrown3.tag = this.tag + "Thrown";
+        }
+        else if(item.GetComponent<Cake>()) // cake is placed at feet
+        {
+            Vector3 location = projSpawn.position;
+            location.y = 0;
+            GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
+            thrown.tag = this.tag + "Thrown";
         }
         else
         {
@@ -362,7 +410,6 @@ public class NpcScript : MonoBehaviour
 
     void Perish()
     {
-        Debug.Log("perished");
         nav.Warp(GameManager.RespawnObject.transform.position);
     }
 
@@ -407,11 +454,6 @@ public class NpcScript : MonoBehaviour
         fleeRadius = Random.Range(fleeRadiusMin, fleeRadiusMax);
         idleAnimationRadius = Random.Range(idleRadiusMin, idleRadiusMax);
 
-        if (Time.time > personalityShuffleTimer)
-        {
-            PersonalityShuffle();
-        }
-
         nextShuffleTime = Time.time + Random.Range(shuffleDelayMin, shuffleDelayMax);
     }
 
@@ -419,6 +461,7 @@ public class NpcScript : MonoBehaviour
     {
         fleePersonality = (FleePersonality)Random.Range(0, System.Enum.GetNames(typeof(FleePersonality)).Length);
         capPersonality = (CapPersonality)Random.Range(0, System.Enum.GetNames(typeof(CapPersonality)).Length);
+        attackingPersonality = (AttackingPersonality)Random.Range(0, System.Enum.GetNames(typeof(AttackingPersonality)).Length);
 
         personalityShuffleTimer = Time.time + Random.Range(personalityShuffleDelayMin, personalityShuffleDelayMax);
     }
@@ -432,6 +475,14 @@ public class NpcScript : MonoBehaviour
         {
             if (enemy.tag == this.tag)
                 continue;
+
+            if(enemy.GetComponent<NpcScript>())
+                if (!enemy.GetComponent<NpcScript>().alive)
+                    continue;
+
+            if (enemy.GetComponent<PlayerController>())
+                if (!enemy.GetComponent<PlayerController>().alive)
+                    continue;
 
             float calculatedDist = (enemy.transform.position - transform.position).sqrMagnitude;
 

@@ -473,7 +473,7 @@ MonoBehaviour:
   attackCooldown: 2
   startingHealth: 3
   maxInventory: 3
-  vendorCooldown: 1
+  vendorCooldown: 2
   respawnTimer: 4
   shuffleDelayMin: 3
   shuffleDelayMax: 15
@@ -483,8 +483,7 @@ MonoBehaviour:
   attackRadiusMax: 20
   fleeRadiusMin: 10
   fleeRadiusMax: 20
-  shortFleeTimer: 2
-  fleeMagnitude: 10
+  hitAndRunDelay: 2
   fleeTimerMin: 3
   fleeTimerMax: 15
   idleRadiusMin: 2
