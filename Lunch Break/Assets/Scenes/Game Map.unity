@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44982374, g: 0.4998923, b: 0.57559, a: 1}
+  m_IndirectSpecularColor: {r: 0.44982398, g: 0.49989313, b: 0.57559067, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -34163,6 +34163,21 @@ PrefabInstance:
       propertyPath: m_Colors.m_NormalColor.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7805174063715417943, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174063715417943, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174063715417943, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805174063963351943, guid: 0477b493187708049823043c9aa5c1ef,
         type: 3}
       propertyPath: m_FontData.m_BestFit
@@ -34171,6 +34186,36 @@ PrefabInstance:
     - target: {fileID: 7805174064861787312, guid: 0477b493187708049823043c9aa5c1ef,
         type: 3}
       propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174063586776791, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174063586776791, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174063586776791, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174065177164687, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174065177164687, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805174065177164687, guid: 0477b493187708049823043c9aa5c1ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
