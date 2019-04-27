@@ -228,13 +228,7 @@ public class NpcScript : MonoBehaviour
                 break;
 
             case CapPersonality.Attacker:
-                Transform dest = FindNearestCap(0);
-                if (dest == null) // if all caps are taken for this team...
-                {
-                    nav.SetDestination(GameManager.centerCap.position); // go to cafeteria cap
-                }
-                else
-                    nav.SetDestination(FindNearestCap(CapPersonality.Attacker).position); // find a cap not yet taken
+                nav.SetDestination(FindNearestCap(CapPersonality.Attacker).position); // find a cap not yet taken
                 break;
 
             case CapPersonality.Defender:
