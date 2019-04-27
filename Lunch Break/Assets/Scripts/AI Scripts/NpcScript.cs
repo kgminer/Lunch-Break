@@ -44,6 +44,7 @@ public class NpcScript : MonoBehaviour
 
     private CapPersonality capPersonality;
     private FleePersonality fleePersonality;
+
     public bool idling;
 
     // Projectile object references
@@ -85,9 +86,12 @@ public class NpcScript : MonoBehaviour
     public bool alive;
     private Team team;
 
+    public string fleePerson;
+    public string capPerson;
+
     enum CapPersonality
     {
-        Cafeteria, Attacker, Defender, AnyCap
+        Cafeteria, Attacker, Defender, AnyCap, CapTaker
     };
 
     enum FleePersonality
@@ -124,6 +128,7 @@ public class NpcScript : MonoBehaviour
         health = startingHealth;
 
         VariableShuffle();
+        PersonalityShuffle();
     }
 
 
@@ -166,7 +171,7 @@ public class NpcScript : MonoBehaviour
 
         nearestEnemy = FindNearestEnemy();
 
-        if (!Ammo.Any())
+        if (!Ammo.Any()) // no ammo, seek vendor location
         {
             idling = false;
             nearestVendor = FindNearestVendor(null);
@@ -203,12 +208,9 @@ public class NpcScript : MonoBehaviour
             {
                 if (Time.time > nextAttackTime) // shooting cooldown expired
                 {
-                    if (Ammo.Any()) // has ammo
-                    {
-                        nav.isStopped = true;
-                        NPCAnimator.SetTrigger("Attack");
-                        nextAttackTime = Time.time + attackCooldown;
-                    }
+                    nav.isStopped = true;
+                    NPCAnimator.SetTrigger("Attack");
+                    nextAttackTime = Time.time + attackCooldown;
                 }
             }
             else
@@ -228,22 +230,38 @@ public class NpcScript : MonoBehaviour
                 break;
 
             case CapPersonality.Attacker:
-                nav.SetDestination(FindNearestCap(CapPersonality.Attacker).position); // find a cap not yet taken
+                Transform enemycap = FindNearestCap(CapPersonality.Attacker); // find a cap not yet taken by team
+                if (enemycap == null)
+                    nav.SetDestination(GameManager.centerCap.position); // all caps taken, default to cafeteria
+                else
+                    nav.SetDestination(enemycap.position); // go to ene
                 break;
 
             case CapPersonality.Defender:
-                nav.SetDestination(FindNearestCap(CapPersonality.Defender).position); // go to team's nearest cap
+                Transform teamcap = FindNearestCap(CapPersonality.Defender); // find a cap taken by team
+                if (teamcap == null)
+                    capPersonality = CapPersonality.CapTaker; // no caps taken, search for unclaimed caps
+                else
+                    nav.SetDestination(teamcap.position); // go to team's nearest cap
+                break;
+
+            case CapPersonality.CapTaker:
+                Transform uncapped = FindNearestCap(CapPersonality.CapTaker); // find a cap with no team
+                if (uncapped == null)
+                    capPersonality = CapPersonality.AnyCap; // all caps claimed, search for any cap
+                else
+                    nav.SetDestination(uncapped.position); // go to unclaimed cap
                 break;
 
             case CapPersonality.AnyCap:
                 nav.SetDestination(FindNearestCap(CapPersonality.AnyCap).position); // go to any nearest cap
-                break;
+                break;                    
         }
 
 
-        if (capDistance < idleAnimationRadius ||
-            (GameManager.centerCap.position - transform.position).sqrMagnitude < idleAnimationRadius ||
-            (nearestVendor.position - transform.position).sqrMagnitude < idleAnimationRadius)
+        if ( (capDistance < idleAnimationRadius) ||
+            ((GameManager.centerCap.position - transform.position).sqrMagnitude < idleAnimationRadius) ||
+            (((nearestVendor.position - transform.position).sqrMagnitude < idleAnimationRadius) && !Ammo.Any()) )
         {
             idling = true;
             nav.isStopped = true;
@@ -350,7 +368,7 @@ public class NpcScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Vending")
+        if (other.tag == "Vending" || other.tag == "Base")
             if (Ammo.Count() < maxInventory)
                 if (Time.time > nextVendorTime)
                 {
@@ -391,13 +409,18 @@ public class NpcScript : MonoBehaviour
 
         if (Time.time > personalityShuffleTimer)
         {
-            fleePersonality = (FleePersonality)Random.Range(0, System.Enum.GetNames(typeof(FleePersonality)).Length);
-            capPersonality = (CapPersonality)Random.Range(0, System.Enum.GetNames(typeof(CapPersonality)).Length);
-
-            personalityShuffleTimer = Time.time + Random.Range(personalityShuffleDelayMin, personalityShuffleDelayMax);
+            PersonalityShuffle();
         }
 
         nextShuffleTime = Time.time + Random.Range(shuffleDelayMin, shuffleDelayMax);
+    }
+
+    private void PersonalityShuffle()
+    {
+        fleePersonality = (FleePersonality)Random.Range(0, System.Enum.GetNames(typeof(FleePersonality)).Length);
+        capPersonality = (CapPersonality)Random.Range(0, System.Enum.GetNames(typeof(CapPersonality)).Length);
+
+        personalityShuffleTimer = Time.time + Random.Range(personalityShuffleDelayMin, personalityShuffleDelayMax);
     }
 
     private Transform FindNearestEnemy()
@@ -463,6 +486,10 @@ public class NpcScript : MonoBehaviour
 
             // If defender, ignore other teams' zones
             if (mode == CapPersonality.Defender && cap.GetComponent<CapZone>().GetOwner() != this.tag)
+                continue;
+
+            // If capTaker, only search for unclaimed zones
+            if (mode == CapPersonality.CapTaker && cap.GetComponent<CapZone>().GetOwner() != "uncapped")
                 continue;
 
             float calculatedDist = (cap.transform.position - transform.position).sqrMagnitude;

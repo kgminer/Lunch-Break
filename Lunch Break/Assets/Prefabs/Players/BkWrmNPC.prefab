@@ -473,7 +473,7 @@ MonoBehaviour:
   attackCooldown: 2
   startingHealth: 3
   maxInventory: 3
-  vendorCooldown: 3
+  vendorCooldown: 1
   respawnTimer: 4
   shuffleDelayMin: 3
   shuffleDelayMax: 15
@@ -512,6 +512,8 @@ MonoBehaviour:
   hitSound2: {fileID: 8300000, guid: 8a378e68568524190bd7f80a5c77f1b6, type: 3}
   hitSound3: {fileID: 8300000, guid: 90e9e70c517224f58a65882d57775fa2, type: 3}
   alive: 1
+  fleePerson: 
+  capPerson: 
 --- !u!1 &4951964935070954986
 GameObject:
   m_ObjectHideFlags: 0
