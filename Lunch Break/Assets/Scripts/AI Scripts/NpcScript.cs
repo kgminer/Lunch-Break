@@ -141,6 +141,9 @@ public class NpcScript : MonoBehaviour
 
     private void Update()
     {
+        if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+            return;
+
         if (Time.time < respawnTime)
             return;
         else if (!alive) // respawn
