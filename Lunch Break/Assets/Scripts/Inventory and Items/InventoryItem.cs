@@ -23,5 +23,12 @@ public class InventoryEventArgs : EventArgs
         Item = item;
     }
 
+    public InventoryEventArgs(InventoryItemBase item, int slotNum)
+    {
+        Item = item;
+        SlotNum = slotNum;
+    }
+
     public InventoryItemBase Item;
+    public int SlotNum;
 }

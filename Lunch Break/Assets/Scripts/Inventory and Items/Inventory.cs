@@ -106,23 +106,14 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(InventoryItemBase item, int itemToRemove)
     {
-        int counter = 0;
-
-        foreach (InventorySlot slot in mSlots)
+        // Remove the item from the inventory stack, returns true when successful 
+        if (this.mSlots[itemToRemove].Remove(item))
         {
-            // Duplicate items can exist in multiple stacks, so remove from the slot we fire the projectile from
-            if (counter == itemToRemove)
+            if (ItemRemoved != null)
             {
-                if (slot.Remove(item))
-                {
-                    if (ItemRemoved != null)
-                    {
-                        ItemRemoved(this, new InventoryEventArgs(item));
-                    }
-                    break;
-                }
+                // Fire off the removal event to the HUD controller
+                ItemRemoved(this, new InventoryEventArgs(item, itemToRemove));
             }
-            counter++;
         }
     }
     

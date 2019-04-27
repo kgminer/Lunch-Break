@@ -85,10 +85,11 @@ public class HUD : MonoBehaviour
             if (itemDragHandler.Item == null)
                 continue;
 
-            if (e.Item.Slot.Id == index)
+            if (e.SlotNum == index)
             {
-                int itemCount = e.Item.Slot.Count;
-                itemDragHandler.Item = e.Item.Slot.FirstItem;
+                //int itemCount = e.Item.Slot.Count;
+                int itemCount = Inventory.mSlots[e.SlotNum].Count;
+                itemDragHandler.Item = Inventory.mSlots[e.SlotNum].FirstItem;
 
                 if (itemCount < 2)
                 {
