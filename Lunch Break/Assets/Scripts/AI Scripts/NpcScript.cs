@@ -141,8 +141,13 @@ public class NpcScript : MonoBehaviour
 
     private void Update()
     {
+
         if (NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
             return;
+
+        if (NPCAnimator.GetBool("Die") == true)
+            return;
+
 
         if (Time.time < respawnTime)
             return;
@@ -165,13 +170,19 @@ public class NpcScript : MonoBehaviour
             return;
 
         if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Attack-R3"))
+        {
             if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-Death1"))
+            {
                 if (!NPCAnimator.GetCurrentAnimatorStateInfo(0).IsName("Unarmed-GetHit-F1"))
+                {
                     if (!idling)
                     {
                         nav.isStopped = false;
                         NPCAnimator.SetBool("Moving", true);
                     }
+                }
+            }
+        }
 
         if (Time.time > nextShuffleTime)
             VariableShuffle();
@@ -239,7 +250,7 @@ public class NpcScript : MonoBehaviour
 
                     case AttackingPersonality.Strafe:
                         FaceEnemy(nearestEnemy);
-                        nav.SetDestination(Vector3.Cross(transform.position, nearestEnemy.position));
+                        nav.SetDestination(Vector3.Cross(nearestEnemy.position, transform.position));
                         break;
                 }
             }
@@ -293,7 +304,7 @@ public class NpcScript : MonoBehaviour
             case CapPersonality.CapTaker:
                 Transform uncapped = FindNearestCap(CapPersonality.CapTaker); // find a cap with no team
                 if (uncapped == null)
-                    capPersonality = CapPersonality.AnyCap; // all caps claimed, search for any cap
+                    nav.SetDestination(GameManager.centerCap.position); // all caps claimed go to cafeteria
                 else
                     nav.SetDestination(uncapped.position); // go to unclaimed cap
                 break;
@@ -337,11 +348,11 @@ public class NpcScript : MonoBehaviour
             GameObject thrown3 = Instantiate(sideFries, rightSpawn.position, rightSpawn.rotation);
             thrown3.tag = this.tag + "Thrown";
         }
-        else if(item.GetComponent<Cake>()) // cake is placed at feet
+        else if(item == cake) // cake is placed at feet
         {
             Vector3 location = projSpawn.position;
             location.y = 0;
-            GameObject thrown = Instantiate(cake, location, projSpawn.rotation);
+            GameObject thrown = Instantiate(item, location, projSpawn.rotation);
             thrown.tag = this.tag + "Thrown";
         }
         else
