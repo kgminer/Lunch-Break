@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public AudioClip hitSound;
     public AudioClip uiSelection;
+    public AudioClip trayHit;
 
     public void HitSound(Transform t)
     {
@@ -15,5 +16,10 @@ public class SoundManager : MonoBehaviour
     public void UISound(Transform t)
     {
         AudioSource.PlayClipAtPoint(uiSelection, t.position);
+    }
+
+    public void hitTray(Transform t)
+    {
+        AudioSource.PlayClipAtPoint(trayHit, t.position);
     }
 }

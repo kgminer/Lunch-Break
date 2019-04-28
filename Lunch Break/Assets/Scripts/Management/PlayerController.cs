@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip hitSound2;
     public AudioClip hitSound3;
+    public AudioClip trayHit;
     int floorMask;
     float camRayLen = 100f;
 
@@ -1111,7 +1112,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hit tray");
                 inventory.RemoveItem(inventory.mSlots[projectileSelect].FirstItem);
 
-                //TODO: Add dink sound?
+                AudioSource.PlayClipAtPoint(trayHit, transform.position);
 
                 if (inventory.mSlots[projectileSelect].Count < 1)
                     activeItem.SetActive(false);

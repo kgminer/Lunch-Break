@@ -23440,6 +23440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitSound: {fileID: 8300000, guid: d21c96b20db2b4f8bbe3e10a367f525e, type: 3}
   uiSelection: {fileID: 8300000, guid: a22b8c429f521429084d616c68dda19a, type: 3}
+  trayHit: {fileID: 8300000, guid: 29f1578b1dd644bc68d3b0e95fc5fefe, type: 3}
 --- !u!4 &590635007
 Transform:
   m_ObjectHideFlags: 0
@@ -25654,6 +25655,10 @@ PrefabInstance:
       propertyPath: mouseSensitivity
       value: 0.001
       objectReference: {fileID: 0}
+    - target: {fileID: 1649242410, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
+      propertyPath: trayHit
+      value: 
+      objectReference: {fileID: 8300000, guid: 29f1578b1dd644bc68d3b0e95fc5fefe, type: 3}
     - target: {fileID: 1148522369, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
