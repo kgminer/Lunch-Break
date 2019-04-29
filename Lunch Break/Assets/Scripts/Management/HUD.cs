@@ -10,7 +10,6 @@ public class HUD : MonoBehaviour
     public GameObject MousePanel;
     public GameObject ControllerPanel;
     public GameObject TimeRemainingLabel;
-    public GameObject RespawnMap;
     public GameObject GameOverPanel;
     public GameObject ScoreLabel;
     public GameObject WinnerLabel;
@@ -21,6 +20,7 @@ public class HUD : MonoBehaviour
     public GameObject VendingMachinePanel;
     public GameObject RemainingBuysLabel;
     public GameObject LargeViewMap;
+    public GameObject ObjectiveText;
     private Transform inventoryPanel;
 
     // Use this for initialization
@@ -182,14 +182,9 @@ public class HUD : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void OpenRespawnMap()
+    public void CloseObjectiveText()
     {
-        RespawnMap.SetActive(true);
-    }
-
-    public void CloseRespawnMap()
-    {
-        RespawnMap.SetActive(false);
+        ObjectiveText.SetActive(false);
     }
 
     public void OpenPausePanel()

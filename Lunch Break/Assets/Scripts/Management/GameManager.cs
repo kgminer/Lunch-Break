@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int scoreLimit;
     private bool outOfTime, scoreReached;
-    private int gameState; //0 = Running, 1 = Game Over
+    private int gameState;
     public static int scienceGeeksScore, bookWormsScore, jocksScore, winningScore;
     private const int VENDING_MACHINE_CAP_VALUE = 1, CENTRAL_CAP_VALUE = 3, NUM_NPCS = 6;
 
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("ScoreCapZones", 0.0f, 5f);
 
         PositionPlayers();
+        StartCoroutine("DisplayObjective");
         Time.timeScale = 1f;
         Cursor.visible = false;
     }
@@ -118,7 +119,12 @@ public class GameManager : MonoBehaviour
         timeRemaining -= Time.deltaTime;
     }
 
-    
+    IEnumerator DisplayObjective()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSeconds(5f);
+        gameDisplay.CloseObjectiveText();
+    }
 
     public void PositionPlayers()
     {
