@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44982374, g: 0.4998923, b: 0.57559, a: 1}
+  m_IndirectSpecularColor: {r: 0.44982398, g: 0.49989313, b: 0.57559067, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10228,18 +10228,19 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: d74bd80c387e3a74c8c979b6e90c515e, type: 3}
-    m_FontSize: 140
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 140
+    m_MinSize: 0
+    m_MaxSize: 200
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Capture and hold the objectives to score.
+  m_Text: "Capture the vending machines as sources of ammunition \nand contest the
+    cafeteria for control of the school"
 --- !u!222 &238284142
 CanvasRenderer:
   m_ObjectHideFlags: 0
