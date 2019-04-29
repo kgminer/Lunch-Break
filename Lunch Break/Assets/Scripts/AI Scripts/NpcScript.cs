@@ -419,7 +419,8 @@ public class NpcScript : MonoBehaviour
             else
             {
                 nav.isStopped = true;
-                NPCAnimator.SetTrigger("TakeDamage");
+                if (NPCAnimator.GetBool("Die") != true)
+                    NPCAnimator.SetTrigger("TakeDamage");
             }
         }
     }

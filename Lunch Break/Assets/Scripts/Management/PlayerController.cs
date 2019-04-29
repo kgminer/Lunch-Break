@@ -1174,7 +1174,9 @@ public class PlayerController : MonoBehaviour
         hud.inventoryRemoveAll();
 
         // Reset held item
-        activeItem.SetActive(false);
+        if(activeItem)
+            activeItem.SetActive(false);
+
         activeItem = null;
        
         GameManager.setObjectLocation(gameObject, "respawn");
