@@ -25664,6 +25664,10 @@ PrefabInstance:
       propertyPath: trayHit
       value: 
       objectReference: {fileID: 8300000, guid: 29f1578b1dd644bc68d3b0e95fc5fefe, type: 3}
+    - target: {fileID: 1649242410, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
+      propertyPath: detention
+      value: 
+      objectReference: {fileID: 1803796775}
     - target: {fileID: 1148522369, guid: 01dfccb9bbfe677439a2d570324052a4, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
@@ -74172,6 +74176,12 @@ Transform:
 --- !u!1 &1803796774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1399969426224655010, guid: 35e8b6d4f1605f947abd2e79373b03b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1399969427675736964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1803796775 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1399969426224655011, guid: 35e8b6d4f1605f947abd2e79373b03b0,
     type: 3}
   m_PrefabInstance: {fileID: 1399969427675736964}
   m_PrefabAsset: {fileID: 0}

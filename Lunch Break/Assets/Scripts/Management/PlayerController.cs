@@ -1119,7 +1119,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("ouch");
+                //Debug.Log("ouch");
                 health--;
 
                 switch (UnityEngine.Random.Range(0, 3)) // hit sound shuffle
@@ -1139,6 +1139,8 @@ public class PlayerController : MonoBehaviour
 
                 if (health <= 0)
                 {
+                    respawnTime = Time.time + respawnTimer;
+                    alive = false;
                     playerAnimator.SetTrigger("Die");
 
                     // increase score for projectile team
@@ -1154,18 +1156,16 @@ public class PlayerController : MonoBehaviour
                     {
                         GameManager.bookWormsScore++;
                     }
-                    Perish();
                 }
             }
             Destroy(other.gameObject);
-            playerAnimator.SetTrigger("Hit");
+            if(playerAnimator.GetBool("Die") != true)
+                playerAnimator.SetTrigger("Hit");
         }
     }
 
     void Perish()
     {
-        alive = false;
-        respawnTime = Time.time + respawnTimer;
 
         // Clear inventory
         inventory.Empty();
@@ -1178,7 +1178,7 @@ public class PlayerController : MonoBehaviour
             activeItem.SetActive(false);
 
         activeItem = null;
-       
+
         GameManager.setObjectLocation(gameObject, "respawn");
     }
 
@@ -1279,8 +1279,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Animate(float h, float v)
-
     {
+        if (playerAnimator.GetBool("Die") == true)
+            return;
+
         if (h == 0 && v == 0) //not moving
             playerAnimator.SetInteger("WalkState", 4); // return to idle
 
@@ -1411,6 +1413,9 @@ public class PlayerController : MonoBehaviour
 
     private void AnimateWithStick(float h, float v)
     {
+        if (playerAnimator.GetBool("Die") == true)
+            return;
+
         if ((h > -0.1 && h < 0.1) && (v > -0.1 && v < 0.1)) //not moving
             playerAnimator.SetInteger("WalkState", 4); // return to idle
 
